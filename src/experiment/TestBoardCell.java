@@ -1,11 +1,15 @@
 package experiment;
 
+import java.util.Set;
+
 public class TestBoardCell {
-	int[][] adjacencyList;
-	
+	Set<TestBoardCell> adjacencyList;
+	private int row;
+	private int col;
 //	constructor
 	public TestBoardCell(int row, int col) {
-		
+		this.row = row;
+		this.col = col;
 	}
 	
 //	Indicates that the adjacent cell is a room
@@ -19,7 +23,7 @@ public class TestBoardCell {
 	}
 	
 //	gets our adjList
-	public int[][] getAdjList(){
+	public Set<TestBoardCell> getAdjList(){
 		return adjacencyList;
 	}
 	

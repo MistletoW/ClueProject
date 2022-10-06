@@ -2,11 +2,11 @@ package tests;
 
 import org.junit.Test;
 import org.junit.jupiter.api.BeforeEach;
-
+import static org.junit.Assert.*;
 import experiment.TestBoard;
 import experiment.TestBoardCell;
 
-public class BoardTestsExp {
+public class BoardTestsExp  {
 	TestBoard board;
 	
 	@BeforeEach
@@ -20,40 +20,43 @@ public class BoardTestsExp {
 	public void testAdjacency() {
 		TestBoardCell cell = board.getCell(0,0);
 	}
-	
-	public boolean testTOPLEFT() {
-		return false;
+	@Test
+	public void testTopLeft() {
+		fail("Not Implemented Yet");
 	}
-	
-	public boolean testBOTTOMRIGHT() {
-		return false;
+	@Test
+	public void testBottomRight() {
+		fail("Not Implemented Yet");
 	}
-	
-	public boolean testRIGHTEDGE() {
-		return false;
+	@Test
+	public void testRightEdge() {
+		fail("Not Implemented Yet");
 	}
-	
-	public boolean testLEFTEDGE() {
-		return false;
+	@Test
+	public void testLeftEdge() {
+		fail("Not Implemented Yet");
 	}
 	
 	
 //	Testing target creation on a 4x4 board
-	public boolean testEmpty() {
-		return false;
+	@Test
+	public void testEmpty() {
+		fail("Not Implemented Yet");
 	}
-	
-	public boolean testOccupied() {
-		return false;
+	@Test
+	public void testOccupied() {
+		fail("Not Implemented Yet");
 	}
-	public boolean testOccupied2() {
-		return false;
+	@Test
+	public void testOccupied2() {
+		fail("Not Implemented Yet");
 	}
-	
-	public boolean testRoom() {
-		return false;
+	@Test
+	public void testRoom() {
+		fail("Not Implemented Yet");
 	}
-	public boolean testNotDiagonal() {
-		return false;
+	@Test
+	public void testNotDiagonal() {
+		fail("Not Implemented Yet");
 	}
 }

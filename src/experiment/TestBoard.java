@@ -8,6 +8,7 @@ public class TestBoard {
 	private TestBoardCell[][] board;
 //	constructor
 	public TestBoard() {
+		board = new TestBoardCell[boardSize][boardSize];
 		for(int i = 0; i< boardSize; i++) {
 			for(int j = 0; j < boardSize; j++) {
 				board[i][j] = new TestBoardCell(i, j);
