@@ -30,7 +30,7 @@ public class TestBoardCell {
 	
 //	gets if a room is occupied
 	public boolean getOccupied() {
-		
+		return false;
 	}
 	
 }
