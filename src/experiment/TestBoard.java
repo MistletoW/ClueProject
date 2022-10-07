@@ -6,7 +6,7 @@ import java.util.Set;
 public class TestBoard {
 	private int boardSize = 4;
 	private TestBoardCell[][] board;
-//	constructor
+	//	constructor
 	public TestBoard() {
 		board = new TestBoardCell[boardSize][boardSize];
 		for(int i = 0; i< boardSize; i++) {
@@ -14,21 +14,21 @@ public class TestBoard {
 				board[i][j] = new TestBoardCell(i, j);
 			}
 		}
-		
+
 	}
-//	calculates the movement targets
+	//	calculates the movement targets
 	public void calcTargets( TestBoardCell startCell, int pathlength) {
-		
+
 	}
-//	returns set of targets
+	//	returns set of targets
 	public Set<TestBoardCell> getTargets() {
 		Set<TestBoardCell> tester = new HashSet<TestBoardCell>();
 		tester.add(board[0][0]);
 		return tester;
 	}
-//	returns cell from testBoard
+	//	returns cell from testBoard
 	public TestBoardCell getCell(int row, int col) {
 		return board[row][col];
 	}
-	
+
 }

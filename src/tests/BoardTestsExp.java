@@ -3,6 +3,10 @@ package tests;
 import org.junit.Test;
 import org.junit.jupiter.api.BeforeEach;
 import static org.junit.Assert.*;
+
+import java.util.HashSet;
+import java.util.Set;
+
 import experiment.TestBoard;
 import experiment.TestBoardCell;
 
@@ -16,25 +20,44 @@ public class BoardTestsExp  {
 		board = new TestBoard();
 	}
 	
-	@Test
-	public void testAdjacency() {
-		TestBoardCell cell = board.getCell(0,0);
-	}
+//	Testing adjacency
+//	create a set of tiles adjacent to board[0][0], compare if they're equal
 	@Test
 	public void testTopLeft() {
-		fail("Not Implemented Yet");
+		TestBoardCell cell = board.getCell(0,0);
+		Set<TestBoardCell> set = new HashSet<TestBoardCell>();
+		set.add(board.getCell(0,1));
+		set.add(board.getCell(1,0));
+		assertEquals(cell.getAdjList(), set);
 	}
+//	create a set of tiles adjacent to board[3][3], compare if they're equal
 	@Test
 	public void testBottomRight() {
-		fail("Not Implemented Yet");
+		TestBoardCell cell = board.getCell(3, 3);
+		Set<TestBoardCell> set = new HashSet<TestBoardCell>();
+		set.add(board.getCell(2,3));
+		set.add(board.getCell(3,2));
+		assertEquals(cell.getAdjList(), set);
 	}
+//	create a set of tiles adjacent to board[1][3], compare if they're equal
 	@Test
 	public void testRightEdge() {
-		fail("Not Implemented Yet");
+		TestBoardCell cell = board.getCell(1, 3);
+		Set<TestBoardCell> set = new HashSet<TestBoardCell>();
+		set.add(board.getCell(2, 3));
+		set.add(board.getCell(0, 3));
+		set.add(board.getCell(1, 2));
+		assertEquals(cell.getAdjList(), set);
 	}
+//	create a set of tiles adjacent to board[1][0], compare if they're equal
 	@Test
 	public void testLeftEdge() {
-		fail("Not Implemented Yet");
+		TestBoardCell cell = board.getCell(1, 0);
+		Set<TestBoardCell> set = new HashSet<TestBoardCell>();
+		set.add(board.getCell(0, 0));
+		set.add(board.getCell(1, 1));
+		set.add(board.getCell(2, 0));
+		assertEquals(cell.getAdjList(), set);
 	}
 	
 	
