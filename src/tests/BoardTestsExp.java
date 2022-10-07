@@ -1,5 +1,6 @@
 package tests;
 
+import org.junit.Assert;
 import org.junit.Test;
 import org.junit.jupiter.api.BeforeEach;
 import static org.junit.Assert.*;
@@ -24,40 +25,36 @@ public class BoardTestsExp  {
 //	create a set of tiles adjacent to board[0][0], compare if they're equal
 	@Test
 	public void testTopLeft() {
-		TestBoardCell cell = board.getCell(0,0);
-		Set<TestBoardCell> set = new HashSet<TestBoardCell>();
-		set.add(board.getCell(0,1));
-		set.add(board.getCell(1,0));
-		assertEquals(cell.getAdjList(), set);
+		TestBoardCell cell = board.getCell(0, 0);
+		Set<TestBoardCell> list = cell.getAdjList();
+		Assert.assertTrue(list.contains(board.getCell(1, 0)));
+		Assert.assertTrue(list.contains(board.getCell(0, 1)));
 	}
 //	create a set of tiles adjacent to board[3][3], compare if they're equal
 	@Test
 	public void testBottomRight() {
 		TestBoardCell cell = board.getCell(3, 3);
-		Set<TestBoardCell> set = new HashSet<TestBoardCell>();
-		set.add(board.getCell(2,3));
-		set.add(board.getCell(3,2));
-		assertEquals(cell.getAdjList(), set);
+		Set<TestBoardCell> list = cell.getAdjList();
+		Assert.assertTrue(list.contains(board.getCell(3, 2)));
+		Assert.assertTrue(list.contains(board.getCell(2, 3)));
 	}
 //	create a set of tiles adjacent to board[1][3], compare if they're equal
 	@Test
 	public void testRightEdge() {
-		TestBoardCell cell = board.getCell(1, 3);
-		Set<TestBoardCell> set = new HashSet<TestBoardCell>();
-		set.add(board.getCell(2, 3));
-		set.add(board.getCell(0, 3));
-		set.add(board.getCell(1, 2));
-		assertEquals(cell.getAdjList(), set);
+		TestBoardCell cell = board.getCell(3, 1);
+		Set<TestBoardCell> list = cell.getAdjList();
+		Assert.assertTrue(list.contains(board.getCell(3, 0)));
+		Assert.assertTrue(list.contains(board.getCell(3, 2)));
+		Assert.assertTrue(list.contains(board.getCell(2, 1)));
 	}
 //	create a set of tiles adjacent to board[1][0], compare if they're equal
 	@Test
 	public void testLeftEdge() {
-		TestBoardCell cell = board.getCell(1, 0);
-		Set<TestBoardCell> set = new HashSet<TestBoardCell>();
-		set.add(board.getCell(0, 0));
-		set.add(board.getCell(1, 1));
-		set.add(board.getCell(2, 0));
-		assertEquals(cell.getAdjList(), set);
+		TestBoardCell cell = board.getCell(0, 1);
+		Set<TestBoardCell> list = cell.getAdjList();
+		Assert.assertTrue(list.contains(board.getCell(0, 0)));
+		Assert.assertTrue(list.contains(board.getCell(0, 2)));
+		Assert.assertTrue(list.contains(board.getCell(1, 1)));
 	}
 	
 	
