@@ -1,0 +1,89 @@
+commit 69c6243b379fb0689fc104f3daf5f871e9df5771
+Author: MistletoW <haasedylan@gmail.com>
+Date:   Fri Oct 7 21:48:20 2022 -0600
+
+    created target test testMaxRoll
+
+commit b72b040b8db5a86a3998da7a7ab790ad2bc97dab
+Author: MistletoW <haasedylan@gmail.com>
+Date:   Fri Oct 7 21:40:00 2022 -0600
+
+    created target test testTargetsDifferentOrigins()
+
+commit d2db381bd66bc4cdfdfdac230b89ff1462b90cda
+Author: MistletoW <haasedylan@gmail.com>
+Date:   Fri Oct 7 21:37:39 2022 -0600
+
+    created target tests TestTargetsEmpty and testAllMovementUsed and testOccupiedNotTarget
+
+commit 6a141bbbb6bb7f3e7e0371c82021f00d7be92e57
+Author: MistletoW <haasedylan@gmail.com>
+Date:   Fri Oct 7 21:25:38 2022 -0600
+
+    Fixed import of @tests so now our @beforeEach method runs
+
+commit 860400ae279bbccf3308cca7ed5a73067259de4b
+Author: schultzk1123 <schultz@mines.edu>
+Date:   Fri Oct 7 16:40:04 2022 -0600
+
+    Added adjacency test for center
+
+commit af0349bdb996bbb3180d6cd6339658e0a049c16e
+Author: schultzk1123 <schultz@mines.edu>
+Date:   Fri Oct 7 16:29:25 2022 -0600
+
+    rewrote adjacency tests to match better with the ones given in class to make them work better
+
+commit 0356e6f5294e27c7fe93df31b98e1c1eeb726beb
+Author: Kathryn Schultz <schultz@mines.edu>
+Date:   Fri Oct 7 15:49:34 2022 -0600
+
+    Implemented adjacency tests
+
+commit 54667dd8c439d7ff61667e3605986e0d7b3dc842
+Author: haasedylan@gmail.com <dhaase@mines.edu>
+Date:   Thu Oct 6 12:13:24 2022 -0600
+
+    ALL TESTS FAIL!
+
+commit 9a3d15804da1f4d94668a7a30a457799ccb005b2
+Author: haasedylan@gmail.com <dhaase@mines.edu>
+Date:   Thu Oct 6 11:59:38 2022 -0600
+
+    Stubs functional
+
+commit ce656f160b90010f25e90c526da87836a84b827c
+Author: haasedylan@gmail.com <dhaase@mines.edu>
+Date:   Thu Oct 6 11:41:17 2022 -0600
+
+    added method stubs to TestBoard and TestBoardCell
+
+commit d87ecd173885da286885e27d1d777ec825a08277
+Author: haasedylan@gmail.com <dhaase@mines.edu>
+Date:   Thu Oct 6 11:40:15 2022 -0600
+
+    added method stubs to TestBoard and TestBoardCell
+
+commit 26b48b3dbc03445951c8d76246ce7c100ed3c1c5
+Author: haasedylan@gmail.com <dhaase@mines.edu>
+Date:   Thu Oct 6 11:06:52 2022 -0600
+
+    added BoardTestsExp, TestBoardCell, and TestBoard classes
+
+commit a2d61c6457a0510f139cccaaad44bd5e459ac447
+Author: haasedylan@gmail.com <dhaase@mines.edu>
+Date:   Tue Oct 4 12:09:51 2022 -0600
+
+    readme file created for C13A-1
+
+commit 6339e0ffe6a4fee7f0ce85cd5ddab8dc0d743564
+Author: schultzk1123 <112899759+schultzk1123@users.noreply.github.com>
+Date:   Tue Oct 4 12:06:10 2022 -0600
+
+    Add files via upload
+
+commit f4840843b62fada26d8ae79a30e1bfadd65e9923
+Author: Dylan Haase <dhaase@mines.edu>
+Date:   Tue Oct 4 12:01:17 2022 -0600
+
+    Initial Commit
