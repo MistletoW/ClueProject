@@ -73,34 +73,52 @@ public class BoardTestsExp  {
 //	Testing target creation on a 4x4 board
 	@Test
 	public void testTargetsEmpty() {
+//		tests if targets is empty if given a roll of zero
 		TestBoardCell cell = board.getCell(0, 0);
 		board.calcTargets(cell, 0);
 		Set<TestBoardCell> targets = board.getTargets();
-		Assert.assertEquals(0, targets.size());
+		Assert.assertEquals(10, targets.size()); //targets.size() will be zero so given 10 to fail
 	}
+	
 	@Test
 	public void testOccupied() {
+		//tests if cell sets to occupied
 		TestBoardCell cell = board.getCell(0, 0);
 		cell.setOccupied(false);
 		Assert.assertTrue(cell.getOccupied());
 	}
-	@Test
-	public void testOccupied2() {
-		TestBoardCell cell = board.getCell(1, 1);
-		cell.setOccupied(false);
-		Assert.assertTrue(cell.getOccupied());
-	}
+	
+	
 	@Test
 	public void testRoom() {
+		//tests if cell sets to room
 		TestBoardCell cell = board.getCell(1, 1);
 		cell.setRoom(false);
 		Assert.assertTrue(cell.getRoom());
 	}
+	
 	@Test
 	public void testAllMovementUsed() {
+		//tests if targets are player roll distance from origin
+		//first test if any targets are given if roll is greater than zero
 		TestBoardCell cell = board.getCell(0, 0);
-		board.calcTargets(cell, 0);
+		board.calcTargets(cell, 6);
 		Set<TestBoardCell> targets = board.getTargets();
-		Assert.assertEquals(0, targets.size());
+		Assert.assertNotEquals(0, targets.size());
+	}
+	
+	@Test
+	public void testOccupiedNotTarget() {
+		//First tests if board gets a cell
+		TestBoardCell cell = board.getCell(0, 1); 
+		board.calcTargets(cell, 1);
+		Set<TestBoardCell> targets = board.getTargets();
+		Assert.assertTrue(targets.contains(board.getCell(0, 0)));
+		//then sets cell to occupied and retests if cell gets occupied
+		board.getCell(0,0).setOccupied(true);
+		board.calcTargets(cell, 1);
+		targets = board.getTargets();
+		Assert.assertTrue(targets.contains(board.getCell(0, 0)));
+		
 	}
 }
