@@ -1,7 +1,7 @@
 package tests;
 
 import org.junit.Assert;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.BeforeEach;
 import static org.junit.Assert.*;
 
@@ -25,6 +25,7 @@ public class BoardTestsExp  {
 //	test adjacencies of (0, 0)
 	@Test
 	public void testTopLeft() {
+		
 		TestBoardCell cell = board.getCell(0, 0);
 		Set<TestBoardCell> list = cell.getAdjList();
 		Assert.assertTrue(list.contains(board.getCell(1, 0)));
@@ -71,23 +72,35 @@ public class BoardTestsExp  {
 	
 //	Testing target creation on a 4x4 board
 	@Test
-	public void testEmpty() {
-		fail("Not Implemented Yet");
+	public void testTargetsEmpty() {
+		TestBoardCell cell = board.getCell(0, 0);
+		board.calcTargets(cell, 0);
+		Set<TestBoardCell> targets = board.getTargets();
+		Assert.assertEquals(0, targets.size());
 	}
 	@Test
 	public void testOccupied() {
-		fail("Not Implemented Yet");
+		TestBoardCell cell = board.getCell(0, 0);
+		cell.setOccupied(false);
+		Assert.assertTrue(cell.getOccupied());
 	}
 	@Test
 	public void testOccupied2() {
-		fail("Not Implemented Yet");
+		TestBoardCell cell = board.getCell(1, 1);
+		cell.setOccupied(false);
+		Assert.assertTrue(cell.getOccupied());
 	}
 	@Test
 	public void testRoom() {
-		fail("Not Implemented Yet");
+		TestBoardCell cell = board.getCell(1, 1);
+		cell.setRoom(false);
+		Assert.assertTrue(cell.getRoom());
 	}
 	@Test
-	public void testNotDiagonal() {
-		fail("Not Implemented Yet");
+	public void testAllMovementUsed() {
+		TestBoardCell cell = board.getCell(0, 0);
+		board.calcTargets(cell, 0);
+		Set<TestBoardCell> targets = board.getTargets();
+		Assert.assertEquals(0, targets.size());
 	}
 }
