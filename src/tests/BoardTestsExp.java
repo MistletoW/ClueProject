@@ -121,4 +121,16 @@ public class BoardTestsExp  {
 		Assert.assertTrue(targets.contains(board.getCell(0, 0)));
 		
 	}
+	
+	@Test
+	public void testTargetsDifferentOrigin() {
+//		Tests if targets are different if origins are different
+		TestBoardCell cell = board.getCell(0, 1); 
+		board.calcTargets(cell, 1);
+		Set<TestBoardCell> targets = board.getTargets();
+		TestBoardCell cell2 = board.getCell(3,3); 
+		board.calcTargets(cell, 1);
+		Set<TestBoardCell> targets2 = board.getTargets();
+		Assert.assertNotEquals(targets2, targets);
+	}
 }
