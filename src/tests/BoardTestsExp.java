@@ -133,4 +133,18 @@ public class BoardTestsExp  {
 		Set<TestBoardCell> targets2 = board.getTargets();
 		Assert.assertNotEquals(targets2, targets);
 	}
+	
+	@Test
+	public void testMaxRoll() {
+		//tests if targets contains more elements than min roll
+		TestBoardCell cell = board.getCell(0, 1); 
+		board.calcTargets(cell, 1);
+		Set<TestBoardCell> targets = board.getTargets();
+		TestBoardCell cell2 = board.getCell(0,1); 
+		board.calcTargets(cell, 1);
+		Set<TestBoardCell> targets2 = board.getTargets();
+		Assert.assertTrue(targets2.size() < targets.size());
+		
+		
+	}
 }
