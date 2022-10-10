@@ -24,6 +24,28 @@ public class TestBoard {
 	}
 	//	calculates the movement targets
 	public void calcTargets( TestBoardCell startCell, int pathlength) {
+		//if done recursively
+		 if (pathlength == 0) {
+			 return;
+		 }
+		 
+		 if(startCell.getRow() < 1) {
+			 calcTargets(this.getCell(startCell.getRow()-1, startCell.getCol()), pathlength -1);
+		 }
+		 
+		 if(startCell.getRow() > ROWS-2) {
+			 calcTargets(this.getCell(startCell.getRow()+1, startCell.getCol()), pathlength -1);
+		 }
+		 
+		 if(startCell.getCol() < 1) {
+			 calcTargets(this.getCell(startCell.getRow(), startCell.getCol()-1), pathlength -1);
+		 }
+		 
+		 if(startCell.getRow() > COLS-2) {
+			 calcTargets(this.getCell(startCell.getRow(), startCell.getCol()+1), pathlength -1); 
+		 }
+		 
+		 targets.add(startCell);
 		 
 	}
 	//	returns set of targets
@@ -36,7 +58,7 @@ public class TestBoard {
 	}
 	
 	public int getTestBoardSize() {
-		return 4;
+		return COLS * ROWS;
 	}
 
 }

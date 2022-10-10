@@ -12,9 +12,19 @@ public class TestBoardCell {
 		isOccupied = false;
 		isRoom = false;
 		adjList = new HashSet<TestBoardCell> ();
+		this.row = row;
+		this.col = col;
 	}
 	
-//	setter to add cells to adjacency list
+	public int getRow() {
+		return row;
+	}
+
+	public int getCol() {
+		return col;
+	}
+
+	//	setter to add cells to adjacency list
 	public void addAdjacency( TestBoardCell cell) {
 		adjList.add(cell);
 	}
