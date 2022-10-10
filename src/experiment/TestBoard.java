@@ -14,19 +14,43 @@ public class TestBoard {
 	//	constructor
 	public TestBoard() {
 		targets = new HashSet<TestBoardCell> ();
+		visited = new HashSet<TestBoardCell> ();
 		grid = new TestBoardCell[ROWS][COLS];
-		for(int i = 0; i< 4; i++) {
-			for(int j = 0; j < 4; j++) {
+		for(int i = 0; i< ROWS; i++) {
+			for(int j = 0; j < COLS; j++) {
 				grid[i][j] = new TestBoardCell(i,j);
 			}
 		}
+		
+		for(int i = 0; i < ROWS-1; i++) {
+			for(int j = 0; j < COLS-1; j++) {
+				 if(i > 0) {
+					 grid[i][j].addAdjacency(grid[i-1][j]);
+				 }
+				 
+				 if(i < ROWS -1) {
+					 grid[i][j].addAdjacency(grid[i+1][j]);
+				 }
+				 
+				 if(j > 0) {
+					 grid[i][j].addAdjacency(grid[i][j-1]);
+				 }
+				 
+				 if(i < COLS -1) {
+					 grid[i][j].addAdjacency(grid[i][j+1]);
+				 }
+				 
+			}
+		}
+		
 
 	}
 	//	calculates the movement targets
 	public void calcTargets( TestBoardCell startCell, int pathlength) {
-				 
+		
+		visited.add(this.getCell(0, 0));
 		//if done recursively
-		 if (pathlength == 0) { 
+		 if (pathlength == -1) { 
 			 return;
 		 }
 		 
@@ -46,13 +70,20 @@ public class TestBoard {
 			 calcTargets(this.getCell(startCell.getRow(), startCell.getCol()+1), pathlength -1); 
 		 }
 		 
-		 targets.add(startCell);
+		 if(this.visited.contains(startCell) == false) {
+			 targets.add(startCell);
+		 }
+		 
 		 
 	}
 	
 	//	returns set of targets
 	public Set<TestBoardCell> getTargets() {
 		return targets;
+	}
+	
+	public void clearTargets() {
+		this.targets.clear();
 	}
 	//	returns cell from testBoard
 	public TestBoardCell getCell(int row, int col) {
@@ -62,5 +93,5 @@ public class TestBoard {
 	public int getTestBoardSize() {
 		return COLS * ROWS;
 	}
-
+	
 }
