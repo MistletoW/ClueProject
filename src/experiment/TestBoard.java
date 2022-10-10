@@ -36,7 +36,7 @@ public class TestBoard {
 					 grid[i][j].addAdjacency(grid[i][j-1]);
 				 }
 				 
-				 if(i < COLS -1) {
+				 if(j < COLS -1) {
 					 grid[i][j].addAdjacency(grid[i][j+1]);
 				 }
 				 
@@ -47,8 +47,6 @@ public class TestBoard {
 	}
 	//	calculates the movement targets
 	public void calcTargets( TestBoardCell startCell, int pathlength) {
-		
-		visited.add(this.getCell(0, 0));
 		//if done recursively
 		 if (pathlength == -1) { 
 			 return;
@@ -92,6 +90,10 @@ public class TestBoard {
 	
 	public int getTestBoardSize() {
 		return COLS * ROWS;
+	}
+	
+	public void addToVisited(TestBoardCell cell) {
+		this.visited.add(cell);
 	}
 	
 }
