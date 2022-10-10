@@ -51,7 +51,7 @@ public class TestBoard {
 		if(targets.contains(startCell)) {
 			return;
 		}
-		if (pathlength <= -1) { 
+		if (pathlength < 0) { 
 			return;
 		}
 
