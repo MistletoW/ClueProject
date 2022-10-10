@@ -22,8 +22,8 @@ public class TestBoard {
 			}
 		}
 		
-		for(int i = 0; i < ROWS-1; i++) {
-			for(int j = 0; j < COLS-1; j++) {
+		for(int i = 0; i < ROWS; i++) {
+			for(int j = 0; j < COLS; j++) {
 				 if(i > 0) {
 					 grid[i][j].addAdjacency(grid[i-1][j]);
 				 }
@@ -48,31 +48,55 @@ public class TestBoard {
 	//	calculates the movement targets
 	public void calcTargets( TestBoardCell startCell, int pathlength) {
 		//if done recursively
-		 if (pathlength == -1) { 
-			 return;
-		 }
-		 
-		 if(startCell.getRow() > 0) {
-			 calcTargets(this.getCell(startCell.getRow()-1, startCell.getCol()), pathlength -1);
-		 }
-		 
-		 if(startCell.getRow() < ROWS-1) {
-			 calcTargets(this.getCell(startCell.getRow()+1, startCell.getCol()), pathlength -1);
-		 }
-		 
-		 if(startCell.getCol() > 0) {
-			 calcTargets(this.getCell(startCell.getRow(), startCell.getCol()-1), pathlength -1);
-		 }
-		 
-		 if(startCell.getCol() < COLS-1) {
-			 calcTargets(this.getCell(startCell.getRow(), startCell.getCol()+1), pathlength -1); 
-		 }
-		 
-		 if(this.visited.contains(startCell) == false) {
-			 targets.add(startCell);
-		 }
-		 
-		 
+		if(targets.contains(startCell)) {
+			return;
+		}
+		if (pathlength == -1) { 
+			return;
+		}
+
+		if(startCell.getOccupied()) {
+			return;
+		}
+
+		if(startCell.getRow() > 0) {
+			if(startCell.getRoom()) {
+				calcTargets(this.getCell(startCell.getRow()-1, startCell.getCol()), pathlength -100);
+			} else {
+				calcTargets(this.getCell(startCell.getRow()-1, startCell.getCol()), pathlength -1);
+			}
+
+		}
+
+		if(startCell.getRow() < ROWS-1) {
+			if(startCell.getRoom()) {
+				calcTargets(this.getCell(startCell.getRow()+1, startCell.getCol()), pathlength -100);
+			} else {
+				calcTargets(this.getCell(startCell.getRow()+1, startCell.getCol()), pathlength -1);
+			}
+		}
+
+		if(startCell.getCol() > 0) {
+			if(startCell.getRoom()) {
+				calcTargets(this.getCell(startCell.getRow(), startCell.getCol()-1), pathlength -100);
+			} else {
+				calcTargets(this.getCell(startCell.getRow(), startCell.getCol()-1), pathlength -1);
+			}
+		}
+
+		if(startCell.getCol() < COLS-1) {
+			if(startCell.getRoom()) {
+				calcTargets(this.getCell(startCell.getRow(), startCell.getCol()+1), pathlength -100);
+			} else {
+				calcTargets(this.getCell(startCell.getRow(), startCell.getCol()+1), pathlength -1); 
+			}
+		}
+
+		if(this.visited.contains(startCell) == false) {
+			targets.add(startCell);
+		}
+
+
 	}
 	
 	//	returns set of targets

@@ -44,12 +44,12 @@ public class BoardTestsExp  {
 //	test adjacencies of (3, 1) 
 	@Test
 	public void testRightEdge() {
-		TestBoardCell cell = board.getCell(3, 1);
+		TestBoardCell cell = board.getCell(1,3);
 		board.addToVisited(cell);
 		Set<TestBoardCell> list = cell.getAdjList();
-		Assert.assertTrue(list.contains(board.getCell(3, 0)));
-		Assert.assertTrue(list.contains(board.getCell(3, 2)));
-		Assert.assertTrue(list.contains(board.getCell(2, 1)));
+		Assert.assertTrue(list.contains(board.getCell(2, 3)));
+		Assert.assertTrue(list.contains(board.getCell(0, 3)));
+		Assert.assertTrue(list.contains(board.getCell(1, 2)));
 	}
 //	test adjacencies of (0, 1)
 	@Test
