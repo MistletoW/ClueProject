@@ -27,6 +27,7 @@ public class BoardTestsExp  {
 	public void testTopLeft() {
 		
 		TestBoardCell cell = board.getCell(0, 0);
+		board.addToVisited(cell);
 		Set<TestBoardCell> list = cell.getAdjList();
 		Assert.assertTrue(list.contains(board.getCell(1, 0)));
 		Assert.assertTrue(list.contains(board.getCell(0, 1)));
@@ -35,6 +36,7 @@ public class BoardTestsExp  {
 	@Test
 	public void testBottomRight() {
 		TestBoardCell cell = board.getCell(3, 3);
+		board.addToVisited(cell);
 		Set<TestBoardCell> list = cell.getAdjList();
 		Assert.assertTrue(list.contains(board.getCell(3, 2)));
 		Assert.assertTrue(list.contains(board.getCell(2, 3)));
@@ -42,16 +44,18 @@ public class BoardTestsExp  {
 //	test adjacencies of (3, 1) 
 	@Test
 	public void testRightEdge() {
-		TestBoardCell cell = board.getCell(3, 1);
+		TestBoardCell cell = board.getCell(1,3);
+		board.addToVisited(cell);
 		Set<TestBoardCell> list = cell.getAdjList();
-		Assert.assertTrue(list.contains(board.getCell(3, 0)));
-		Assert.assertTrue(list.contains(board.getCell(3, 2)));
-		Assert.assertTrue(list.contains(board.getCell(2, 1)));
+		Assert.assertTrue(list.contains(board.getCell(2, 3)));
+		Assert.assertTrue(list.contains(board.getCell(0, 3)));
+		Assert.assertTrue(list.contains(board.getCell(1, 2)));
 	}
 //	test adjacencies of (0, 1)
 	@Test
 	public void testLeftEdge() {
 		TestBoardCell cell = board.getCell(0, 1);
+		board.addToVisited(cell);
 		Set<TestBoardCell> list = cell.getAdjList();
 		Assert.assertTrue(list.contains(board.getCell(0, 0)));
 		Assert.assertTrue(list.contains(board.getCell(0, 2)));
@@ -61,6 +65,7 @@ public class BoardTestsExp  {
 	@Test
 	public void testCenter() {
 		TestBoardCell cell = board.getCell(2, 2);
+		board.addToVisited(cell);
 		Set<TestBoardCell> list = cell.getAdjList();
 		Assert.assertTrue(list.contains(board.getCell(2, 1)));
 		Assert.assertTrue(list.contains(board.getCell(2, 3)));
@@ -75,17 +80,21 @@ public class BoardTestsExp  {
 	public void testTargetsEmpty() {
 //		tests if targets is empty if given a roll of zero
 		TestBoardCell cell = board.getCell(0, 0);
+		board.addToVisited(cell);
 		board.calcTargets(cell, 0);
 		Set<TestBoardCell> targets = board.getTargets();
-		Assert.assertEquals(10, targets.size()); //targets.size() will be zero so given 10 to fail
+		Assert.assertEquals(0, targets.size()); //targets.size() will be zero so given 10 to fail
 	}
 	
 	@Test
 	public void testOccupied() {
 		//tests if cell sets to occupied
 		TestBoardCell cell = board.getCell(0, 0);
-		cell.setOccupied(false);
-		Assert.assertTrue(cell.getOccupied());
+		board.addToVisited(cell);
+		cell.setOccupied(true);
+		board.calcTargets(board.getCell(1,1), 6);
+		Set<TestBoardCell> targets = board.getTargets();
+		Assert.assertFalse(targets.contains(cell));
 	}
 	
 	
@@ -93,8 +102,14 @@ public class BoardTestsExp  {
 	public void testRoom() {
 		//tests if cell sets to room
 		TestBoardCell cell = board.getCell(1, 1);
-		cell.setRoom(false);
+		board.addToVisited(cell);
+		cell.setRoom(true);
 		Assert.assertTrue(cell.getRoom());
+		cell = board.getCell(2,2);
+		board.calcTargets(cell, 5);
+		Set<TestBoardCell> targets = board.getTargets();
+		Assert.assertFalse(targets.contains(board.getCell(1, 1)));
+		
 	}
 	
 	@Test
@@ -102,20 +117,26 @@ public class BoardTestsExp  {
 		//tests if targets are player roll distance from origin
 		//first test if any targets are given if roll is greater than zero
 		TestBoardCell cell = board.getCell(0, 0);
-		board.calcTargets(cell, 6);
+		board.addToVisited(cell);
+		board.calcTargets(cell, 4);
 		Set<TestBoardCell> targets = board.getTargets();
+		
 		Assert.assertNotEquals(0, targets.size());
-		Assert.assertTrue(targets.contains(board.getCell(2, 2)));
-		Assert.assertFalse(targets.contains(board.getCell(0,0)));
-		Assert.assertTrue(targets.contains(board.getCell(3, 3)));
+		
+		Assert.assertTrue(targets.contains(board.getCell(0, 1)));
+		Assert.assertTrue(targets.contains(board.getCell(0, 2)));
+		Assert.assertTrue(targets.contains(board.getCell(2, 0)));
 		Assert.assertTrue(targets.contains(board.getCell(1, 1)));
-		Assert.assertTrue(targets.contains(board.getCell(2, 3)));
+		
+		Assert.assertFalse(targets.contains(board.getCell(0, 0)));
+		Assert.assertFalse(targets.contains(board.getCell(3, 3)));
 	}
 	
 	@Test
 	public void testOccupiedNotTarget() {
 		//First tests if board gets a cell
-		TestBoardCell cell = board.getCell(0, 1); 
+		TestBoardCell cell = board.getCell(0, 1);
+		board.addToVisited(cell);
 		board.calcTargets(cell, 1);
 		Set<TestBoardCell> targets = board.getTargets();
 		Assert.assertTrue(targets.contains(board.getCell(0, 0)));
@@ -131,25 +152,24 @@ public class BoardTestsExp  {
 	public void testTargetsDifferentOrigin() {
 //		Tests if targets are different if origins are different
 		TestBoardCell cell = board.getCell(0, 1); 
+		board.addToVisited(cell);
 		board.calcTargets(cell, 1);
 		Set<TestBoardCell> targets = board.getTargets();
+		board.clearTargets();
 		TestBoardCell cell2 = board.getCell(3,3); 
-		board.calcTargets(cell, 1);
+		board.calcTargets(cell2, 1);
 		Set<TestBoardCell> targets2 = board.getTargets();
-		Assert.assertNotEquals(targets2, targets);
+		Assert.assertFalse(targets2.contains(targets));
 	}
 	
 	@Test
 	public void testMaxRoll() {
 		//tests if targets contains more elements than min roll
-		TestBoardCell cell = board.getCell(0, 1); 
+		TestBoardCell cell = board.getCell(0, 1);
+		board.addToVisited(cell);
 		board.calcTargets(cell, 6);
 		Set<TestBoardCell> targets = board.getTargets();
-		board.clearTargets();
-		TestBoardCell cell2 = board.getCell(0,1); 
-		board.calcTargets(cell, 1);
-		Set<TestBoardCell> targets2 = board.getTargets();
-		Assert.assertTrue(targets2.size() < targets.size());
+		Assert.assertTrue(6 < targets.size());
 		
 		
 	}
