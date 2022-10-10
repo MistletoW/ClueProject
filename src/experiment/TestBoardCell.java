@@ -4,34 +4,34 @@ import java.util.HashSet;
 import java.util.Set;
 
 public class TestBoardCell {
-	private Set<TestBoardCell> adjacencyList;
-	private boolean occupied;
-	private boolean isRoom;
+	private Set<TestBoardCell> adjList;
+	private boolean isRoom, isOccupied;
+	private int row, col;
 //	constructor
 	public TestBoardCell(int row, int col) {
-		occupied = false;
+		isOccupied = false;
 		isRoom = false;
-		adjacencyList = new HashSet<TestBoardCell> ();
+		adjList = new HashSet<TestBoardCell> ();
 	}
 	
 //	setter to add cells to adjacency list
 	public void addAdjacency( TestBoardCell cell) {
-		adjacencyList.add(cell);
+		adjList.add(cell);
 	}
 	
 //	gets our adjList
 	public Set<TestBoardCell> getAdjList(){
-		return adjacencyList;
+		return adjList;
 	}
 	
 //	sets if a room is occupied
 	public void setOccupied(boolean Occupied) {
-		this.occupied = Occupied;
+		this.isOccupied = Occupied;
 	}
 	
 //	gets if a room is occupied
 	public boolean getOccupied() {
-		return this.occupied;
+		return this.isOccupied;
 	}
 	
 //	sets if a space is room
@@ -41,7 +41,7 @@ public class TestBoardCell {
 	
 //	gets if a space is room
 	public boolean getRoom() {
-		return this.occupied;
+		return this.isRoom;
 	}
 	
 	

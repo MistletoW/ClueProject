@@ -4,15 +4,20 @@ import java.util.HashSet;
 import java.util.Set;
 
 public class TestBoard {
-	private TestBoardCell[][] board;
+	private TestBoardCell[][] grid;
 	private Set<TestBoardCell> targets;
+	private Set<TestBoardCell> visited;
+	final static int COLS = 4;
+	final static int ROWS = 4;
+	
+	
 	//	constructor
 	public TestBoard() {
 		targets = new HashSet<TestBoardCell> ();
-		board = new TestBoardCell[4][4];
+		grid = new TestBoardCell[ROWS][COLS];
 		for(int i = 0; i< 4; i++) {
 			for(int j = 0; j < 4; j++) {
-				board[i][j] = new TestBoardCell(i,j);
+				grid[i][j] = new TestBoardCell(i,j);
 			}
 		}
 
@@ -27,7 +32,7 @@ public class TestBoard {
 	}
 	//	returns cell from testBoard
 	public TestBoardCell getCell(int row, int col) {
-		return board[row][col];
+		return grid[row][col];
 	}
 	
 	public int getTestBoardSize() {
