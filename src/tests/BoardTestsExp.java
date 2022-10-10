@@ -91,8 +91,10 @@ public class BoardTestsExp  {
 		//tests if cell sets to occupied
 		TestBoardCell cell = board.getCell(0, 0);
 		board.addToVisited(cell);
-		cell.setOccupied(false);
-		Assert.assertTrue(cell.getOccupied());
+		cell.setOccupied(true);
+		board.calcTargets(board.getCell(1,1), 6);
+		Set<TestBoardCell> targets = board.getTargets();
+		Assert.assertFalse(targets.contains(cell));
 	}
 	
 	
@@ -116,7 +118,7 @@ public class BoardTestsExp  {
 		//first test if any targets are given if roll is greater than zero
 		TestBoardCell cell = board.getCell(0, 0);
 		board.addToVisited(cell);
-		board.calcTargets(cell, 6);
+		board.calcTargets(cell, 12);
 		Set<TestBoardCell> targets = board.getTargets();
 		Assert.assertNotEquals(0, targets.size());
 		Assert.assertTrue(targets.contains(board.getCell(2, 2)));
