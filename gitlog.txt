@@ -1,3 +1,57 @@
+commit 913c7bf2862fd5a31bf4d434fc30ea6cbed896ea
+Author: haasedylan@gmail.com <dhaase@mines.edu>
+Date:   Mon Oct 10 11:26:59 2022 -0600
+
+    All tests pass
+
+commit de3e1ee1e84ccd64ae41ecedcff8830ef233ef00
+Author: haasedylan@gmail.com <dhaase@mines.edu>
+Date:   Mon Oct 10 11:08:49 2022 -0600
+
+    testRoom and testOccupied now work, but testAllMovementUsed doesn't anymore
+
+commit f03c7b1441bbba9c6dc42335fb0e625039991c09
+Author: haasedylan@gmail.com <dhaase@mines.edu>
+Date:   Mon Oct 10 11:04:57 2022 -0600
+
+    10 of 12 tests work with occupied and room tests failing
+
+commit edcb6cff39f0810e3fa0b64dab6e3f9a152efcb3
+Author: haasedylan@gmail.com <dhaase@mines.edu>
+Date:   Mon Oct 10 10:47:38 2022 -0600
+
+     9 of 12 tests pass, though I don't think testRoom is working properly
+
+commit 73576856680ac6a35f0f83fef2ce7aa4260dc788
+Author: MistletoW <haasedylan@gmail.com>
+Date:   Sun Oct 9 20:42:06 2022 -0600
+
+    add function to testBoard constructor to create adjList for each cell in TestBoard
+
+commit 25c0e0ec982c672cfddc6dbac2b09a57813f9382
+Author: MistletoW <haasedylan@gmail.com>
+Date:   Sun Oct 9 20:00:12 2022 -0600
+
+    recrusive calcTargets doesn't result in test errors anymore
+
+commit 566ac0d19dcf2252902cb037f49dba044f494c06
+Author: MistletoW <haasedylan@gmail.com>
+Date:   Sun Oct 9 19:52:25 2022 -0600
+
+    created recursive method for calculating targets, reach is out of index or far
+
+commit 4af5075c6eb21a86184ac45ce3254bebf1a36dc3
+Author: MistletoW <haasedylan@gmail.com>
+Date:   Sun Oct 9 19:31:49 2022 -0600
+
+    updated all variables in TestBoard and TestBoardCell
+
+commit 83fa5c3f3bf3952c3e1ece8a1d90c3ec6d5eb61f
+Author: MistletoW <haasedylan@gmail.com>
+Date:   Fri Oct 7 21:50:23 2022 -0600
+
+    git log made
+
 commit 69c6243b379fb0689fc104f3daf5f871e9df5771
 Author: MistletoW <haasedylan@gmail.com>
 Date:   Fri Oct 7 21:48:20 2022 -0600

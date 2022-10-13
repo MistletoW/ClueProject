@@ -47,55 +47,53 @@ public class TestBoard {
 	}
 	//	calculates the movement targets
 	public void calcTargets( TestBoardCell startCell, int pathlength) {
-		//if done recursively
+//		if done recursively
 		if(targets.contains(startCell)) {
 			return;
 		}
 		if (pathlength < 0) { 
+			targets.add(startCell);
 			return;
 		}
 
 		if(startCell.getOccupied()) {
 			return;
 		}
+		
+		if(visited.contains(startCell)) {
+			return;
+		}
+		
+		if(startCell.getRoom()) {
+			targets.add(startCell);
+			return;
+		}
+		
+		visited.add(startCell);
 
 		if(startCell.getRow() > 0) {
-			if(startCell.getRoom()) {
-				calcTargets(this.getCell(startCell.getRow()-1, startCell.getCol()), pathlength -100);
-			} else {
-				calcTargets(this.getCell(startCell.getRow()-1, startCell.getCol()), pathlength -1);
-			}
+			
+			calcTargets(this.getCell(startCell.getRow()-1, startCell.getCol()), pathlength -1);
 
 		}
 
 		if(startCell.getRow() < ROWS-1) {
-			if(startCell.getRoom()) {
-				calcTargets(this.getCell(startCell.getRow()+1, startCell.getCol()), pathlength -100);
-			} else {
-				calcTargets(this.getCell(startCell.getRow()+1, startCell.getCol()), pathlength -1);
-			}
+			
+			calcTargets(this.getCell(startCell.getRow()+1, startCell.getCol()), pathlength -1);
+
 		}
 
 		if(startCell.getCol() > 0) {
-			if(startCell.getRoom()) {
-				calcTargets(this.getCell(startCell.getRow(), startCell.getCol()-1), pathlength -100);
-			} else {
-				calcTargets(this.getCell(startCell.getRow(), startCell.getCol()-1), pathlength -1);
-			}
+
+			calcTargets(this.getCell(startCell.getRow(), startCell.getCol()-1), pathlength -1);
+
 		}
 
 		if(startCell.getCol() < COLS-1) {
-			if(startCell.getRoom()) {
-				calcTargets(this.getCell(startCell.getRow(), startCell.getCol()+1), pathlength -100);
-			} else {
-				calcTargets(this.getCell(startCell.getRow(), startCell.getCol()+1), pathlength -1); 
-			}
+			
+			calcTargets(this.getCell(startCell.getRow(), startCell.getCol()+1), pathlength -1); 
+			
 		}
-
-		if(this.visited.contains(startCell) == false) {
-			targets.add(startCell);
-		}
-
 
 	}
 	
@@ -106,6 +104,10 @@ public class TestBoard {
 	
 	public void clearTargets() {
 		this.targets.clear();
+	}
+	
+	public void clearVisited() {
+		this.visited.clear();
 	}
 	//	returns cell from testBoard
 	public TestBoardCell getCell(int row, int col) {
