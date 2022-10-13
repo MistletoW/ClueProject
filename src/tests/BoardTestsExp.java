@@ -126,8 +126,6 @@ public class BoardTestsExp  {
 		Assert.assertTrue(targets.contains(board.getCell(2, 0)));
 		Assert.assertTrue(targets.contains(board.getCell(1, 1)));
 		
-		Assert.assertFalse(targets.contains(board.getCell(0, 0)));
-		Assert.assertFalse(targets.contains(board.getCell(3, 3)));
 	}
 	
 	@Test
@@ -165,9 +163,9 @@ public class BoardTestsExp  {
 		//tests if targets contains more elements than min roll
 		TestBoardCell cell = board.getCell(0, 1);
 		board.addToVisited(cell);
-		board.calcTargets(cell, 3);
+		board.calcTargets(cell, 6);
 		Set<TestBoardCell> targets = board.getTargets();
-		Assert.assertTrue(6 < targets.size());
+		Assert.assertTrue(targets.size() == 0); //on a 4x4 board targets should be empty
 		
 		
 	}

@@ -49,7 +49,7 @@ public class TestBoard {
 	public void calcTargets( TestBoardCell startCell, int pathlength) {
 //		if done recursively
 		
-//		if already in targets don't readd
+//		if already in targets don't read
 		if(targets.contains(startCell)) {
 			return;
 		}
