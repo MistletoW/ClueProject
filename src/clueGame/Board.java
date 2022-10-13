@@ -1,10 +1,7 @@
 package clueGame;
 
-import java.io.BufferedReader;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
-import java.io.InputStream;
-import java.io.InputStreamReader;
 import java.util.HashSet;
 import java.util.Map;
 import java.util.Scanner;
@@ -72,8 +69,8 @@ public class Board {
 	}
 	//	set the config files
 	public void setConfigFiles(String csv, String txt) {
-		setupConfigFile = txt;
-		layoutConfigFile = csv;
+		this.setupConfigFile = txt;
+		this.layoutConfigFile = csv;
 
 	}
 	//	load setup
@@ -100,7 +97,11 @@ public class Board {
 			numRows = 0;
 			numColumns = 0;
 				while(in.hasNextLine()) {
-					in.nextLine();
+					String line = in.nextLine();
+					String cells[] = line.split(",");
+					if(numColumns == 0) {
+						numColumns = cells.length;
+					}
 					numRows++;
 				}
 				in.close();
@@ -122,7 +123,9 @@ public class Board {
 
 							String cell = cells[col];
 							//this is where we define the boardcell katie. do that
-							grid[row][col].setInitial(cell.charAt(0));
+							grid[row][col].setCell(cell);
+							grid[row][col].setInitial();
+							grid[row][col].isDoorway();
 
 							col++;
 						}

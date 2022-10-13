@@ -5,6 +5,7 @@ import java.util.Set;
 public class BoardCell {
 	private int row;
 	private int col;
+	private String cell;
 	private char initial;
 	private DoorDirection doorDirection;
 	private boolean roomLabel;
@@ -16,13 +17,22 @@ public class BoardCell {
 		this.row = row;
 		this.col = col;
 	}
-	public void setInitial(char c) {
-		this.initial = c;
+	public void setCell(String cell){
+		this.cell = cell;
+	}
+	public void setInitial() {
+		initial = cell.charAt(0);
 	}
 	public void addAdj(BoardCell adj) {
 		
 	}
+//	passing in the string of the cell, define whether or not the cell is a doorway. 
 	public boolean isDoorway() {
+		if (cell.length() > 1) {
+			if(cell.charAt(1) == '^' || cell.charAt(1) == 'v' || cell.charAt(1) == '<' || cell.charAt(1) == '>') {
+				return true;
+			}
+		}
 		return false;
 	}
 	public DoorDirection getDoorDirection() {
