@@ -48,18 +48,23 @@ public class TestBoard {
 	//	calculates the movement targets
 	public void calcTargets( TestBoardCell startCell, int pathlength) {
 //		if done recursively
+		
+//		if already in targets don't readd
 		if(targets.contains(startCell)) {
 			return;
 		}
-		if (pathlength < 0) { 
-			targets.add(startCell);
-			return;
-		}
-
+		
+//		if occupied don't add
 		if(startCell.getOccupied()) {
 			return;
 		}
 		
+//		if pathlength is 0 we have reached out target
+		if (pathlength == 0) { 
+			targets.add(startCell);
+			return;
+		}
+
 		if(visited.contains(startCell)) {
 			return;
 		}
@@ -71,26 +76,27 @@ public class TestBoard {
 		
 		visited.add(startCell);
 
+//		If cell isn't at left edge
 		if(startCell.getRow() > 0) {
-			
+//			recursive calculate cell to left			
 			calcTargets(this.getCell(startCell.getRow()-1, startCell.getCol()), pathlength -1);
 
 		}
-
+//		if cell isn't at right edge
 		if(startCell.getRow() < ROWS-1) {
-			
+//			recursive calculate cell to right			
 			calcTargets(this.getCell(startCell.getRow()+1, startCell.getCol()), pathlength -1);
 
 		}
-
+//		if cell isn't at top edge
 		if(startCell.getCol() > 0) {
-
+//			recursive calculate cell to top
 			calcTargets(this.getCell(startCell.getRow(), startCell.getCol()-1), pathlength -1);
 
 		}
-
+//		if cell isn't at bottom edge
 		if(startCell.getCol() < COLS-1) {
-			
+//			recursive calculate cell to bottom
 			calcTargets(this.getCell(startCell.getRow(), startCell.getCol()+1), pathlength -1); 
 			
 		}

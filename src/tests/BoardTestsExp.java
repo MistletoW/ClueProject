@@ -83,7 +83,7 @@ public class BoardTestsExp  {
 		board.addToVisited(cell);
 		board.calcTargets(cell, 0);
 		Set<TestBoardCell> targets = board.getTargets();
-		Assert.assertEquals(0, targets.size()); //targets.size() will be zero so given 10 to fail
+		Assert.assertEquals(1, targets.size()); //targets.size() will be 1, just the starting position
 	}
 	
 	@Test
@@ -108,7 +108,7 @@ public class BoardTestsExp  {
 		cell = board.getCell(2,2);
 		board.calcTargets(cell, 2);
 		Set<TestBoardCell> targets = board.getTargets();
-		Assert.assertFalse(targets.contains(board.getCell(1,1)));
+		Assert.assertTrue(targets.contains(board.getCell(1,1)));
 		
 	}
 	
@@ -117,13 +117,11 @@ public class BoardTestsExp  {
 		//tests if targets are player roll distance from origin
 		//first test if any targets are given if roll is greater than zero
 		TestBoardCell cell = board.getCell(0, 0);
-		board.addToVisited(cell);
 		board.calcTargets(cell, 2);
 		Set<TestBoardCell> targets = board.getTargets();
 		
 		Assert.assertNotEquals(0, targets.size());
 		
-		Assert.assertTrue(targets.contains(board.getCell(0, 1)));
 		Assert.assertTrue(targets.contains(board.getCell(0, 2)));
 		Assert.assertTrue(targets.contains(board.getCell(2, 0)));
 		Assert.assertTrue(targets.contains(board.getCell(1, 1)));
@@ -135,16 +133,16 @@ public class BoardTestsExp  {
 	@Test
 	public void testOccupiedNotTarget() {
 		//First tests if board gets a cell
-		TestBoardCell cell = board.getCell(0, 1);
-		board.addToVisited(cell);
-		board.calcTargets(cell, 1);
+		TestBoardCell cell = board.getCell(2,2);
+		board.calcTargets(cell, 2);
 		Set<TestBoardCell> targets = board.getTargets();
-		Assert.assertTrue(targets.contains(board.getCell(0, 0)));
+		Assert.assertTrue(targets.contains(board.getCell(1,1)));
 		//then sets cell to occupied and retests if cell gets occupied
+		board.clearTargets();
 		board.getCell(0,0).setOccupied(true);
-		board.calcTargets(cell, 1);
+		board.calcTargets(cell, 2);
 		targets = board.getTargets();
-		Assert.assertTrue(targets.contains(board.getCell(0, 0)));
+		Assert.assertFalse(targets.contains(board.getCell(1,1)));
 		
 	}
 	
@@ -167,7 +165,7 @@ public class BoardTestsExp  {
 		//tests if targets contains more elements than min roll
 		TestBoardCell cell = board.getCell(0, 1);
 		board.addToVisited(cell);
-		board.calcTargets(cell, 6);
+		board.calcTargets(cell, 3);
 		Set<TestBoardCell> targets = board.getTargets();
 		Assert.assertTrue(6 < targets.size());
 		
