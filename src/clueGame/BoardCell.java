@@ -16,7 +16,9 @@ public class BoardCell {
 		this.row = row;
 		this.col = col;
 	}
-	
+	public void setInitial(char c) {
+		this.initial = c;
+	}
 	public void addAdj(BoardCell adj) {
 		
 	}
