@@ -37,12 +37,7 @@ public class Board {
 	 * 	initialize the board (since we are using singleton pattern)
 	 */
 	public void initialize() {
-		grid = new BoardCell[numRows][numColumns];
-		for(int i = 0; i< numRows; i++) {
-			for(int j = 0; j < numColumns; j++) {
-				grid[i][j] = new BoardCell(i,j);
-			}
-		}
+
 
 		for(int i = 0; i < numRows; i++) {
 			for(int j = 0; j < numColumns; j++) {
@@ -64,7 +59,6 @@ public class Board {
 
 			}
 		}
-
 	}
 	//	set the config files
 	public void setConfigFiles(String csv, String txt) {
@@ -73,7 +67,6 @@ public class Board {
 
 	}
 	//	load setup
-	//THIS IS NOT FINISHED YET. 
 	public void loadSetupConfig() throws FileNotFoundException, BadConfigFormatException{
 		try {
 			FileReader reader = new FileReader(setupConfigFile);
@@ -87,24 +80,24 @@ public class Board {
 				if(!((splitData[0].substring(0, 2)).equals("//"))) {
 					//make sure format is correct
 					if(splitData[0].equals("Room") || splitData[0].equals("Space")) {
-					//something something this is where we get the room data
+						//something something this is where we get the room data
 						if(splitData[0].equals("Room")) {
 							Room r = new Room(splitData[1]);
 							roomMap.put(splitData[2].charAt(0) ,r);
-							
+
 						}
 					}else {
 						throw new BadConfigFormatException();
 					}
 				} 
-				
+
 			}
 		} catch (FileNotFoundException e) {
 			System.out.println("Error: File not found");
 			e.printStackTrace();
 		}
 	}
-	//	load layout ALSO NOT FINISHED
+	//	load layout NOT FINISHED
 	public void loadLayoutConfig() throws FileNotFoundException, BadConfigFormatException{
 		// reading in the file to get the file size, check to make sure column length is consistent
 		try {
@@ -112,45 +105,50 @@ public class Board {
 			Scanner in = new Scanner(reader);
 			numRows = 0;
 			numColumns = 0;
-				while(in.hasNextLine()) {
-					String line = in.nextLine();
-					String cells[] = line.split(",");
-					if(numColumns == 0) {
-						numColumns = cells.length;
-					} else if(numColumns != cells.length) {
-						throw new BadConfigFormatException();
-					}
-					numRows++;
+			while(in.hasNextLine()) {
+				String line = in.nextLine();
+				String cells[] = line.split(",");
+				if(numColumns == 0) {
+					numColumns = cells.length;
+				} else if(numColumns != cells.length) {
+					throw new BadConfigFormatException();
 				}
-				in.close();
+				numRows++;
+			}
+			in.close();
 		} catch(FileNotFoundException e) {
 			e.printStackTrace();
 		}
-
-		//using our newly found board sizes, pass in the data to each board cell :D
+		//create our grid
+		grid = new BoardCell[numRows][numColumns];
+		for(int i = 0; i< numRows; i++) {
+			for(int j = 0; j < numColumns; j++) {
+				grid[i][j] = new BoardCell(i,j);
+			}
+		}
+		//pass in the data to each board cell
 		try {
 			FileReader reader = new FileReader(layoutConfigFile);
 			Scanner in = new Scanner(reader);
 			int row = 0;
-			int col = 0;
-			
-					while (col < numColumns && row < numRows){
-						String line = in.nextLine();
-						while(col < numColumns) {
-							String cells[] = line.split(",");
+			while (row < numRows){
+				String line = in.nextLine();
+				String cells[] = line.split(",");
+				for(int col = 0; col < cells.length; col++) {
+					String cell = cells[col];
+					System.out.println(cell);
+					//this is where we define the boardcell katie. do that
+					if(roomMap.get(cell.charAt(0)) != null){
+					grid[row][col].setCell(cell);
+					grid[row][col].setInitial();
+					grid[row][col].isDoorway();
+					}else {
+						throw new BadConfigFormatException();
+					}
+				}
 
-							String cell = cells[col];
-							//this is where we define the boardcell katie. do that
-							grid[row][col].setCell(cell);
-							grid[row][col].setInitial();
-							grid[row][col].isDoorway();
-
-							col++;
-						}
-						if(col == numColumns) {
-							row++;
-						}
-					} 
+				row++;
+			}
 			in.close();
 		}catch (FileNotFoundException e) {
 			e.printStackTrace();
