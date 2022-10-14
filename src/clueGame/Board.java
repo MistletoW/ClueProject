@@ -7,15 +7,14 @@ import java.util.Map;
 import java.util.Scanner;
 import java.util.Set;
 
-import experiment.TestBoardCell;
-
+import java.util.*;
 
 public class Board {
 	private BoardCell[][] grid;
 
 	private String layoutConfigFile;
 	private String setupConfigFile;
-	private Map<Character, Room> roomMap;
+	private Map<Character, Room> roomMap = new HashMap<Character, Room>();
 	private Set<BoardCell> targets;
 	private Set<BoardCell> visited;
 
@@ -75,13 +74,30 @@ public class Board {
 	}
 	//	load setup
 	//THIS IS NOT FINISHED YET. 
-	public void loadSetupConfig() throws FileNotFoundException{
+	public void loadSetupConfig() throws FileNotFoundException, BadConfigFormatException{
 		try {
 			FileReader reader = new FileReader(setupConfigFile);
 			Scanner in = new Scanner(reader);
 			while(in.hasNextLine()) {
 				String data = in.nextLine();
-				//something something this is where we get the room data
+				String splitData[] = data.split(", ");
+				for(int i = 0; i < splitData.length; i++) {
+				}
+				//ignore comments
+				if(!((splitData[0].substring(0, 2)).equals("//"))) {
+					//make sure format is correct
+					if(splitData[0].equals("Room") || splitData[0].equals("Space")) {
+					//something something this is where we get the room data
+						if(splitData[0].equals("Room")) {
+							Room r = new Room(splitData[1]);
+							roomMap.put(splitData[2].charAt(0) ,r);
+							
+						}
+					}else {
+						throw new BadConfigFormatException();
+					}
+				} 
+				
 			}
 		} catch (FileNotFoundException e) {
 			System.out.println("Error: File not found");
@@ -89,8 +105,8 @@ public class Board {
 		}
 	}
 	//	load layout ALSO NOT FINISHED
-	public void loadLayoutConfig() throws FileNotFoundException{
-		// reading in the file to get the file size. yay. IMPLEMENT A WAY TO GET THE NUMBER OF COLUMNS, YOU SHOULD ONLY NEED TO DO THIS ONCE
+	public void loadLayoutConfig() throws FileNotFoundException, BadConfigFormatException{
+		// reading in the file to get the file size, check to make sure column length is consistent
 		try {
 			FileReader reader = new FileReader(layoutConfigFile);
 			Scanner in = new Scanner(reader);
@@ -101,6 +117,8 @@ public class Board {
 					String cells[] = line.split(",");
 					if(numColumns == 0) {
 						numColumns = cells.length;
+					} else if(numColumns != cells.length) {
+						throw new BadConfigFormatException();
 					}
 					numRows++;
 				}
@@ -140,12 +158,12 @@ public class Board {
 	}
 	// load room based on char
 	public Room getRoom(char roomChar) {
-		Room r = new Room();
+		Room r = new Room("e");
 		return r;
 	}
 	// load room based on cell 
 	public Room getRoom(BoardCell c) {
-		Room r = new Room();
+		Room r = new Room("e");
 		return r;
 	}
 
