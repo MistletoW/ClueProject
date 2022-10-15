@@ -7,6 +7,8 @@ import java.util.Map;
 import java.util.Scanner;
 import java.util.Set;
 
+import experiment.TestBoardCell;
+
 import java.util.*;
 
 public class Board {
@@ -26,6 +28,7 @@ public class Board {
 	//	constructor is private to ensure only one can be created
 	private Board() {
 		super();
+		targets = new HashSet<BoardCell> ();
 	}
 	//	this method returns the only Board
 	public static Board getInstance() {
@@ -164,6 +167,18 @@ public class Board {
 	public BoardCell getCell(int row, int col) {
 		return grid[row][col];
 	}
+	
+	public Set<BoardCell> getAdjList(int row, int col){
+		return this.getCell(row,col).getAdjList();
+	}
 
-
+	public void calcTargets( BoardCell startCell, int pathlength) {
+		
+	}
+	
+	public Set<BoardCell> getTargets(){
+		return targets;
+	}
+	
+	
 }
