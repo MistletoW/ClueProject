@@ -19,8 +19,6 @@ public class BoardCell {
 	}
 	public void setCell(String cell){
 		this.cell = cell;
-	}
-	public void setInitial() {
 		initial = cell.charAt(0);
 	}
 	public char getInitial() {
@@ -40,49 +38,48 @@ public class BoardCell {
 	}
 	public DoorDirection getDoorDirection() {
 		if(cell.length() > 1) {
-			char c = cell.charAt(1);
-			DoorDirection d; 
+			char c = cell.charAt(1); 
 			switch(c) {
 			case('^'):
-				d = DoorDirection.UP;
+				doorDirection = DoorDirection.UP;
 				break;
 			case('v'):
-				d = DoorDirection.DOWN;
+				doorDirection = DoorDirection.DOWN;
 				break;
 			case('<'):
-				d = DoorDirection.LEFT;
+				doorDirection = DoorDirection.LEFT;
 				break;
 			case('>'):
-				d = DoorDirection.RIGHT;
+				doorDirection = DoorDirection.RIGHT;
 				break;
-			default: d = DoorDirection.UP;
+			default: doorDirection = DoorDirection.NONE;
 				break;
 		}
-			return d;
+			return doorDirection;
 		}
 		return null;
 	}
 	public boolean isLabel() {
 		if(cell.length() > 1) {
 			if(cell.charAt(1) == '#') {
-				return true;
+				roomLabel = true;
 			}
 		}
-		return false;
+		return roomLabel;
 	}
 	public boolean isRoomCenter() {
 		if(cell.length() > 1) {
 			if(cell.charAt(1) == '*') {
-				return true;
+				roomCenter = true;
 			}
 		}
-		return false;
+		return roomCenter;
 	}
 	public char getSecretPassage() {
 		if(cell.length() > 1) {
-			return cell.charAt(1);
+			secretPassage = cell.charAt(1);
 		}
-		return cell.charAt(0);
+		return secretPassage;
 	}
 
 //	toString

@@ -47,31 +47,12 @@ public class Board {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		for(int i = 0; i < numRows; i++) {
-			for(int j = 0; j < numColumns; j++) {
-				if(i > 0) {
-					grid[i][j].addAdj(grid[i-1][j]);
-				}
 
-				if(i < numRows -1) {
-					grid[i][j].addAdj(grid[i+1][j]);
-				}
-
-				if(j > 0) {
-					grid[i][j].addAdj(grid[i][j-1]);
-				}
-
-				if(j < numColumns -1) {
-					grid[i][j].addAdj(grid[i][j+1]);
-				}
-
-			}
-		}
 	}
 	//	set the config files
 	public void setConfigFiles(String csv, String txt) {
-		this.setupConfigFile = txt;
-		this.layoutConfigFile = csv;
+		this.setupConfigFile = "data/" + txt;
+		this.layoutConfigFile = "data/" + csv;
 
 	}
 	//	load setup
@@ -148,8 +129,6 @@ public class Board {
 					//define characteristics about our board cell
 					if(roomMap.get(cell.charAt(0)) != null){
 						grid[row][col].setCell(cell);
-						grid[row][col].setInitial();
-						grid[row][col].isDoorway();
 					}else {
 						throw new BadConfigFormatException();
 					}

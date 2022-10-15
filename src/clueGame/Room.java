@@ -15,6 +15,7 @@ public class Room {
 	public String getName() {
 		return name;
 	}
+	
 //	returns the cell with the room label
 	public BoardCell getLabelCell() {
 		for (int i = 0; i < Board.getInstance().getNumRows(); i++) {
@@ -22,7 +23,8 @@ public class Room {
 				//iterates through board, looks for label cell for the specific room label #
 				if(Board.getInstance().getCell(i,j).getInitial() == label) {
 					if(Board.getInstance().getCell(i,j).isLabel() == true){
-						return Board.getInstance().getCell(i,j);
+						labelCell = Board.getInstance().getCell(i,j);
+						return labelCell;
 					}
 				}
 			}
@@ -37,7 +39,8 @@ public class Room {
 				//iterates through board, looks for label cell with center label *
 				if(Board.getInstance().getCell(i,j).getInitial() == label) {
 					if(Board.getInstance().getCell(i,j).isRoomCenter() == true){
-						return Board.getInstance().getCell(i,j);
+						centerCell = Board.getInstance().getCell(i,j);
+						return centerCell;
 					}
 				}
 			}
