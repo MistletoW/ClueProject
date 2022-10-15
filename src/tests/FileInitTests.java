@@ -61,14 +61,14 @@ public class FileInitTests {
 	public void FourDoorDirections() {
 		BoardCell cell = board.getCell(5, 7);
 		assertTrue(cell.isDoorway());
-		assertEquals(DoorDirection.RIGHT, cell.getDoorDirection());
+		assertEquals(DoorDirection.LEFT, cell.getDoorDirection());
 		cell = board.getCell(3, 8);
 		assertTrue(cell.isDoorway());
-		assertEquals(DoorDirection.LEFT, cell.getDoorDirection());
-		cell = board.getCell(19, 11);
+		assertEquals(DoorDirection.RIGHT, cell.getDoorDirection());
+		cell = board.getCell(17, 11);
 		assertTrue(cell.isDoorway());
 		assertEquals(DoorDirection.DOWN, cell.getDoorDirection());
-		cell = board.getCell(9, 12);
+		cell = board.getCell(7, 12);
 		assertTrue(cell.isDoorway());
 		assertEquals(DoorDirection.UP, cell.getDoorDirection());
 		// Test that walkways are not doors
@@ -87,7 +87,7 @@ public class FileInitTests {
 				if (cell.isDoorway())
 					numDoors++;
 			}
-		Assert.assertEquals(12, numDoors);
+		Assert.assertEquals(18, numDoors);
 	}
 
 	// Test a few room cells to ensure the room initial is correct.
@@ -103,7 +103,7 @@ public class FileInitTests {
 		assertFalse( cell.isDoorway()) ;
 
 		// this is a label cell to test
-		cell = board.getCell(2,12);
+		cell = board.getCell(2,10);
 		room = board.getRoom( cell ) ;
 		assertTrue( room != null );
 		assertEquals( room.getName(), "Baskin Robins" ) ;

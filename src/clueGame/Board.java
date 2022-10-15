@@ -17,8 +17,6 @@ public class Board {
 	private Map<Character, Room> roomMap = new HashMap<Character, Room>();
 	private Set<BoardCell> targets;
 	private Set<BoardCell> visited;
-
-	// THESE TWO GUYS ARE UNFINISHED
 	private int numRows;
 	private int numColumns;
 	/*
@@ -37,8 +35,18 @@ public class Board {
 	 * 	initialize the board (since we are using singleton pattern)
 	 */
 	public void initialize() {
-
-
+		try {
+			loadSetupConfig();
+		} catch (FileNotFoundException | BadConfigFormatException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		try {
+			loadLayoutConfig();
+		} catch (FileNotFoundException | BadConfigFormatException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		for(int i = 0; i < numRows; i++) {
 			for(int j = 0; j < numColumns; j++) {
 				if(i > 0) {
@@ -78,14 +86,12 @@ public class Board {
 				}
 				//ignore comments
 				if(!((splitData[0].substring(0, 2)).equals("//"))) {
-					//make sure format is correct
+					//make sure format is correct, we will treat both actual rooms and walkway/empty space as rooms
 					if(splitData[0].equals("Room") || splitData[0].equals("Space")) {
-						//something something this is where we get the room data
-						if(splitData[0].equals("Room")) {
-							Room r = new Room(splitData[1]);
-							roomMap.put(splitData[2].charAt(0) ,r);
+						//load room data 
+						Room r = new Room(splitData[1], splitData[2].charAt(0));
+						roomMap.put(splitData[2].charAt(0) ,r);
 
-						}
 					}else {
 						throw new BadConfigFormatException();
 					}
@@ -97,7 +103,7 @@ public class Board {
 			e.printStackTrace();
 		}
 	}
-	//	load layout NOT FINISHED
+	//	load layout
 	public void loadLayoutConfig() throws FileNotFoundException, BadConfigFormatException{
 		// reading in the file to get the file size, check to make sure column length is consistent
 		try {
@@ -110,10 +116,13 @@ public class Board {
 				String cells[] = line.split(",");
 				if(numColumns == 0) {
 					numColumns = cells.length;
-				} else if(numColumns != cells.length) {
+				} else if(numColumns != cells.length && cells.length != 0) {
+					System.out.println();
 					throw new BadConfigFormatException();
 				}
-				numRows++;
+				if(cells.length != 0) {
+					numRows++;
+				}
 			}
 			in.close();
 		} catch(FileNotFoundException e) {
@@ -136,12 +145,11 @@ public class Board {
 				String cells[] = line.split(",");
 				for(int col = 0; col < cells.length; col++) {
 					String cell = cells[col];
-					System.out.println(cell);
-					//this is where we define the boardcell katie. do that
+					//define characteristics about our board cell
 					if(roomMap.get(cell.charAt(0)) != null){
-					grid[row][col].setCell(cell);
-					grid[row][col].setInitial();
-					grid[row][col].isDoorway();
+						grid[row][col].setCell(cell);
+						grid[row][col].setInitial();
+						grid[row][col].isDoorway();
 					}else {
 						throw new BadConfigFormatException();
 					}
@@ -156,13 +164,14 @@ public class Board {
 	}
 	// load room based on char
 	public Room getRoom(char roomChar) {
-		Room r = new Room("e");
+		Room r = roomMap.get(roomChar);
 		return r;
 	}
 	// load room based on cell 
 	public Room getRoom(BoardCell c) {
-		Room r = new Room("e");
-		return r;
+		char r = c.getInitial();
+		Room room = roomMap.get(r);
+		return room;
 	}
 
 	public int getNumRows() {

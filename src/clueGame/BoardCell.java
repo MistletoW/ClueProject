@@ -23,6 +23,9 @@ public class BoardCell {
 	public void setInitial() {
 		initial = cell.charAt(0);
 	}
+	public char getInitial() {
+		return initial; 
+	}
 	public void addAdj(BoardCell adj) {
 		
 	}
@@ -36,15 +39,55 @@ public class BoardCell {
 		return false;
 	}
 	public DoorDirection getDoorDirection() {
-		return DoorDirection.UP;
+		if(cell.length() > 1) {
+			char c = cell.charAt(1);
+			DoorDirection d; 
+			switch(c) {
+			case('^'):
+				d = DoorDirection.UP;
+				break;
+			case('v'):
+				d = DoorDirection.DOWN;
+				break;
+			case('<'):
+				d = DoorDirection.LEFT;
+				break;
+			case('>'):
+				d = DoorDirection.RIGHT;
+				break;
+			default: d = DoorDirection.UP;
+				break;
+		}
+			return d;
+		}
+		return null;
 	}
 	public boolean isLabel() {
+		if(cell.length() > 1) {
+			if(cell.charAt(1) == '#') {
+				return true;
+			}
+		}
 		return false;
 	}
 	public boolean isRoomCenter() {
+		if(cell.length() > 1) {
+			if(cell.charAt(1) == '*') {
+				return true;
+			}
+		}
 		return false;
 	}
 	public char getSecretPassage() {
-		return 'A';
+		if(cell.length() > 1) {
+			return cell.charAt(1);
+		}
+		return cell.charAt(0);
 	}
+
+//	toString
+	public String toString() {
+		return "Cell: " + cell + "\nAt : " + row + ", " + col ;
+	}
+	
 }
