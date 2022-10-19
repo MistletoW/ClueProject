@@ -13,7 +13,7 @@ public class BoardCell {
 	private DoorDirection doorDirection;
 	private boolean roomLabel;
 	private boolean roomCenter;
-	private char secretPassage;
+	private char secretPassage = ' ';
 	private Set<BoardCell> adjList;
 	boolean isOccupied;
 	

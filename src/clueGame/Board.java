@@ -29,6 +29,7 @@ public class Board {
 	private Board() {
 		super();
 		targets = new HashSet<BoardCell> ();
+		visited = new HashSet<BoardCell> ();
 	}
 	//	this method returns the only Board
 	public static Board getInstance() {
@@ -179,6 +180,30 @@ public class Board {
 
 	public void calcTargets( BoardCell startCell, int pathlength) {
 		
+		if(visited.contains(startCell)) {
+			return;
+		}
+		
+		visited.add(startCell);
+		
+		if(pathlength == 0) {
+			targets.add(startCell);
+			return;
+		}
+		
+		
+		for(int i = 0; i < numRows; i++) {
+			for(int j = 0; j < numColumns; j++) {
+				if(startCell.getAdjList().contains(grid[i][j])) {
+					calcTargets(grid[i][j], pathlength -1);
+				}
+			}
+		}
+		
+	}
+	
+	public void calTargetsRecursion() {
+		
 	}
 	
 	public Set<BoardCell> getTargets(){
@@ -189,35 +214,122 @@ public class Board {
 		BoardCell startCell = this.getCell(row,col);
 		
 		if (startCell.getCellValue().length() < 2) {
-			if(row > 0) {
-				if(startCell.getInitial() == this.getCell(row-1, col).getInitial()) {
-					startCell.addAdj(this.getCell(row-1, col));
-				}
-			}
-			if(col > 0) {
-				if(startCell.getInitial() == this.getCell(row, col-1).getInitial()) {
-					startCell.addAdj(this.getCell(row, col-1));
-				}
-			}
-			if(row < numRows -1) {
-				if(startCell.getInitial() == this.getCell(row+1, col).getInitial()) {
-					startCell.addAdj(this.getCell(row+1, col));
-				}
-			}
-			if(col < numColumns -1) {
-				if(startCell.getInitial() == this.getCell(row, col+1).getInitial()) {
-					startCell.addAdj(this.getCell(row, col+1));
-				}
-			}
+			getAdjCommon(startCell, row, col);
 		} else {
 			if(startCell.isDoorway()) {
-				
+				getAdjCommon(startCell, row, col);
+				if (startCell.getDoorDirection() == DoorDirection.UP) {
+					char initial = this.getCell(row-1, col).getInitial();
+					for(int i = 0; i < numRows; i++) {
+						for(int j = 0; j < numColumns; j++) {
+							if(this.grid[i][j].getInitial() == initial && this.grid[i][j].isRoomCenter()) {
+								startCell.addAdj(grid[i][j]);
+							}
+						}
+					}
+				}
+				if (startCell.getDoorDirection() == DoorDirection.DOWN) {
+					char initial = this.getCell(row+1, col).getInitial();
+					for(int i = 0; i < numRows; i++) {
+						for(int j = 0; j < numColumns; j++) {
+							if(this.grid[i][j].getInitial() == initial && this.grid[i][j].isRoomCenter()) {
+								startCell.addAdj(grid[i][j]);
+							}
+						}
+					}
+				}
+				if (startCell.getDoorDirection() == DoorDirection.RIGHT) {
+					char initial = this.getCell(row, col+1).getInitial();
+					for(int i = 0; i < numRows; i++) {
+						for(int j = 0; j < numColumns; j++) {
+							if(this.grid[i][j].getInitial() == initial && this.grid[i][j].isRoomCenter()) {
+								startCell.addAdj(grid[i][j]);
+							}
+						}
+					}
+				}
+				if (startCell.getDoorDirection() == DoorDirection.LEFT) {
+					char initial = this.getCell(row, col-1).getInitial();
+					for(int i = 0; i < numRows; i++) {
+						for(int j = 0; j < numColumns; j++) {
+							if(this.grid[i][j].getInitial() == initial && this.grid[i][j].isRoomCenter()) {
+								startCell.addAdj(grid[i][j]);
+							}
+						}
+					}
+				}
 			}
 			if(startCell.isLabel()) {
 				
 			}
 			if(startCell.isRoomCenter()) {
+				char initial = startCell.getInitial();
 				
+				for(int i = 0; i < numRows; i++) {
+					for(int j = 0; j < numColumns; j++) {
+						if(grid[i][j].isDoorway()) {
+							if(grid[i][j].getDoorDirection() == DoorDirection.UP && grid[i-1][j].getInitial() == initial) {
+								startCell.addAdj(grid[i][j]);
+							}
+							if(grid[i][j].getDoorDirection() == DoorDirection.DOWN && grid[i+1][j].getInitial() == initial) {
+								startCell.addAdj(grid[i][j]);
+							}
+							if(grid[i][j].getDoorDirection() == DoorDirection.LEFT && grid[i][j-1].getInitial() == initial) {
+								startCell.addAdj(grid[i][j]);
+							}
+							if(grid[i][j].getDoorDirection() == DoorDirection.RIGHT && grid[i][j+1].getInitial() == initial) {
+								startCell.addAdj(grid[i][j]);
+							}
+						}
+						
+						if(grid[i][j].getInitial() == initial && 
+								grid[i][j].getSecretPassage() != '#' && 
+								grid[i][j].getSecretPassage() != '*' &&
+								grid[i][j].getSecretPassage() != ' ') {
+							char secret = grid[i][j].getSecretPassage();
+							char secretRoomInitial;
+							
+							for(int k = 0; k < numRows; k++) {
+								for(int l = 0; l < numColumns; l++) {
+									if(grid[k][l].getSecretPassage() == initial && grid[k][l].getInitial() == secret) {
+										secretRoomInitial = grid[k][l].getInitial();
+										for(int x = 0; x < numRows; x++) {
+											for(int y = 0; y < numColumns; y++) {
+												if(grid[x][y].getInitial() == secretRoomInitial && grid[x][y].isRoomCenter()) {
+													startCell.addAdj(grid[x][y]);
+												}
+											}
+										}
+									}
+								}
+							}
+						}
+					}
+				}
+			}
+		}
+	}
+	
+	public void getAdjCommon(BoardCell startCell, int row, int col) {
+		
+		if(row > 0) {
+			if(startCell.getInitial() == this.getCell(row-1, col).getInitial()) {
+				startCell.addAdj(this.getCell(row-1, col));
+			}
+		}
+		if(col > 0) {
+			if(startCell.getInitial() == this.getCell(row, col-1).getInitial()) {
+				startCell.addAdj(this.getCell(row, col-1));
+			}
+		}
+		if(row < numRows -1) {
+			if(startCell.getInitial() == this.getCell(row+1, col).getInitial()) {
+				startCell.addAdj(this.getCell(row+1, col));
+			}
+		}
+		if(col < numColumns -1) {
+			if(startCell.getInitial() == this.getCell(row, col+1).getInitial()) {
+				startCell.addAdj(this.getCell(row, col+1));
 			}
 		}
 	}
