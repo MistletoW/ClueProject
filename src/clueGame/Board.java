@@ -179,7 +179,6 @@ public class Board {
 		
 		visited.add(startCell);
 		
-		
 		calcTargetsRecursion(startCell, pathlength);
 		
 	}
