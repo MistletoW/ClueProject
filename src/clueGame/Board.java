@@ -50,7 +50,12 @@ public class Board {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-
+		
+		for(int i = 0; i < numRows; i++) {
+			for(int j = 0; j < numColumns; j++) {
+				this.setAdjList(i,j);
+			}
+		}
 	}
 	//	set the config files
 	public void setConfigFiles(String csv, String txt) {
@@ -180,5 +185,33 @@ public class Board {
 		return targets;
 	}
 	
-	
+	public void setAdjList(int row, int col) {
+		BoardCell startCell = this.getCell(row,col);
+		
+		if (startCell.getCellValue().length() < 2) {
+			if(row > 0) {
+				if(startCell.getInitial() == this.getCell(row-1, col).getInitial()) {
+					startCell.addAdj(this.getCell(row-1, col));
+				}
+			}
+			if(col > 0) {
+				if(startCell.getInitial() == this.getCell(row, col-1).getInitial()) {
+					startCell.addAdj(this.getCell(row, col-1));
+				}
+			}
+			if(row < numRows -1) {
+				if(startCell.getInitial() == this.getCell(row+1, col).getInitial()) {
+					startCell.addAdj(this.getCell(row+1, col));
+				}
+			}
+			if(col < numColumns -1) {
+				if(startCell.getInitial() == this.getCell(row, col+1).getInitial()) {
+					startCell.addAdj(this.getCell(row, col+1));
+				}
+			}
+		} else {
+			
+		}
+	}
 }
+	

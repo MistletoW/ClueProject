@@ -1,2 +1,0 @@
-Kathryn Schultz
-Dylan Haase

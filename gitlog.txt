@@ -1,3 +1,82 @@
+commit 1bbf4ac4f4b448719f1c3189a6b6e143d5b199e8
+Author: MistletoW <haasedylan@gmail.com>
+Date:   Fri Oct 14 21:17:30 2022 -0600
+
+    Made BoardAdjTargetTest, which has 11 failing tests, and included BoardAdjTargetTest306 which also fails
+
+commit f2b8092e65e033444fcade5caed1ee97c7eafb4d
+Author: schultzk1123 <schultz@mines.edu>
+Date:   Fri Oct 14 19:13:47 2022 -0600
+
+    Refactored some code!
+
+commit 57bcbf90c64395e39b879723196b74a55fc72df8
+Author: schultzk1123 <schultz@mines.edu>
+Date:   Fri Oct 14 18:43:34 2022 -0600
+
+    Edited code in Room, Board, and BoardCell so all tests pass! Note: A bit testing code was edited as it was passing in the wrong board locations to test
+
+commit 4e2f0a9db6b223f24dd8ed1eefdb019c707e9aee
+Author: schultzk1123 <schultz@mines.edu>
+Date:   Fri Oct 14 14:28:22 2022 -0600
+
+    Exception tests pass!
+
+commit faf9de04cbfaf8003679b2417d0219a1272c505a
+Author: schultzk1123 <schultz@mines.edu>
+Date:   Fri Oct 14 13:57:45 2022 -0600
+
+    worked on loadLayoutConfig, file IO working
+
+commit 06435a4006b0f720856922f410b0610d4782af2a
+Author: Kathryn Schultz <schultz@mines.edu>
+Date:   Thu Oct 13 14:50:21 2022 -0600
+
+    small changes made to TestBoardCell and TestBoard to better initialize, we're still running into a fileNotFoundException so you're not gonna see any tests working :/
+
+commit 5ff47d08928d425fdf7d3db00caac65599a0711c
+Author: Kathryn Schultz <schultz@mines.edu>
+Date:   Thu Oct 13 14:16:29 2022 -0600
+
+    Started work on file input code
+
+commit d54d0cf87e61bbe7642fe97d33b0ed3e6065c079
+Author: haasedylan@gmail.com <dhaase@mines.edu>
+Date:   Thu Oct 13 11:55:04 2022 -0600
+
+    CalcTargets Fixed
+
+commit c508a0cbbadfcc4cb9df9a9dbdaeca1a6ccde006
+Author: haasedylan@gmail.com <dhaase@mines.edu>
+Date:   Thu Oct 13 11:50:59 2022 -0600
+
+    All tests except one pass
+
+commit 1a2bb5fde15162542e43cee570bffeb37705d163
+Author: haasedylan@gmail.com <dhaase@mines.edu>
+Date:   Thu Oct 13 11:33:20 2022 -0600
+
+    CalcTargets algorithim fixed, errors persist
+
+commit e06cbb818c1dd3df7613a3c08c87cf4473dca679
+Merge: 341c9d3 913c7bf
+Author: Kathryn Schultz <schultz@mines.edu>
+Date:   Mon Oct 10 12:31:26 2022 -0600
+
+    fixed merge conflict
+
+commit 341c9d361961bfa1135131137b31430b8dcc3ecf
+Author: Kathryn Schultz <schultz@mines.edu>
+Date:   Mon Oct 10 12:28:28 2022 -0600
+
+    added method stubs for clueGame and implemented tests
+
+commit 97b5ee0c1f936a72205616a5a579b619c324d541
+Author: Kathryn Schultz <schultz@mines.edu>
+Date:   Mon Oct 10 12:25:31 2022 -0600
+
+    added method stubs for clueGame and created tests
+
 commit 913c7bf2862fd5a31bf4d434fc30ea6cbed896ea
 Author: haasedylan@gmail.com <dhaase@mines.edu>
 Date:   Mon Oct 10 11:26:59 2022 -0600

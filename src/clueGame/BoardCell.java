@@ -30,7 +30,7 @@ public class BoardCell {
 		return initial; 
 	}
 	public void addAdj(BoardCell adj) {
-		
+		adjList.add(adj);
 	}
 //	passing in the string of the cell, define whether or not the cell is a doorway. 
 	public boolean isDoorway() {
@@ -59,7 +59,7 @@ public class BoardCell {
 				break;
 			default: doorDirection = DoorDirection.NONE;
 				break;
-		}
+			}
 			return doorDirection;
 		}
 		return null;
@@ -98,5 +98,9 @@ public class BoardCell {
 	
 	public void setOccupied(boolean value) {
 		this.isOccupied = value;
+	}
+	
+	public String getCellValue() {
+		return cell;
 	}
 }
