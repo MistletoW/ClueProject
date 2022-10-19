@@ -210,7 +210,15 @@ public class Board {
 				}
 			}
 		} else {
-			
+			if(startCell.isDoorway()) {
+				
+			}
+			if(startCell.isLabel()) {
+				
+			}
+			if(startCell.isRoomCenter()) {
+				
+			}
 		}
 	}
 }
