@@ -176,6 +176,7 @@ public class Board {
 
 	public void calcTargets( BoardCell startCell, int pathlength) {
 		targets.clear();
+		visited.clear();
 		
 		visited.add(startCell);
 		
@@ -184,29 +185,33 @@ public class Board {
 	}
 	
 	public void calcTargetsRecursion(BoardCell startCell, int pathlength) {
-		Set<BoardCell> adjList = startCell.getAdjList();
-		Iterator<BoardCell> it = adjList.iterator();
+		//recusrive call helper for CalcTargets
+		Set<BoardCell> adjList = startCell.getAdjList(); //get adjList
+		Iterator<BoardCell> it = adjList.iterator(); //get iterator for adjList
 		BoardCell thisCell;
 		while(it.hasNext()) {
-			thisCell = it.next();
+			thisCell = it.next(); //set thisCell to next in adjList
+			
 			if(visited.contains(thisCell)) {
+				//if already visited then skip
 			} else {
+				//if not visited add to visited
 				visited.add(thisCell);
 				if(pathlength == 1) {
+					//if pathlength is 1 and adjCell is not occupied then add to adjCell
 					if(thisCell.isOccupied == false) {
 						targets.add(thisCell);
 					}
 					
 				} else {
 					if(thisCell.isOccupied == false) {
+						//if adjCell isn't occupied then recursive call
 						calcTargetsRecursion(thisCell, pathlength-1);
 					}
 				}
 				visited.remove(thisCell);
 			}
 		}
-		
-		return;
 	}
 	
 	public Set<BoardCell> getTargets(){
@@ -219,8 +224,12 @@ public class Board {
 		if (startCell.getCellValue().length() < 2) {
 			getAdjCommon(startCell, row, col);
 		} else {
+			
+			//if doorway, determine direction, find room center and add to adjList
 			if(startCell.isDoorway()) {
-				getAdjCommon(startCell, row, col);
+				
+				getAdjCommon(startCell, row, col); //get common adj cells around door
+				
 				if (startCell.getDoorDirection() == DoorDirection.UP) {
 					char initial = this.getCell(row-1, col).getInitial();
 					for(int i = 0; i < numRows; i++) {
@@ -231,6 +240,7 @@ public class Board {
 						}
 					}
 				}
+				
 				if (startCell.getDoorDirection() == DoorDirection.DOWN) {
 					char initial = this.getCell(row+1, col).getInitial();
 					for(int i = 0; i < numRows; i++) {
@@ -241,6 +251,7 @@ public class Board {
 						}
 					}
 				}
+				
 				if (startCell.getDoorDirection() == DoorDirection.RIGHT) {
 					char initial = this.getCell(row, col+1).getInitial();
 					for(int i = 0; i < numRows; i++) {
@@ -251,6 +262,7 @@ public class Board {
 						}
 					}
 				}
+				
 				if (startCell.getDoorDirection() == DoorDirection.LEFT) {
 					char initial = this.getCell(row, col-1).getInitial();
 					for(int i = 0; i < numRows; i++) {
@@ -264,10 +276,13 @@ public class Board {
 			}
 
 			if(startCell.isRoomCenter()) {
+				
 				char initial = startCell.getInitial();
 				
-				for(int i = 0; i < numRows; i++) {
+				for(int i = 0; i < numRows; i++) {	//for every cell in grid
 					for(int j = 0; j < numColumns; j++) {
+						
+						//find all doorways in grid, determine if doorway is connected to room then add to adjList if it is
 						if(grid[i][j].isDoorway()) {
 							if(grid[i][j].getDoorDirection() == DoorDirection.UP && grid[i-1][j].getInitial() == initial) {
 								startCell.addAdj(grid[i][j]);
@@ -283,6 +298,7 @@ public class Board {
 							}
 						}
 						
+						//if room has secret passage way
 						if(grid[i][j].getInitial() == initial && 
 								grid[i][j].getSecretPassage() != '#' && 
 								grid[i][j].getSecretPassage() != '*' &&
@@ -290,12 +306,16 @@ public class Board {
 							char secret = grid[i][j].getSecretPassage();
 							char secretRoomInitial;
 							
-							for(int k = 0; k < numRows; k++) {
+							for(int k = 0; k < numRows; k++) { //for every cell in grid
 								for(int l = 0; l < numColumns; l++) {
+									
+									//find matching secret passage
 									if(grid[k][l].getSecretPassage() == initial && grid[k][l].getInitial() == secret) {
 										secretRoomInitial = grid[k][l].getInitial();
-										for(int x = 0; x < numRows; x++) {
+										for(int x = 0; x < numRows; x++) {	//for every cell in grid
 											for(int y = 0; y < numColumns; y++) {
+												
+												//find room center of secret passage
 												if(grid[x][y].getInitial() == secretRoomInitial && grid[x][y].isRoomCenter()) {
 													startCell.addAdj(grid[x][y]);
 												}
