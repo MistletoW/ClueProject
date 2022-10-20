@@ -5,9 +5,15 @@ import static org.junit.Assert.assertTrue;
 import java.util.Set;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
+<<<<<<< HEAD
 import clueGame.Board;
 import clueGame.BoardCell;
 
+=======
+
+import clueGame.Board;
+import clueGame.BoardCell;
+>>>>>>> 2ea3711b68527715663f4d864dc82bb7c6bb30d8
 public class BoardAdjTargetTest306 {
 	// We make the Board static because we can load it one time and 
 	// then do all the tests. 
@@ -174,6 +180,10 @@ public class BoardAdjTargetTest306 {
 		assertTrue(targets.contains(board.getCell(6, 17)));
 		assertTrue(targets.contains(board.getCell(5, 16)));
 	}
+<<<<<<< HEAD
+=======
+	
+>>>>>>> 2ea3711b68527715663f4d864dc82bb7c6bb30d8
 	@Test
 	public void testTargetsInWalkway1() {
 		// test a roll of 1

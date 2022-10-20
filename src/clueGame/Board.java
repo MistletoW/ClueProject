@@ -2,10 +2,6 @@ package clueGame;
 
 import java.io.FileNotFoundException;
 import java.io.FileReader;
-import java.util.HashSet;
-import java.util.Map;
-import java.util.Scanner;
-import java.util.Set;
 
 import experiment.TestBoardCell;
 
@@ -179,31 +175,38 @@ public class Board {
 	}
 
 	public void calcTargets( BoardCell startCell, int pathlength) {
-		
-		if(visited.contains(startCell)) {
-			return;
-		}
+		targets.clear();
 		
 		visited.add(startCell);
 		
-		if(pathlength == 0) {
-			targets.add(startCell);
-			return;
-		}
-		
-		
-		for(int i = 0; i < numRows; i++) {
-			for(int j = 0; j < numColumns; j++) {
-				if(startCell.getAdjList().contains(grid[i][j])) {
-					calcTargets(grid[i][j], pathlength -1);
-				}
-			}
-		}
+		calcTargetsRecursion(startCell, pathlength);
 		
 	}
 	
-	public void calTargetsRecursion() {
+	public void calcTargetsRecursion(BoardCell startCell, int pathlength) {
+		Set<BoardCell> adjList = startCell.getAdjList();
+		Iterator<BoardCell> it = adjList.iterator();
+		BoardCell thisCell;
+		while(it.hasNext()) {
+			thisCell = it.next();
+			if(visited.contains(thisCell)) {
+			} else {
+				visited.add(thisCell);
+				if(pathlength == 1) {
+					if(thisCell.isOccupied == false) {
+						targets.add(thisCell);
+					}
+					
+				} else {
+					if(thisCell.isOccupied == false) {
+						calcTargetsRecursion(thisCell, pathlength-1);
+					}
+				}
+				visited.remove(thisCell);
+			}
+		}
 		
+		return;
 	}
 	
 	public Set<BoardCell> getTargets(){
@@ -222,7 +225,7 @@ public class Board {
 					char initial = this.getCell(row-1, col).getInitial();
 					for(int i = 0; i < numRows; i++) {
 						for(int j = 0; j < numColumns; j++) {
-							if(this.grid[i][j].getInitial() == initial && this.grid[i][j].isRoomCenter()) {
+							if(this.grid[i][j].getInitial() == initial && this.grid[i][j].getSecretPassage() == '*') {
 								startCell.addAdj(grid[i][j]);
 							}
 						}
@@ -232,7 +235,7 @@ public class Board {
 					char initial = this.getCell(row+1, col).getInitial();
 					for(int i = 0; i < numRows; i++) {
 						for(int j = 0; j < numColumns; j++) {
-							if(this.grid[i][j].getInitial() == initial && this.grid[i][j].isRoomCenter()) {
+							if(this.grid[i][j].getInitial() == initial && this.grid[i][j].getSecretPassage() == '*') {
 								startCell.addAdj(grid[i][j]);
 							}
 						}
@@ -242,7 +245,7 @@ public class Board {
 					char initial = this.getCell(row, col+1).getInitial();
 					for(int i = 0; i < numRows; i++) {
 						for(int j = 0; j < numColumns; j++) {
-							if(this.grid[i][j].getInitial() == initial && this.grid[i][j].isRoomCenter()) {
+							if(this.grid[i][j].getInitial() == initial && this.grid[i][j].getSecretPassage() == '*') {
 								startCell.addAdj(grid[i][j]);
 							}
 						}
@@ -252,16 +255,14 @@ public class Board {
 					char initial = this.getCell(row, col-1).getInitial();
 					for(int i = 0; i < numRows; i++) {
 						for(int j = 0; j < numColumns; j++) {
-							if(this.grid[i][j].getInitial() == initial && this.grid[i][j].isRoomCenter()) {
+							if(this.grid[i][j].getInitial() == initial && this.grid[i][j].getSecretPassage() == '*') {
 								startCell.addAdj(grid[i][j]);
 							}
 						}
 					}
 				}
 			}
-			if(startCell.isLabel()) {
-				
-			}
+
 			if(startCell.isRoomCenter()) {
 				char initial = startCell.getInitial();
 				
