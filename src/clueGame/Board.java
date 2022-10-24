@@ -176,16 +176,16 @@ public class Board {
 
 	public void calcTargets( BoardCell startCell, int pathlength) {
 		targets.clear();
-		visited.clear();
+		visited.clear(); //clear lists so that they function properly
 		
-		visited.add(startCell);
+		visited.add(startCell); //add startcell so that visited isn't null
 		
-		calcTargetsRecursion(startCell, pathlength);
+		calcTargetsRecursion(startCell, pathlength); //recursive call startcell
 		
 	}
 	
 	public void calcTargetsRecursion(BoardCell startCell, int pathlength) {
-		//recusrive call helper for CalcTargets
+		//recursive call helper for CalcTargets
 		Set<BoardCell> adjList = startCell.getAdjList(); //get adjList
 		Iterator<BoardCell> it = adjList.iterator(); //get iterator for adjList
 		BoardCell thisCell;
@@ -203,6 +203,8 @@ public class Board {
 						targets.add(thisCell);
 					}
 					
+				} else if(thisCell.isRoomCenter()) {
+					targets.add(thisCell);
 				} else {
 					if(thisCell.isOccupied == false) {
 						//if adjCell isn't occupied then recursive call
@@ -229,50 +231,54 @@ public class Board {
 			if(startCell.isDoorway()) {
 				
 				getAdjCommon(startCell, row, col); //get common adj cells around door
+				DoorDirection doorDir = startCell.getDoorDirection();
 				
-				if (startCell.getDoorDirection() == DoorDirection.UP) {
-					char initial = this.getCell(row-1, col).getInitial();
-					for(int i = 0; i < numRows; i++) {
-						for(int j = 0; j < numColumns; j++) {
-							if(this.grid[i][j].getInitial() == initial && this.grid[i][j].getSecretPassage() == '*') {
-								startCell.addAdj(grid[i][j]);
-							}
-						}
-					}
-				}
+				getAdjToDoor(startCell, doorDir, row, col);
 				
-				if (startCell.getDoorDirection() == DoorDirection.DOWN) {
-					char initial = this.getCell(row+1, col).getInitial();
-					for(int i = 0; i < numRows; i++) {
-						for(int j = 0; j < numColumns; j++) {
-							if(this.grid[i][j].getInitial() == initial && this.grid[i][j].getSecretPassage() == '*') {
-								startCell.addAdj(grid[i][j]);
-							}
-						}
-					}
-				}
 				
-				if (startCell.getDoorDirection() == DoorDirection.RIGHT) {
-					char initial = this.getCell(row, col+1).getInitial();
-					for(int i = 0; i < numRows; i++) {
-						for(int j = 0; j < numColumns; j++) {
-							if(this.grid[i][j].getInitial() == initial && this.grid[i][j].getSecretPassage() == '*') {
-								startCell.addAdj(grid[i][j]);
-							}
-						}
-					}
-				}
-				
-				if (startCell.getDoorDirection() == DoorDirection.LEFT) {
-					char initial = this.getCell(row, col-1).getInitial();
-					for(int i = 0; i < numRows; i++) {
-						for(int j = 0; j < numColumns; j++) {
-							if(this.grid[i][j].getInitial() == initial && this.grid[i][j].getSecretPassage() == '*') {
-								startCell.addAdj(grid[i][j]);
-							}
-						}
-					}
-				}
+//				if (startCell.getDoorDirection() == DoorDirection.UP) {
+//					char initial = this.getCell(row-1, col).getInitial();
+//					for(int i = 0; i < numRows; i++) {
+//						for(int j = 0; j < numColumns; j++) {
+//							if(this.grid[i][j].getInitial() == initial && this.grid[i][j].getSecretPassage() == '*') {
+//								startCell.addAdj(grid[i][j]);
+//							}
+//						}
+//					}
+//				}
+//				
+//				if (startCell.getDoorDirection() == DoorDirection.DOWN) {
+//					char initial = this.getCell(row+1, col).getInitial();
+//					for(int i = 0; i < numRows; i++) {
+//						for(int j = 0; j < numColumns; j++) {
+//							if(this.grid[i][j].getInitial() == initial && this.grid[i][j].getSecretPassage() == '*') {
+//								startCell.addAdj(grid[i][j]);
+//							}
+//						}
+//					}
+//				}
+//				
+//				if (startCell.getDoorDirection() == DoorDirection.RIGHT) {
+//					char initial = this.getCell(row, col+1).getInitial();
+//					for(int i = 0; i < numRows; i++) {
+//						for(int j = 0; j < numColumns; j++) {
+//							if(this.grid[i][j].getInitial() == initial && this.grid[i][j].getSecretPassage() == '*') {
+//								startCell.addAdj(grid[i][j]);
+//							}
+//						}
+//					}
+//				}
+//				
+//				if (startCell.getDoorDirection() == DoorDirection.LEFT) {
+//					char initial = this.getCell(row, col-1).getInitial();
+//					for(int i = 0; i < numRows; i++) {
+//						for(int j = 0; j < numColumns; j++) {
+//							if(this.grid[i][j].getInitial() == initial && this.grid[i][j].getSecretPassage() == '*') {
+//								startCell.addAdj(grid[i][j]);
+//							}
+//						}
+//					}
+//				}
 			}
 
 			if(startCell.isRoomCenter()) {
@@ -354,5 +360,34 @@ public class Board {
 			}
 		}
 	}
+	
+	public void getAdjToDoor(BoardCell startCell, DoorDirection whichWay, int row, int col) {
+		int xOffset = 0;
+		int yOffset = 0;
+		
+		if(whichWay == DoorDirection.UP) {
+			yOffset = -1;
+		}
+		if(whichWay == DoorDirection.DOWN) {
+			yOffset = 1;
+		}
+		if(whichWay == DoorDirection.LEFT) {
+			xOffset = -1;
+		}
+		if(whichWay == DoorDirection.RIGHT) {
+			xOffset = 1;
+		}
+		
+		char initial = this.getCell(row + yOffset, col + xOffset).getInitial();
+		
+		for(int i = 0; i < numRows; i++) {
+			for(int j = 0; j < numColumns; j++) {
+				if(this.grid[i][j].getInitial() == initial && this.grid[i][j].isRoomCenter()) {
+					startCell.addAdj(grid[i][j]);
+				}
+			}
+		}
+	}
 }
+
 	

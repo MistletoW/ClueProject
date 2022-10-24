@@ -1,3 +1,58 @@
+commit edb395787bac199fe9cb65ef78b1245f05009dc7
+Author: MistletoW <haasedylan@gmail.com>
+Date:   Wed Oct 19 21:36:20 2022 -0600
+
+    most target tests pass
+
+commit 8557a433c2356161fc0cfc2a78c1a3df429add3e
+Merge: 464f3b5 2ea3711
+Author: MistletoW <haasedylan@gmail.com>
+Date:   Wed Oct 19 18:56:04 2022 -0600
+
+    for merge 2
+
+commit 464f3b505238f077a9a78762fa7c729886b36dfc
+Author: MistletoW <haasedylan@gmail.com>
+Date:   Wed Oct 19 18:54:54 2022 -0600
+
+    for merge
+
+commit 2ea3711b68527715663f4d864dc82bb7c6bb30d8
+Author: MistletoW <haasedylan@gmail.com>
+Date:   Wed Oct 19 13:28:25 2022 -0600
+
+    fixing file found error
+
+commit e5cb0a834fbfef75752edf0d41cc879d1bf36a46
+Author: MistletoW <haasedylan@gmail.com>
+Date:   Wed Oct 19 13:12:47 2022 -0600
+
+    Some Targets tests working
+
+commit 3b7e85a1a7a2f1054770d7f4eb29a7ccb800a07e
+Author: haasedylan@gmail.com <dhaase@mines.edu>
+Date:   Wed Oct 19 11:26:18 2022 -0600
+
+    Working on finishing CalcTargets
+
+commit a193147795c3837594930331d22cfc4f3de3a33a
+Author: haasedylan@gmail.com <dhaase@mines.edu>
+Date:   Wed Oct 19 11:21:59 2022 -0600
+
+    Adj List is working
+
+commit 6c8fca61426b1925956b9127474162a2c38e093f
+Author: MistletoW <haasedylan@gmail.com>
+Date:   Tue Oct 18 20:13:12 2022 -0600
+
+    Understanding how to find rooms, etc. Needs to implement
+
+commit 21903c5dc77246b3481f794917b7448b4525a61c
+Author: MistletoW <haasedylan@gmail.com>
+Date:   Tue Oct 18 20:00:16 2022 -0600
+
+    TestAdjacencyWalkways working
+
 commit 1bbf4ac4f4b448719f1c3189a6b6e143d5b199e8
 Author: MistletoW <haasedylan@gmail.com>
 Date:   Fri Oct 14 21:17:30 2022 -0600

@@ -158,7 +158,7 @@ public class BoardAdjTargetTest306 {
 		// test a roll of 3
 		board.calcTargets(board.getCell(8, 17), 3);
 		targets= board.getTargets();
-		assertEquals(14, targets.size());
+		assertEquals(12, targets.size());
 		assertTrue(targets.contains(board.getCell(12, 20)));
 		assertTrue(targets.contains(board.getCell(3, 20)));
 		assertTrue(targets.contains(board.getCell(7, 17)));
@@ -242,10 +242,10 @@ public class BoardAdjTargetTest306 {
 		board.getCell(12, 20).setOccupied(false);
 		board.getCell(8, 18).setOccupied(false);
 		targets= board.getTargets();
-		assertEquals(3, targets.size());
+		assertEquals(2, targets.size());
 		assertTrue(targets.contains(board.getCell(7, 17)));
 		assertTrue(targets.contains(board.getCell(8, 16)));
-		assertTrue(targets.contains(board.getCell(12, 20)));
+		assertFalse(targets.contains(board.getCell(12, 20)));
 		// check leaving a room with a blocked doorway
 		board.getCell(12, 15).setOccupied(true);
 		board.calcTargets(board.getCell(12, 20), 3);
