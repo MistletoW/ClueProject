@@ -151,7 +151,7 @@ public class BoardAdjTargetTest {
 		//rest roll 4
 		board.calcTargets(board.getCell(21,3), 2);
 		targets= board.getTargets();
-		assertEquals(5, targets.size());
+		assertEquals(6, targets.size());
 		assertTrue(targets.contains(board.getCell(22,7)));
 		assertTrue(targets.contains(board.getCell(24,7)));
 		assertTrue(targets.contains(board.getCell(23,8)));
