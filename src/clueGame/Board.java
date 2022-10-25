@@ -204,6 +204,7 @@ public class Board {
 					
 				} else if(thisCell.isRoomCenter()) {
 					targets.add(thisCell);
+					calcTargetsRecursion(thisCell, pathlength-1);
 				} else {
 					if(thisCell.isOccupied == false) {
 						//if adjCell isn't occupied then recursive call
