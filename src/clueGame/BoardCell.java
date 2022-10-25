@@ -26,6 +26,13 @@ public class BoardCell {
 		this.cell = cell;
 		initial = cell.charAt(0);
 	}
+	public void setRoomLabel() {
+		if(cell.length() > 1) {
+			if(cell.charAt(1) == '#') {
+				roomLabel = true;
+			}
+		}
+	}
 	public char getInitial() {
 		return initial; 
 	}

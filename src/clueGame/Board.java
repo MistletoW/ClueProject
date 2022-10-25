@@ -51,6 +51,9 @@ public class Board {
 		for(int i = 0; i < numRows; i++) {
 			for(int j = 0; j < numColumns; j++) {
 				this.setAdjList(i,j);
+				BoardCell c = getCell(i,j);
+				roomMap.get(c.getInitial()).setCenterCell(i,j);
+				roomMap.get(c.getInitial()).setLabelCell(i,j);
 			}
 		}
 	}
@@ -321,8 +324,8 @@ public class Board {
 						for(int l = 0; l < numColumns; l++) {
 							
 							if(grid[k][l].getInitial() == secret && grid[k][l].isRoomCenter()) {
-								System.out.println(grid[k][l]);
-								System.out.println(startCell);
+								//System.out.println(grid[k][l]);
+								//System.out.println(startCell);
 								startCell.addAdj(grid[k][l]);
 							}
 						}
