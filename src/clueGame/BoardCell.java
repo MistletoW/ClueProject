@@ -3,8 +3,6 @@ package clueGame;
 import java.util.HashSet;
 import java.util.Set;
 
-import experiment.TestBoardCell;
-
 public class BoardCell {
 	private int row;
 	private int col;
@@ -49,7 +47,7 @@ public class BoardCell {
 		return false;
 	}
 	public DoorDirection getDoorDirection() {
-		if(cell.length() > 1) {
+		if(this.isDoorway() == true) {
 			char c = cell.charAt(1); 
 			switch(c) {
 			case('^'):
@@ -80,7 +78,7 @@ public class BoardCell {
 		return roomLabel;
 	}
 	public boolean isRoomCenter() {
-		if(cell.length() > 1) {
+		 if(cell.length() > 1) {
 			if(cell.charAt(1) == '*') {
 				roomCenter = true;
 			}
@@ -110,4 +108,5 @@ public class BoardCell {
 	public String getCellValue() {
 		return cell;
 	}
+
 }

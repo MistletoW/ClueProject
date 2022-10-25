@@ -2,9 +2,6 @@ package clueGame;
 
 import java.io.FileNotFoundException;
 import java.io.FileReader;
-
-import experiment.TestBoardCell;
-
 import java.util.*;
 
 public class Board {
@@ -245,7 +242,7 @@ public class Board {
 				getAdjToDoor(startCell, doorDir, row, col);
 			}
 				
-			if(startCell.isRoomCenter()) { //KATHRYN YOU MIGHT HAVE TO LOOK AT THIS
+			if(startCell.isRoomCenter()) { 
 				getSecretPassage(startCell, startCell.getInitial());
 			}
 		}
@@ -309,7 +306,6 @@ public class Board {
 	
 	public void getSecretPassage(BoardCell startCell, char initial) {
 		char secret = ' ';
-		char secretRoomInitial = ' ';
 		for(int i = 0; i < numRows; i++) {	//for every cell in grid
 			for(int j = 0; j < numColumns; j++) {	
 
@@ -324,8 +320,6 @@ public class Board {
 						for(int l = 0; l < numColumns; l++) {
 							
 							if(grid[k][l].getInitial() == secret && grid[k][l].isRoomCenter()) {
-								//System.out.println(grid[k][l]);
-								//System.out.println(startCell);
 								startCell.addAdj(grid[k][l]);
 							}
 						}

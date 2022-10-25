@@ -1,7 +1,6 @@
 package clueGame;
 
 public class Room {
-	private char label;
 	private String name;
 	private BoardCell centerCell;
 	private BoardCell labelCell;	
@@ -9,7 +8,6 @@ public class Room {
 	//	Constructor
 	public Room(String name, char label) {
 		this.name = name;
-		this.label = label;
 	}
 
 	public String getName() {
@@ -26,8 +24,6 @@ public class Room {
 		return centerCell;
 	}
 	public void setLabelCell(int row, int col) {
-
-		//iterates through board, looks for label cell for the specific room label #
 		if(Board.getInstance().getCell(row,col).isLabel() == true){
 			labelCell = Board.getInstance().getCell(row,col);
 		}
