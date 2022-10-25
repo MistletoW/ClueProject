@@ -92,35 +92,9 @@ public class Board {
 	//	load layout
 	public void loadLayoutConfig() throws FileNotFoundException, BadConfigFormatException{
 		// reading in the file to get the file size, check to make sure column length is consistent
-		try {
-			FileReader reader = new FileReader(layoutConfigFile);
-			Scanner in = new Scanner(reader);
-			numRows = 0;
-			numColumns = 0;
-			while(in.hasNextLine()) {
-				String line = in.nextLine();
-				String cells[] = line.split(",");
-				if(numColumns == 0) {
-					numColumns = cells.length;
-				} else if(numColumns != cells.length && cells.length != 0) {
-					System.out.println();
-					throw new BadConfigFormatException();
-				}
-				if(cells.length != 0) {
-					numRows++;
-				}
-			}
-			in.close();
-		} catch(FileNotFoundException e) {
-			e.printStackTrace();
-		}
+		getBoardSize();
 		//create our grid
-		grid = new BoardCell[numRows][numColumns];
-		for(int i = 0; i< numRows; i++) {
-			for(int j = 0; j < numColumns; j++) {
-				grid[i][j] = new BoardCell(i,j);
-			}
-		}
+		createGrid();
 		//pass in the data to each board cell
 		try {
 			FileReader reader = new FileReader(layoutConfigFile);
@@ -143,6 +117,38 @@ public class Board {
 			}
 			in.close();
 		}catch (FileNotFoundException e) {
+			e.printStackTrace();
+		}
+	}
+	public void createGrid() {
+		grid = new BoardCell[numRows][numColumns];
+		for(int i = 0; i< numRows; i++) {
+			for(int j = 0; j < numColumns; j++) {
+				grid[i][j] = new BoardCell(i,j);
+			}
+		}
+	}
+	public void getBoardSize() throws BadConfigFormatException {
+		try {
+			FileReader reader = new FileReader(layoutConfigFile);
+			Scanner in = new Scanner(reader);
+			numRows = 0;
+			numColumns = 0;
+			while(in.hasNextLine()) {
+				String line = in.nextLine();
+				String cells[] = line.split(",");
+				if(numColumns == 0) {
+					numColumns = cells.length;
+				} else if(numColumns != cells.length && cells.length != 0) {
+					System.out.println();
+					throw new BadConfigFormatException();
+				}
+				if(cells.length != 0) {
+					numRows++;
+				}
+			}
+			in.close();
+		} catch(FileNotFoundException e) {
 			e.printStackTrace();
 		}
 	}
