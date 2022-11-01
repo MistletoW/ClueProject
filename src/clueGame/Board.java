@@ -14,7 +14,7 @@ public class Board {
 	private Set<BoardCell> visited;
 	private int numRows;
 	private int numColumns;
-	private ArrayList<Player> players;
+	private ArrayList<Player> players = new ArrayList<Player>();
 	private Solution theAnswer;
 	
 	/*
@@ -80,7 +80,10 @@ public class Board {
 						//load room data 
 						Room r = new Room(splitData[1], splitData[2].charAt(0));
 						roomMap.put(splitData[2].charAt(0) ,r);
-
+					} else if(splitData[0].equals("ComputerPlayer")) {
+						//we will store Player data in setupConfigFile, (we still need to add that!!)
+						Player p = new ComputerPlayer(splitData[1], splitData[2]);
+						players.add(p);
 					}else {
 						throw new BadConfigFormatException();
 					}
