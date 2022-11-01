@@ -14,6 +14,9 @@ public class Board {
 	private Set<BoardCell> visited;
 	private int numRows;
 	private int numColumns;
+	private ArrayList<Player> players;
+	private Solution theAnswer;
+	
 	/*
 	 * variable and methods used for singleton pattern
 	 */
@@ -327,6 +330,9 @@ public class Board {
 				}
 			}
 		}
+	}
+	public ArrayList<Player> getPlayers() {
+		return players;
 	}
 
 }
