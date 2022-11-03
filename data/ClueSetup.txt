@@ -11,3 +11,10 @@ Room, Golden Corral, G
 //other spaces on board
 Space, Unused, X
 Space, Walkway, W
+//players
+HumanPlayer, Bri, Red
+ComputerPlayer, Cooper, Orange
+ComputerPlayer, Liv, Yellow
+ComputerPlayer, Garrett, Green
+ComputerPlayer, Holden, Blue
+ComputerPlayer, Addie, Purple

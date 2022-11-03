@@ -21,5 +21,8 @@ class PlayerTests {
 	void testNumPlayers() {
 		assertEquals(6, board.getPlayers().size());
 	}
-
+	@Test
+	void testCards() {
+		assertEquals(21, board.getDeck().size());
+	}
 }

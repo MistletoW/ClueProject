@@ -15,6 +15,7 @@ public class Board {
 	private int numRows;
 	private int numColumns;
 	private ArrayList<Player> players = new ArrayList<Player>();
+	private ArrayList<Card> deck = new ArrayList<Card>();
 	private Solution theAnswer;
 	
 	/*
@@ -84,6 +85,10 @@ public class Board {
 						//we will store Player data in setupConfigFile, (we still need to add that!!)
 						Player p = new ComputerPlayer(splitData[1], splitData[2]);
 						players.add(p);
+					} else if(splitData[0].equals("HumanPlayer")) {
+							//we will store Player data in setupConfigFile, (we still need to add that!!)
+							Player p = new HumanPlayer(splitData[1], splitData[2]);
+							players.add(p);
 					}else {
 						throw new BadConfigFormatException();
 					}
@@ -334,8 +339,13 @@ public class Board {
 			}
 		}
 	}
+	//returns the players 
 	public ArrayList<Player> getPlayers() {
 		return players;
+	}
+	//returns the cards
+	public ArrayList<Card> getDeck() {
+		return deck;
 	}
 
 }
