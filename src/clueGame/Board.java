@@ -81,14 +81,29 @@ public class Board {
 						//load room data 
 						Room r = new Room(splitData[1], splitData[2].charAt(0));
 						roomMap.put(splitData[2].charAt(0) ,r);
+						if(splitData[0].equals("Room")) {
+							//note: there should be a way to make this code more efficient! I'm just lazy
+							Card rc = new Card(splitData[1], CardType.ROOM);
+							deck.add(rc);
+						}
 					} else if(splitData[0].equals("ComputerPlayer")) {
-						//we will store Player data in setupConfigFile, (we still need to add that!!)
+						//create player
 						Player p = new ComputerPlayer(splitData[1], splitData[2]);
 						players.add(p);
+						//create player Card
+						Card cc = new Card(splitData[1], CardType.PERSON);
+						deck.add(cc);
 					} else if(splitData[0].equals("HumanPlayer")) {
-							//we will store Player data in setupConfigFile, (we still need to add that!!)
+							//create player
 							Player p = new HumanPlayer(splitData[1], splitData[2]);
 							players.add(p);
+							//create player Card 
+							Card pc = new Card(splitData[1], CardType.PERSON);
+							deck.add(pc);
+					} else if(splitData[0].equals("Weapon")) {
+						//create weapon card
+						Card w = new Card(splitData[1], CardType.WEAPON);
+						deck.add(w);
 					}else {
 						throw new BadConfigFormatException();
 					}

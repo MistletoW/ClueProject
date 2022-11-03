@@ -18,3 +18,10 @@ ComputerPlayer, Liv, Yellow
 ComputerPlayer, Garrett, Green
 ComputerPlayer, Holden, Blue
 ComputerPlayer, Addie, Purple
+//weapons
+Weapon, Spoon
+Weapon, Spork
+Weapon, Fork
+Weapon, Knife
+Weapon, Plate
+Weapon, Frying Pan
