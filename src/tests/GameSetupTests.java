@@ -76,5 +76,11 @@ public class GameSetupTests {
 	public void testDealing() {
 		//make sure the solution is dealt
 		assertNotNull(board.getSolution());
+		assertNotNull(board.getSolution().getPerson());
+		
+		//make sure solution cards are not in the deck after the solution has been dealt
+		assertFalse(board.getDeck().contains(board.getSolution().getPerson()));
+		assertFalse(board.getDeck().contains(board.getSolution().getWeapon()));
+		assertFalse(board.getDeck().contains(board.getSolution().getRoom()));
 	}
 }

@@ -6,18 +6,20 @@ public class Solution {
 	private Card room;
 	private Card person;
 	private Card weapon;
-	private ArrayList<Card> theCards = new ArrayList<Card>();
 	
 	public Solution(Card room, Card person, Card weapon) {
 		this.room = room;
 		this.person = person;
 		this.weapon = weapon;
-		theCards.add(room);
-		theCards.add(person);
-		theCards.add(weapon);
 	}
 	
-	public ArrayList<Card> getSolution() {
-		return theCards;
+	public Card getPerson() {
+		return person;
+	}
+	public Card getWeapon() {
+		return weapon;
+	}
+	public Card getRoom() {
+		return room;
 	}
 }
