@@ -15,7 +15,10 @@ public class Board {
 	private int numRows;
 	private int numColumns;
 	private ArrayList<Player> players = new ArrayList<Player>();
-	private ArrayList<Card> deck = new ArrayList<Card>();
+	private Set<Card> personDeck = new HashSet<Card>();
+	private Set<Card> weaponDeck = new HashSet<Card>();
+	private Set<Card> roomDeck = new HashSet<Card>();
+	private Set<Card> deck = new HashSet<Card>();
 	private Solution theAnswer;
 	
 	/*
@@ -57,6 +60,7 @@ public class Board {
 				roomMap.get(c.getInitial()).setLabelCell(i,j);
 			}
 		}
+		loadDeck();
 	}
 	//	set the config files
 	public void setConfigFiles(String csv, String txt) {
@@ -84,7 +88,7 @@ public class Board {
 						if(splitData[0].equals("Room")) {
 							//note: there should be a way to make this code more efficient! I'm just lazy
 							Card rc = new Card(splitData[1], CardType.ROOM);
-							deck.add(rc);
+							roomDeck.add(rc);
 						}
 					} else if(splitData[0].equals("ComputerPlayer")) {
 						//create player
@@ -92,18 +96,18 @@ public class Board {
 						players.add(p);
 						//create player Card
 						Card cc = new Card(splitData[1], CardType.PERSON);
-						deck.add(cc);
+						personDeck.add(cc);
 					} else if(splitData[0].equals("HumanPlayer")) {
 							//create player
 							Player p = new HumanPlayer(splitData[1], splitData[2]);
 							players.add(p);
 							//create player Card 
 							Card pc = new Card(splitData[1], CardType.PERSON);
-							deck.add(pc);
+							personDeck.add(pc);
 					} else if(splitData[0].equals("Weapon")) {
 						//create weapon card
 						Card w = new Card(splitData[1], CardType.WEAPON);
-						deck.add(w);
+						weaponDeck.add(w);
 					}else {
 						throw new BadConfigFormatException();
 					}
@@ -359,8 +363,19 @@ public class Board {
 		return players;
 	}
 	//returns the cards
-	public ArrayList<Card> getDeck() {
+	public Set<Card> getDeck() {
 		return deck;
+	}
+	public void loadDeck() {
+		for(Card i : personDeck) {
+			deck.add(i);
+		}
+		for(Card i : roomDeck) {
+			deck.add(i);
+		}
+		for(Card i : weaponDeck) {
+			deck.add(i);
+		}
 	}
 
 }

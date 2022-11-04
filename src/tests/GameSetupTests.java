@@ -40,7 +40,7 @@ public class GameSetupTests {
 		assertEquals(playerTestList.size(), 6);
 		
 		//test that players, weapons and rooms have been add to Deck
-		ArrayList<Card> deckTestList = board.getDeck();
+		Set<Card> deckTestList = board.getDeck();
 		assertEquals(deckTestList.size(), 21);
 		
 	}
@@ -74,6 +74,6 @@ public class GameSetupTests {
 	
 	@Test
 	public void testDealing() {
-		
+		//make sure the solution is dealt
 	}
 }
