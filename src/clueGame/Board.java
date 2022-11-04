@@ -366,6 +366,7 @@ public class Board {
 	public Set<Card> getDeck() {
 		return deck;
 	}
+	//combine separate decks into one deck for later dealing 
 	public void loadDeck() {
 		for(Card i : personDeck) {
 			deck.add(i);
@@ -376,6 +377,9 @@ public class Board {
 		for(Card i : weaponDeck) {
 			deck.add(i);
 		}
+	}
+	public Solution dealSolution() {
+		return theAnswer;
 	}
 
 }
