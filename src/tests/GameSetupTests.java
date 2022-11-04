@@ -6,6 +6,7 @@ import static org.junit.Assert.assertNotEquals;
 import static org.junit.Assert.assertTrue;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.Set;
 
 import org.junit.jupiter.api.BeforeAll;
@@ -52,12 +53,23 @@ public class GameSetupTests {
 	@Test
 	public void testPlayersContains() {
 		ArrayList<Player> testList = board.getPlayers();
-		assertTrue(testList.get(0).getName() == "Bri");
-		assertTrue(testList.get(1).getName() == "Cooper");
-		assertTrue(testList.get(2).getName() == "Liv");
-		assertTrue(testList.get(3).getName() == "Garret");
-		assertTrue(testList.get(4).getName() == "Holden");
-		assertTrue(testList.get(5).getName() == "Addie");
+		
+		System.out.println(testList.size());
+		int humans = 0;
+		int comps = 0;
+		
+		for(int i = 0; i < testList.size(); i++) {
+			if(testList.get(i).isHuman()) {
+				humans++;
+				assertTrue(testList.get(i).getName() == "Bri");
+			} else {
+				comps ++;
+			}
+		}
+		
+		assertEquals(comps, 5);
+		assertEquals(humans, 1);
+		
 	}
 	
 	@Test

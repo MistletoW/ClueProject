@@ -12,5 +12,10 @@ public class ComputerPlayer extends Player{
 		// TODO Auto-generated method stub
 		
 	}
+	
+	@Override
+	public boolean isHuman() {
+		return false;
+	}
 
 }

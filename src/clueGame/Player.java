@@ -11,11 +11,20 @@ public abstract class Player {
 	}
 	public abstract void updateHand(Card card);
 	
+	public abstract boolean isHuman();
+	
 	public String getName() {
 		return name;
 	}
 	
 	public String getColor() {
 		return color;
+	}
+	
+	public boolean equals(Player o) {
+		if(this.name == o.getName() && this.color == o.getColor()) {
+			return true;
+		}
+		return false;
 	}
 }
