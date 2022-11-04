@@ -57,11 +57,10 @@ public class GameSetupTests {
 		System.out.println(testList.size());
 		int humans = 0;
 		int comps = 0;
-		
 		for(int i = 0; i < testList.size(); i++) {
 			if(testList.get(i).isHuman()) {
+				assertEquals(testList.get(0).getName(), "Bri");
 				humans++;
-				assertTrue(testList.get(i).getName() == "Bri");
 			} else {
 				comps ++;
 			}
@@ -69,6 +68,7 @@ public class GameSetupTests {
 		
 		assertEquals(comps, 5);
 		assertEquals(humans, 1);
+		
 		
 	}
 	
