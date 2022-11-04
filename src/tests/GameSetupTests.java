@@ -40,9 +40,14 @@ public class GameSetupTests {
 		assertNotEquals(playerTestList.size(), 0);
 		assertEquals(playerTestList.size(), 6);
 		
-		//test that players, weapons and rooms have been add to Deck
+		//test that players, weapons and rooms have been added to Deck
 		Set<Card> deckTestList = board.getDeck();
-		assertEquals(deckTestList.size(), 21);
+		/*
+		 * note!! once the solution has been dealt, the cards are taken out of the deck! 
+		 * this is why the deck size is now 18. (was 21 before adding dealSolution, so
+		 * we know the code works fine.)
+		 * */ 
+		assertEquals(deckTestList.size(), 18);
 		
 	}
 	

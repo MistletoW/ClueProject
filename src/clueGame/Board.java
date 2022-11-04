@@ -395,6 +395,9 @@ public class Board {
 		
 		theAnswer = new Solution(room, person, weapon);
 		
+		deck.remove(person);
+		deck.remove(room);
+		deck.remove(weapon);
 	}
 	
 	public Solution getSolution() {
