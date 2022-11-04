@@ -55,7 +55,6 @@ public class GameSetupTests {
 	public void testPlayersContains() {
 		ArrayList<Player> testList = board.getPlayers();
 		
-		System.out.println(testList.size());
 		int humans = 0;
 		int comps = 0;
 		for(int i = 0; i < testList.size(); i++) {
@@ -76,6 +75,6 @@ public class GameSetupTests {
 	@Test
 	public void testDealing() {
 		//make sure the solution is dealt
-		assertNotNull(board.dealSolution());
+		assertNotNull(board.getSolution());
 	}
 }

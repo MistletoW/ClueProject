@@ -15,9 +15,9 @@ public class Board {
 	private int numRows;
 	private int numColumns;
 	private ArrayList<Player> players = new ArrayList<Player>();
-	private Set<Card> personDeck = new HashSet<Card>();
-	private Set<Card> weaponDeck = new HashSet<Card>();
-	private Set<Card> roomDeck = new HashSet<Card>();
+	private ArrayList<Card> personDeck = new ArrayList<Card>();
+	private ArrayList<Card> weaponDeck = new ArrayList<Card>();
+	private ArrayList<Card> roomDeck = new ArrayList<Card>();
 	private Set<Card> deck = new HashSet<Card>();
 	private Solution theAnswer;
 	
@@ -61,6 +61,7 @@ public class Board {
 			}
 		}
 		loadDeck();
+		dealSolution();
 	}
 	//	set the config files
 	public void setConfigFiles(String csv, String txt) {
@@ -378,7 +379,25 @@ public class Board {
 			deck.add(i);
 		}
 	}
-	public Solution dealSolution() {
+	public void dealSolution() {
+		//pick a random card from each deck
+		Random randomPerson = new Random();
+		int p = randomPerson.nextInt(personDeck.size());
+		Card person = personDeck.get(p);
+		
+		Random randomWeapon = new Random();
+		int w = randomPerson.nextInt(weaponDeck.size());
+		Card weapon = weaponDeck.get(w);
+		
+		Random randomRoom = new Random();
+		int r = randomPerson.nextInt(roomDeck.size());
+		Card room = roomDeck.get(r);
+		
+		theAnswer = new Solution(room, person, weapon);
+		
+	}
+	
+	public Solution getSolution() {
 		return theAnswer;
 	}
 
