@@ -41,13 +41,13 @@ public class GameSetupTests {
 		assertEquals(playerTestList.size(), 6);
 		
 		//test that players, weapons and rooms have been added to Deck
-		Set<Card> deckTestList = board.getDeck();
+		ArrayList<Card> deckTestList = board.getDeck();
 		/*
 		 * note!! once the solution has been dealt, the cards are taken out of the deck! 
-		 * this is why the deck size is now 18. (was 21 before adding dealSolution(), so
-		 * we know the code works fine.)
+		 * this is why the deck size is now 0.
+		 * was 18 after solution was dealt, was 21 when initialized, so we know it works 
 		 * */ 
-		assertEquals(deckTestList.size(), 18);
+		assertEquals(deckTestList.size(), 0);
 		
 	}
 	
@@ -64,14 +64,16 @@ public class GameSetupTests {
 		int comps = 0;
 		for(int i = 0; i < testList.size(); i++) {
 			if(testList.get(i).isHuman()) {
+//				test that human player is 'Bri' which was in our setup
 				assertEquals(testList.get(0).getName(), "Bri");
 				humans++;
 			} else {
 				comps ++;
 			}
 		}
-		
+//		test that the players contains 5 computer players
 		assertEquals(comps, 5);
+//		test that the players contains one human player
 		assertEquals(humans, 1);
 		
 		

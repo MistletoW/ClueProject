@@ -18,7 +18,7 @@ public class Board {
 	private ArrayList<Card> personDeck = new ArrayList<Card>();
 	private ArrayList<Card> weaponDeck = new ArrayList<Card>();
 	private ArrayList<Card> roomDeck = new ArrayList<Card>();
-	private Set<Card> deck = new HashSet<Card>();
+	private ArrayList<Card> deck = new ArrayList<Card>();
 	private Solution theAnswer;
 	
 	/*
@@ -62,6 +62,7 @@ public class Board {
 		}
 		loadDeck();
 		dealSolution();
+		dealCards();
 	}
 	//	set the config files
 	public void setConfigFiles(String csv, String txt) {
@@ -364,7 +365,7 @@ public class Board {
 		return players;
 	}
 	//returns the cards
-	public Set<Card> getDeck() {
+	public ArrayList<Card> getDeck() {
 		return deck;
 	}
 	//combine separate decks into one deck for later dealing 
@@ -402,6 +403,20 @@ public class Board {
 	
 	public Solution getSolution() {
 		return theAnswer;
+	}
+	public void dealCards() {
+		int counter = 0;
+		while(deck.size() > 0) {
+			if(counter == players.size()) {
+				counter = 0;
+			}
+			Random rand = new Random();
+			int r = rand.nextInt(deck.size());
+			Card c = deck.get(r);
+			deck.remove(r);
+			players.get(counter).addCard(c);
+			counter++;
+		}
 	}
 
 }
