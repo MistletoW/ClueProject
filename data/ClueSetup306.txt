@@ -11,3 +11,17 @@ Room, Hall, H
 // other spaces on board
 Space, Unused, X
 Space, Walkway, W
+//players
+HumanPlayer, Bri, Red
+ComputerPlayer, Cooper, Orange
+ComputerPlayer, Liv, Yellow
+ComputerPlayer, Garrett, Green
+ComputerPlayer, Holden, Blue
+ComputerPlayer, Addie, Purple
+//weapons
+Weapon, Spoon
+Weapon, Spork
+Weapon, Fork
+Weapon, Knife
+Weapon, Plate
+Weapon, Frying Pan
