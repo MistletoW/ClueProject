@@ -44,7 +44,7 @@ public class GameSetupTests {
 		Set<Card> deckTestList = board.getDeck();
 		/*
 		 * note!! once the solution has been dealt, the cards are taken out of the deck! 
-		 * this is why the deck size is now 18. (was 21 before adding dealSolution, so
+		 * this is why the deck size is now 18. (was 21 before adding dealSolution(), so
 		 * we know the code works fine.)
 		 * */ 
 		assertEquals(deckTestList.size(), 18);
@@ -87,5 +87,11 @@ public class GameSetupTests {
 		assertFalse(board.getDeck().contains(board.getSolution().getPerson()));
 		assertFalse(board.getDeck().contains(board.getSolution().getWeapon()));
 		assertFalse(board.getDeck().contains(board.getSolution().getRoom()));
+		
+		//make sure that cards are dealt to each player
+		for(Player p : board.getPlayers()) {
+			assertNotEquals(p.getCards().size(), 0);
+		}
+		
 	}
 }
