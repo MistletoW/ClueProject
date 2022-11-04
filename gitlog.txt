@@ -1,3 +1,165 @@
+commit 3867b7f88b094c81637b8c8838ac1842251c656b
+Author: schultzk1123 <schultz@mines.edu>
+Date:   Fri Nov 4 16:29:23 2022 -0600
+
+    All prior tests now work
+
+commit 007a61e7f894ca5a126c681ed12f8bb09d727146
+Author: schultzk1123 <schultz@mines.edu>
+Date:   Fri Nov 4 16:21:22 2022 -0600
+
+    test added to check appropriate amount of cards in play after they have been dealt
+
+commit 3cf5fb74fb3c7bbe27a8cfd1b6a4f696d14a658f
+Author: schultzk1123 <schultz@mines.edu>
+Date:   Fri Nov 4 16:06:36 2022 -0600
+
+    added code so that cards are dealt
+
+commit 7945b65f04143ccf355843b4cdec41b957171393
+Author: schultzk1123 <schultz@mines.edu>
+Date:   Fri Nov 4 15:45:50 2022 -0600
+
+    test added to make sure cards are dealt to players
+
+commit e0211d04628dc9e093b0040ee7f45959beb97b60
+Author: schultzk1123 <schultz@mines.edu>
+Date:   Fri Nov 4 15:35:00 2022 -0600
+
+    Code added so that solution is dealt
+
+commit 2f0ae215a2efdaeaf18b62031cb522bd1ca9b895
+Author: schultzk1123 <schultz@mines.edu>
+Date:   Fri Nov 4 15:26:08 2022 -0600
+
+    Some unnecessary code removed, tests added to make sure solution cards are not in the deck after the solution has been dealt
+
+commit fdcdb6b39bea5e8858a49083d07c6921831bd9d5
+Author: schultzk1123 <schultz@mines.edu>
+Date:   Fri Nov 4 15:19:14 2022 -0600
+
+    updated methods to create a random solution for the game
+
+commit 97fea24f6db99e833255a9bea54530081fb19e00
+Author: schultzk1123 <schultz@mines.edu>
+Date:   Fri Nov 4 14:59:12 2022 -0600
+
+    test to make sure solution is dealt added
+
+commit 78e50938b302f838815436c2d7c6818732a4a41a
+Author: schultzk1123 <schultz@mines.edu>
+Date:   Fri Nov 4 14:53:33 2022 -0600
+
+    board updated to have seperate decks of Person, Room, and Weapon cards so that way dealing the solution is easier. decks are now HashSets.
+
+commit 266d6e118c382d27a2cc7daa41caac5fbdaaf58f
+Author: schultzk1123 <schultz@mines.edu>
+Date:   Fri Nov 4 14:28:41 2022 -0600
+
+    updated test functionality in GameSetupTests
+
+commit 6cb40598cb2878fbdf7807c6e089bb5bf80680df
+Author: MistletoW <haasedylan@gmail.com>
+Date:   Thu Nov 3 20:07:01 2022 -0600
+
+    testPlayContains is being resolved
+
+commit d04ce20422067310d17793494d8a26ebea226055
+Author: MistletoW <haasedylan@gmail.com>
+Date:   Thu Nov 3 19:40:42 2022 -0600
+
+    created equals method for player
+
+commit e0b2c79bd130ec36fa14c3c9cf3910af4a10ba88
+Author: MistletoW <haasedylan@gmail.com>
+Date:   Thu Nov 3 19:22:18 2022 -0600
+
+    testLoadSetup has tests that pass
+
+commit 77482b129d61d3bee25b1cce66aaa74f1e054065
+Author: MistletoW <haasedylan@gmail.com>
+Date:   Thu Nov 3 18:32:27 2022 -0600
+
+    cards has equals function now
+
+commit 54b82ca74544646d42a091427f8bf07dbafa19c1
+Author: MistletoW <haasedylan@gmail.com>
+Date:   Thu Nov 3 18:31:54 2022 -0600
+
+    Game Setup Tests has a setup beforeall now
+
+commit ea3ed2635b250a246c7f6e1b0f6b74ef876026ed
+Author: Kathryn Schultz <schultz@mines.edu>
+Date:   Thu Nov 3 12:14:24 2022 -0600
+
+    code updated so that card init test passesgit push -u origin main!
+
+commit 28970c4f53ae609b58805863d120a998df5cf913
+Author: Kathryn Schultz <schultz@mines.edu>
+Date:   Thu Nov 3 12:02:29 2022 -0600
+
+    Made it so that player test passes, added new test to test to make sure cards initialize, that test fails
+
+commit 94ca4d5c5d10e60eee66d8e648c1475abf3b89b6
+Author: Kathryn Schultz <schultz@mines.edu>
+Date:   Tue Nov 1 12:08:33 2022 -0600
+
+    Player and Board class updated so that the player test fails
+
+commit 5ffdd1192442822a1db71063bf189e09f712da76
+Author: Kathryn Schultz <schultz@mines.edu>
+Date:   Tue Nov 1 11:53:19 2022 -0600
+
+    added new Player and Card skeleton classes, added PlayerTests class and added a test
+
+commit c4a60969aaa08c8f98d62359541c572c305e558d
+Author: schultzk1123 <schultz@mines.edu>
+Date:   Mon Oct 24 21:33:05 2022 -0600
+
+    cleaned up code, got rid of unused variables
+
+commit 2d88beab8694cf98ba4cfbb9b67c556e359825a5
+Author: schultzk1123 <schultz@mines.edu>
+Date:   Mon Oct 24 21:18:12 2022 -0600
+
+    Refactored methods of getting and setting center and label cells
+
+commit 9cc43f9297220d9499bd404bc36f2d5e18a1d49c
+Author: schultzk1123 <schultz@mines.edu>
+Date:   Mon Oct 24 19:52:51 2022 -0600
+
+    extracted methods from loadLayoutConfig()
+
+commit d0c0ba65c7527e5890b37e0e5a48f3ecff96458e
+Author: MistletoW <haasedylan@gmail.com>
+Date:   Mon Oct 24 19:33:48 2022 -0600
+
+    fixed final 306 tests
+
+commit 04b39a3c8f2fafb56218ddd72dc1ea5968e40f12
+Author: MistletoW <haasedylan@gmail.com>
+Date:   Mon Oct 24 18:08:47 2022 -0600
+
+    added biggest refactor
+
+commit a5dfe9f197452b98b1f1ec8ef5f268e8602f642b
+Author: MistletoW <haasedylan@gmail.com>
+Date:   Mon Oct 24 18:05:17 2022 -0600
+
+    fixed getSecretPassage way helper method
+
+commit dc648548e9954cc3b0aa8d65144077878d7e9179
+Author: MistletoW <haasedylan@gmail.com>
+Date:   Mon Oct 24 18:00:04 2022 -0600
+
+    shortened the calcTargets
+
+commit e0fdcf7ffb5f1f7344a191daa66e1b1c31ebdcad
+Author: MistletoW <haasedylan@gmail.com>
+Date:   Mon Oct 24 16:49:24 2022 -0600
+
+    refactored adjList for getting rooms connected for to doors
+
 commit edb395787bac199fe9cb65ef78b1245f05009dc7
 Author: MistletoW <haasedylan@gmail.com>
 Date:   Wed Oct 19 21:36:20 2022 -0600
