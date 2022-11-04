@@ -15,6 +15,7 @@ import org.junit.jupiter.api.Test;
 import clueGame.Board;
 import clueGame.BoardCell;
 import clueGame.Card;
+import clueGame.CardType;
 import clueGame.HumanPlayer;
 import clueGame.Player;
 import clueGame.Board;
@@ -48,11 +49,6 @@ public class GameSetupTests {
 		 * was 18 after solution was dealt, was 21 when initialized, so we know it works 
 		 * */ 
 		assertEquals(deckTestList.size(), 0);
-		
-	}
-	
-	@Test
-	public void testDeck() {
 		
 	}
 	
@@ -94,6 +90,44 @@ public class GameSetupTests {
 		for(Player p : board.getPlayers()) {
 			assertNotEquals(p.getCards().size(), 0);
 		}
+		
+		int weapons = 0;
+		int rooms = 0;
+		int humans = 0;
+		
+		for(int i = 0; i < board.getPlayers().size(); i++) {
+//			for each person
+			ArrayList<Card> cards = board.getPlayers().get(i).getCards();
+//			get their hand/cards
+			for(int j = 0; j < cards.size(); j++) {
+//				for each card, check its type 
+				if(cards.get(j).getType() == CardType.ROOM) {
+					rooms++;
+				}
+				if(cards.get(j).getType() == CardType.PERSON) {
+					humans++;
+				}
+				if(cards.get(j).getType() == CardType.WEAPON) {
+					weapons++;
+				}
+			}
+		}
+		
+//		get solutions cards for their types
+		if(board.getSolution().getPerson().getType() == CardType.PERSON) {
+			humans++;
+		}
+		if(board.getSolution().getWeapon().getType() == CardType.WEAPON) {
+			weapons++;
+		}
+		if(board.getSolution().getRoom().getType() == CardType.ROOM) {
+			rooms++;
+		}
+		
+//		assert that there are the appropriate amount of cards in play
+		assertEquals(weapons, 6);
+		assertEquals(rooms, 9);
+		assertEquals(humans, 6);
 		
 	}
 }
