@@ -34,10 +34,11 @@ public class GameSetupTests {
 	@Test
 	public void testLoadSetup() {
 		ArrayList<Player> playerTestList = board.getPlayers();
-		
+		//test that players have loaded in
 		assertNotEquals(playerTestList.size(), 0);
 		assertEquals(playerTestList.size(), 6);
 		
+		//test that players, weapons and rooms have been add to Deck
 		ArrayList<Card> deckTestList = board.getDeck();
 		assertEquals(deckTestList.size(), 21);
 		
@@ -51,8 +52,12 @@ public class GameSetupTests {
 	@Test
 	public void testPlayersContains() {
 		ArrayList<Player> testList = board.getPlayers();
-		HumanPlayer p = new HumanPlayer("Bri", "Red");
-		assertTrue(testList.contains());
+		assertTrue(testList.get(0).getName() == "Bri");
+		assertTrue(testList.get(1).getName() == "Cooper");
+		assertTrue(testList.get(2).getName() == "Liv");
+		assertTrue(testList.get(3).getName() == "Garret");
+		assertTrue(testList.get(4).getName() == "Holden");
+		assertTrue(testList.get(5).getName() == "Addie");
 	}
 	
 	@Test

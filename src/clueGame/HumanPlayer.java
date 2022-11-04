@@ -12,5 +12,7 @@ public class HumanPlayer extends Player{
 		// TODO Auto-generated method stub
 		
 	}
+	
+	
 
 }

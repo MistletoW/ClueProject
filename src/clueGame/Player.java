@@ -11,4 +11,11 @@ public abstract class Player {
 	}
 	public abstract void updateHand(Card card);
 	
+	public String getName() {
+		return name;
+	}
+	
+	public String getColor() {
+		return color;
+	}
 }
