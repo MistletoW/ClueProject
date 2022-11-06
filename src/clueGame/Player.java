@@ -1,12 +1,15 @@
 package clueGame;
 
 import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.Set;
 
 public abstract class Player {
 	private String name;
 	private String color;
 	private int row, column;
-	public ArrayList<Card> cards = new ArrayList<Card>();
+	private ArrayList<Card> hand = new ArrayList<Card>();
+	private Set<Card> seenCards = new HashSet<Card>();
 	
 	public Player(String name, String color){
 		this.name = name;
@@ -32,9 +35,18 @@ public abstract class Player {
 	}
 	
 	public void addCard(Card c) {
-		cards.add(c);
+		hand.add(c);
 	}
 	public ArrayList<Card> getCards(){
-		return cards;
+		return hand;
+	}
+	
+	public void updateSeen(Card seenCard) {
+		
+	}
+	
+	public Card disproveSuggestion(Card suggestion) {
+		Card ret = new Card("Vrei", CardType.PERSON);
+		return ret;
 	}
 }

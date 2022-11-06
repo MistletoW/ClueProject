@@ -404,6 +404,7 @@ public class Board {
 	public Solution getSolution() {
 		return theAnswer;
 	}
+	
 	public void dealCards() {
 		int counter = 0;
 		while(deck.size() > 0) {
@@ -418,7 +419,25 @@ public class Board {
 			counter++;
 		}
 	}
-
+	
+	public boolean checkAccusation(Card roomAcc, Card personAcc, Card weaponAcc) {
+		if(roomAcc == theAnswer.getRoom()) { //check if room matches
+			if(personAcc == theAnswer.getPerson()) { //check if person matches
+				if(weaponAcc == theAnswer.getWeapon()) { // check if weapon matches
+					return true; //if all match, return true
+				}
+			}
+		}
+		//if one does not match return false
+		return false;
+	}
+	
+	public Card handleSuggestion() {
+		Card ret = new Card("Vrei", CardType.PERSON);
+		return ret;
+	}
 }
+
+
 
 	

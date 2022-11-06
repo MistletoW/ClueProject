@@ -17,5 +17,8 @@ public class ComputerPlayer extends Player{
 	public boolean isHuman() {
 		return false;
 	}
-
+	
+	public BoardCell selectTarget() {
+		return board.getCell
+	}
 }
