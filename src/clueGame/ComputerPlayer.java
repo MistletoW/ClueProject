@@ -1,5 +1,10 @@
 package clueGame;
 
+import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.Random;
+import java.util.Set;
+
 public class ComputerPlayer extends Player{
 
 	public ComputerPlayer(String name, String color) {
@@ -18,7 +23,39 @@ public class ComputerPlayer extends Player{
 		return false;
 	}
 	
-	public BoardCell selectTarget() {
-		return board.getCell
+	public Solution createSuggestion() {
+		
+		return solution;
+	}
+	
+	public BoardCell selectTarget(Set<BoardCell> targetList) {
+		Iterator<BoardCell> it = targetList.iterator(); //get iterator for targets
+		ArrayList<BoardCell> potTargetsWith = new ArrayList<BoardCell>();
+		ArrayList<BoardCell> potTargetsWithout = new ArrayList<BoardCell>();
+		boolean hasRoom = false; //assume there is no room in target list
+		
+		while(it.hasNext()) {	//iterate through targetList
+			BoardCell tester = it.next();
+			it.remove();
+			if(tester.isRoomCenter()) {	//if we discover a room in target list add room to potential targets
+				hasRoom = true;
+				potTargetsWith.add(tester);
+			}
+			potTargetsWithout.add(tester);
+		}
+		
+		BoardCell target;
+		Random rand = new Random();
+		int rand_int;
+		
+		if(hasRoom) {	//if there is a room the prioritize targets that are rooms, select at random
+			rand_int = rand.nextInt(potTargetsWith.size());
+			target = potTargetsWith.get(rand_int);
+		} else {	//if no room, select random target
+			rand_int = rand.nextInt(potTargetsWithout.size());
+			target = potTargetsWithout.get(rand_int);
+		}
+		
+		return target;
 	}
 }

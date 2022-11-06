@@ -7,7 +7,7 @@ import java.util.Set;
 public abstract class Player {
 	private String name;
 	private String color;
-	private int row, column;
+	protected int row, column;
 	private ArrayList<Card> hand = new ArrayList<Card>();
 	private Set<Card> seenCards = new HashSet<Card>();
 	
