@@ -68,7 +68,11 @@ public abstract class Player {
 		}
 		
 		//choose random card to disprove
-		if(retCards.size() == 0) {
+		if(retCards.size() == 1) {
+			Card ret = retCards.get(0);
+			return ret;
+		}
+		else if(retCards.size() == 0) {
 			//get random card
 			Random rand = new Random();
 			int rand_int = rand.nextInt(retCards.size());

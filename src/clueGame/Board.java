@@ -432,9 +432,15 @@ public class Board {
 		return false;
 	}
 	
-	public Card handleSuggestion() {
-		Card ret = new Card("Vrei", CardType.PERSON);
-		return ret;
+	public Card handleSuggestion(Solution suggestion) {
+		Card tester; //create card and set to null 
+		int i = 0; //create iterator for players
+		do {
+			tester = players.get(i).disproveSuggestion(suggestion); //go through players, disprove is can
+			i++; //iterate through players
+		}while(tester == null && i < players.size()); //if we find a suggestion that disproves or run out of players exit loop
+		
+		return tester;//return 
 	}
 }
 
