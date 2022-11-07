@@ -23,8 +23,40 @@ public class ComputerPlayer extends Player{
 		return false;
 	}
 	
-	public Solution createSuggestion() {
-		Solution solution = new Solution();
+	public Solution createSuggestion(ArrayList<Card> weaponDeck, ArrayList<Card> personDeck, ArrayList<Card> roomDeck, Board board) {
+		char initial = board.getCell(row, column).getInitial();
+		//get the room that the comp is currently in
+		Card room = null;
+		for(int i = 0; i < roomDeck.size(); i++) {
+			if(roomDeck.get(i).getName().charAt(0) == initial) {
+				room = roomDeck.get(i);
+			}
+		}
+		
+		//get a random weapon that we have no seen
+		Random rand = new Random();
+		int rand_int = rand.nextInt(weaponDeck.size());
+		Card weapon = null;
+		do {
+			if(seenCards.contains(weaponDeck.get(rand_int))) {//if seen get new random
+				rand_int = rand.nextInt(weaponDeck.size());
+			} else {//else add random weapon to solution
+				weapon = weaponDeck.get(rand_int);
+			}
+		}while(seenCards.contains(weaponDeck.get(rand_int)));
+		
+		//get a random person we have not seen
+		Card person = null;
+		do {
+			if(seenCards.contains(personDeck.get(rand_int))) { //if seen get new random
+				rand_int = rand.nextInt(personDeck.size());
+			} else {	//else add random person to solution
+				person = personDeck.get(rand_int);
+			}
+		}while(seenCards.contains(personDeck.get(rand_int)));
+		
+		Solution solution = new Solution(room, person, weapon); //create solution with room and random person and weapon
+		
 		return solution;
 	}
 	
