@@ -24,7 +24,7 @@ public class ComputerPlayer extends Player{
 	}
 	
 	public Solution createSuggestion() {
-		
+		Solution solution = new Solution();
 		return solution;
 	}
 	

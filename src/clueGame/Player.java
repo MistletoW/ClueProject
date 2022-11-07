@@ -2,6 +2,7 @@ package clueGame;
 
 import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.Random;
 import java.util.Set;
 
 public abstract class Player {
@@ -42,11 +43,41 @@ public abstract class Player {
 	}
 	
 	public void updateSeen(Card seenCard) {
-		
+		seenCards.add(seenCard);
 	}
 	
-	public Card disproveSuggestion(Card suggestion) {
-		Card ret = new Card("Vrei", CardType.PERSON);
-		return ret;
+	public Card disproveSuggestion(Solution suggestion) {
+		ArrayList<Card> retCards = new ArrayList<Card>(); // list to choose from randomly if cards disprove suggestion
+		
+		//check person
+		Card disprove = suggestion.getPerson();
+		if(hand.contains(disprove)) {
+			retCards.add(disprove);
+		}
+		
+		//check weapon
+		disprove = suggestion.getWeapon();
+		if(hand.contains(disprove)) {
+			retCards.add(disprove);
+		}
+		
+		//check room
+		disprove = suggestion.getRoom();
+		if(hand.contains(disprove)) {
+			retCards.add(disprove);
+		}
+		
+		//choose random card to disprove
+		if(retCards.size() == 0) {
+			//get random card
+			Random rand = new Random();
+			int rand_int = rand.nextInt(retCards.size());
+			Card ret = retCards.get(rand_int);
+			//return card
+			return ret;
+		}
+		
+		//else if no cards match, return null
+		return null;
 	}
 }
