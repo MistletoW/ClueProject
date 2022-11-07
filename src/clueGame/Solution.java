@@ -11,6 +11,7 @@ public class Solution {
 		this.room = room;
 		this.person = person;
 		this.weapon = weapon;
+
 	}
 	
 	public Card getPerson() {

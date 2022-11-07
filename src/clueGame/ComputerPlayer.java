@@ -4,8 +4,10 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.Random;
 import java.util.Set;
+import java.util.function.BooleanSupplier;
 
 public class ComputerPlayer extends Player{
+
 
 	public ComputerPlayer(String name, String color) {
 		super(name, color);
@@ -23,8 +25,12 @@ public class ComputerPlayer extends Player{
 		return false;
 	}
 	
-	public Solution createSuggestion(ArrayList<Card> weaponDeck, ArrayList<Card> personDeck, ArrayList<Card> roomDeck, Board board) {
+	public Solution createSuggestion(Board board) {
 		char initial = board.getCell(row, column).getInitial();
+		//get decks from board
+		ArrayList<Card> weaponDeck = board.getWeaponDeck();
+		ArrayList<Card> roomDeck = board.getRoomDeck();
+		ArrayList<Card> personDeck = board.getPersonDeck();
 		//get the room that the comp is currently in
 		Card room = null;
 		for(int i = 0; i < roomDeck.size(); i++) {
@@ -40,6 +46,8 @@ public class ComputerPlayer extends Player{
 		do {
 			if(seenCards.contains(weaponDeck.get(rand_int))) {//if seen get new random
 				rand_int = rand.nextInt(weaponDeck.size());
+			} else if(hand.contains(weaponDeck.get(rand_int))) { //if in hand get new random
+				rand_int = rand.nextInt(weaponDeck.size());
 			} else {//else add random weapon to solution
 				weapon = weaponDeck.get(rand_int);
 			}
@@ -49,6 +57,8 @@ public class ComputerPlayer extends Player{
 		Card person = null;
 		do {
 			if(seenCards.contains(personDeck.get(rand_int))) { //if seen get new random
+				rand_int = rand.nextInt(personDeck.size());
+			} else if(hand.contains(personDeck.get(rand_int))) { //if in hand get new random
 				rand_int = rand.nextInt(personDeck.size());
 			} else {	//else add random person to solution
 				person = personDeck.get(rand_int);
@@ -89,5 +99,8 @@ public class ComputerPlayer extends Player{
 		}
 		
 		return target;
+	}
+	public Set<Card> getSeenCards(){
+		return super.getSeenCards();
 	}
 }

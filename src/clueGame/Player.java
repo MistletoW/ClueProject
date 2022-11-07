@@ -1,5 +1,6 @@
 package clueGame;
 
+import java.awt.Dimension;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Random;
@@ -9,8 +10,8 @@ public abstract class Player {
 	private String name;
 	private String color;
 	protected int row, column;
-	private ArrayList<Card> hand = new ArrayList<Card>();
-	private Set<Card> seenCards = new HashSet<Card>();
+	protected ArrayList<Card> hand = new ArrayList<Card>();
+	protected Set<Card> seenCards = new HashSet<Card>();
 	
 	public Player(String name, String color){
 		this.name = name;
@@ -41,9 +42,21 @@ public abstract class Player {
 	public ArrayList<Card> getCards(){
 		return hand;
 	}
-	
+	public Set<Card> getSeenCards() {
+		return seenCards;
+	}
 	public void updateSeen(Card seenCard) {
 		seenCards.add(seenCard);
+	}
+	
+	public void setPosition(int row, int column) {
+		this.row = row;
+		this.column = column;
+	}
+	
+	public Dimension getPosition() {
+		Dimension d = new Dimension(row, column);
+		return(d);
 	}
 	
 	public Card disproveSuggestion(Solution suggestion) {
@@ -72,7 +85,7 @@ public abstract class Player {
 			Card ret = retCards.get(0);
 			return ret;
 		}
-		else if(retCards.size() == 0) {
+		else if(retCards.size() != 0) {
 			//get random card
 			Random rand = new Random();
 			int rand_int = rand.nextInt(retCards.size());
@@ -84,4 +97,5 @@ public abstract class Player {
 		//else if no cards match, return null
 		return null;
 	}
+
 }

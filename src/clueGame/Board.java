@@ -442,6 +442,17 @@ public class Board {
 		
 		return tester;//return 
 	}
+	
+	//getters for decks
+	public ArrayList<Card> getWeaponDeck(){
+		return weaponDeck;
+	}
+	public ArrayList<Card> getPersonDeck(){
+		return personDeck;
+	}
+	public ArrayList<Card> getRoomDeck() {
+		return roomDeck;
+	}
 }
 
 

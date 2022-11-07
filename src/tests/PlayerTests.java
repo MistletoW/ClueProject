@@ -6,6 +6,8 @@ import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 
 import clueGame.Board;
+import clueGame.ComputerPlayer;
+import clueGame.Player;
 
 class PlayerTests {
 	private static Board board;
