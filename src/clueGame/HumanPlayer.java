@@ -6,10 +6,14 @@ public class HumanPlayer extends Player{
 		super(name, color);
 		// TODO Auto-generated constructor stub
 	}
-
+	
 	@Override
 	public void updateHand(Card card) {
-		hand.add(card);
+		for(Card c: hand) {
+			if (hand.contains(c) == false){
+				hand.add(card);
+			}
+		}
 	}
 	
 	@Override

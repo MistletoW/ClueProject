@@ -16,7 +16,11 @@ public class ComputerPlayer extends Player{
 
 	@Override
 	public void updateHand(Card card) {
-		hand.add(card);
+		for(Card c: hand) {
+			if (hand.contains(c) == false){
+				hand.add(card);
+			}
+		}
 		
 	}
 	
@@ -39,22 +43,22 @@ public class ComputerPlayer extends Player{
 			}
 		}
 		
-		//get a random weapon that we have no seen
+		//get a random weapon that we have not seen
 		Random rand = new Random();
-		int rand_int = rand.nextInt(weaponDeck.size());
+		int rand_int = rand.nextInt(weaponDeck.size() - 1);
 		Card weapon = null;
-		while(weapon == null) {
+		do {
 			if(seenCards.contains(weaponDeck.get(rand_int))) {//if seen get new random
 				rand_int = rand.nextInt(weaponDeck.size());
 			} else if(hand.contains(weaponDeck.get(rand_int))) { //if in hand get new random
 				rand_int = rand.nextInt(weaponDeck.size());
 			} else {//else add random weapon to solution
 				weapon = weaponDeck.get(rand_int);
-			}
-		}
+			} 
+		} while(weapon == null);
 		//get a random person we have not seen
 		Card person = null;
-		while (person == null) {
+		do {
 			if(seenCards.contains(personDeck.get(rand_int))) { //if seen get new random
 				rand_int = rand.nextInt(personDeck.size());
 			} else if(hand.contains(personDeck.get(rand_int))) { //if in hand get new random
@@ -62,7 +66,7 @@ public class ComputerPlayer extends Player{
 			} else {	//else add random person to solution
 				person = personDeck.get(rand_int);
 			}
-		}
+		}while (person == null);
 		Solution solution = new Solution(room, person, weapon); //create solution with room and random person and weapon
 		
 		return solution;

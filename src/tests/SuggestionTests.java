@@ -11,6 +11,7 @@ import org.junit.jupiter.api.Test;
 
 import clueGame.Board;
 import clueGame.Card;
+import clueGame.CardType;
 import clueGame.ComputerPlayer;
 import clueGame.HumanPlayer;
 import clueGame.Player;
@@ -28,7 +29,7 @@ class SuggestionTests {
 
 	}
 	@Test
-	void SuggestionTest() {
+	void suggestionTest1() {
 
 		//get a few players
 		ComputerPlayer cooper = (ComputerPlayer) board.getPlayers().get(1);
@@ -63,9 +64,34 @@ class SuggestionTests {
 
 		assertEquals(suggestion2.getRoom().getName(), "Larry's Giant Subs");
 	}
-
 	@Test
-	void DisproveTest() {
+	void suggestionTest2() {
+		//test to ensure that if there's only one card hasn't been seen, it's the one that's suggested
+		ComputerPlayer liv = (ComputerPlayer) board.getPlayers().get(2);
+		//Liv can cheat as well. Let's let her see almost all the player cards. 
+		ArrayList<Card> playerCards = new ArrayList<Card>();
+		for (Card c : board.getPersonDeck()) {
+			playerCards.add(c);
+		}
+		//first let's see which ones she already has so we don't give her two of the same card
+		for (Card c : liv.getCards()) {
+			if (playerCards.contains(c));
+			playerCards.remove(c);
+		}
+		//and then let's remove one from the deck. (this one will be the one we hopefully suggest!)
+		Card suggested = playerCards.get(0);
+		playerCards.remove(0);
+		//give Liv the remaining cards
+		for(Card c : playerCards) {
+			liv.updateSeen(c);
+		}
+		//check to make sure the suggestion matches the missing person!
+		Solution suggestion = liv.createSuggestion(board);
+		assertEquals(suggestion.getPerson(), suggested);
+		
+	}
+	@Test
+	void disproveTest() {
 		//general disprove test, generates randomly each time
 		//get a few players
 		ComputerPlayer cooper = (ComputerPlayer) board.getPlayers().get(1);
@@ -89,7 +115,7 @@ class SuggestionTests {
 		}
 	}
 	@Test
-	void DisproveTest2() {
+	void disproveTest2() {
 		//testing to check if just the one card needed is returned
 		Player bri = (HumanPlayer) board.getPlayers().get(0);
 		ComputerPlayer cooper = (ComputerPlayer) board.getPlayers().get(1);
@@ -100,6 +126,7 @@ class SuggestionTests {
 		//if bri doesn't have the card, we'll give one to her
 		if((bri.getCards().contains(suggestion1.getPerson()) == false) && (bri.getCards().contains(suggestion1.getWeapon()) == false) && (bri.getCards().contains(suggestion1.getRoom()) == false)){
 			bri.updateHand(suggestion1.getPerson());
+			
 			Card b = bri.disproveSuggestion(suggestion1);
 			//bri's card is not null
 			assertNotEquals(b, null);
@@ -139,7 +166,7 @@ class SuggestionTests {
 		} 
 	}
 	@Test
-	void AccusationTests() {
+	void accusationTests() {
 		Solution answer = board.getSolution();
 		Card p = answer.getPerson();
 		Card w = answer.getWeapon();
