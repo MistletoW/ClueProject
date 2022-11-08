@@ -77,13 +77,27 @@ public class ComputerPlayer extends Player{
 		ArrayList<BoardCell> potTargetsWith = new ArrayList<BoardCell>();
 		ArrayList<BoardCell> potTargetsWithout = new ArrayList<BoardCell>();
 		boolean hasRoom = false; //assume there is no room in target list
+		boolean inSeen = false;
 		
 		while(it.hasNext()) {	//iterate through targetList
 			BoardCell tester = it.next();
 			it.remove();
 			if(tester.isRoomCenter()) {	//if we discover a room in target list add room to potential targets
-				hasRoom = true;
-				potTargetsWith.add(tester);
+				Iterator<Card> it1 = seenCards.iterator();
+				while(it1.hasNext()) {
+					Card itCard = it1.next();
+					if(itCard.getName().charAt(0) == tester.getInitial()) {
+						inSeen = true;
+					}
+					it1.remove();
+				}
+				if(inSeen == false) {
+					hasRoom = true;
+					potTargetsWith.add(tester);
+				} else {
+					inSeen = false;
+				}
+				
 			}
 			potTargetsWithout.add(tester);
 		}
