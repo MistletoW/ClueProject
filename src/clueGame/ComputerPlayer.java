@@ -16,7 +16,7 @@ public class ComputerPlayer extends Player{
 
 	@Override
 	public void updateHand(Card card) {
-		// TODO Auto-generated method stub
+		hand.add(card);
 		
 	}
 	
@@ -43,7 +43,7 @@ public class ComputerPlayer extends Player{
 		Random rand = new Random();
 		int rand_int = rand.nextInt(weaponDeck.size());
 		Card weapon = null;
-		do {
+		while(weapon == null) {
 			if(seenCards.contains(weaponDeck.get(rand_int))) {//if seen get new random
 				rand_int = rand.nextInt(weaponDeck.size());
 			} else if(hand.contains(weaponDeck.get(rand_int))) { //if in hand get new random
@@ -51,11 +51,10 @@ public class ComputerPlayer extends Player{
 			} else {//else add random weapon to solution
 				weapon = weaponDeck.get(rand_int);
 			}
-		}while(seenCards.contains(weaponDeck.get(rand_int)));
-		
+		}
 		//get a random person we have not seen
 		Card person = null;
-		do {
+		while (person == null) {
 			if(seenCards.contains(personDeck.get(rand_int))) { //if seen get new random
 				rand_int = rand.nextInt(personDeck.size());
 			} else if(hand.contains(personDeck.get(rand_int))) { //if in hand get new random
@@ -63,8 +62,7 @@ public class ComputerPlayer extends Player{
 			} else {	//else add random person to solution
 				person = personDeck.get(rand_int);
 			}
-		}while(seenCards.contains(personDeck.get(rand_int)));
-		
+		}
 		Solution solution = new Solution(room, person, weapon); //create solution with room and random person and weapon
 		
 		return solution;
