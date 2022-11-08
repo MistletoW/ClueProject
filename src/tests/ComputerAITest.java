@@ -135,7 +135,7 @@ class ComputerAITest {
 		
 		testList.add(board.getCell(2,25));
 		testList.add(board.getCell(6,25));
-		board.calcTargets(board.getCell(12,25), 3);
+		board.calcTargets(board.getCell(4,25), 3);
 		targets = board.getTargets();
 		target = cooper.selectTarget(targets);
 		
