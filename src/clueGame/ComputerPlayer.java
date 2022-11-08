@@ -78,14 +78,16 @@ public class ComputerPlayer extends Player{
 			BoardCell tester = it.next();
 			it.remove();
 			if(tester.isRoomCenter()) {	//if we discover a room in target list add room to potential targets
-				Iterator<Card> it1 = seenCards.iterator();
-				while(it1.hasNext()) {
-					Card itCard = it1.next();
-					if(itCard.getName().charAt(0) == tester.getInitial()) {
-						inSeen = true;
-					}
-					it1.remove();
-				}
+//				Iterator<Card> itSeen = seenCards.iterator();
+//				while(itSeen.hasNext()) { //iterate through seen rooms
+//					Card itCard = itSeen.next();
+//					System.out.println(itCard);
+//					System.out.println(tester);
+//					if((itCard.getName().charAt(1) == tester.getInitial()) && (itCard.getType() == CardType.ROOM)) { //if seen then don't prioritize room
+//						inSeen = true;
+//					}
+//					itSeen.remove();
+//				}
 				if(inSeen == false) {
 					hasRoom = true;
 					potTargetsWith.add(tester);

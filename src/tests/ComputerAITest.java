@@ -129,16 +129,20 @@ class ComputerAITest {
 		//assert comp AI choose one of the rooms
 		assertTrue(testList.contains(target));
 		
-		for(int i = 0; i < board.getRoomDeck().size(); i++) {
-			cooper.updateSeen(board.getRoomDeck().get(i));
-		}
+//		for(int i = 0; i < board.getRoomDeck().size(); i++) {
+//			cooper.updateSeen(board.getRoomDeck().get(i));
+//		}
+		Card Restroom = new Card("Restroom", CardType.ROOM);
+		Card Subway = new Card("Subway", CardType.ROOM);
+		cooper.updateSeen(Subway);
+		cooper.updateHand(Restroom);
 		
 		testList.add(board.getCell(2,25));
 		testList.add(board.getCell(6,25));
-		board.calcTargets(board.getCell(4,25), 3);
+		board.calcTargets(board.getCell(4,25), 2);
 		targets = board.getTargets();
 		target = cooper.selectTarget(targets);
-		
+		System.out.println(target);
 		assertTrue(testList.contains(target));
 	}
 }
