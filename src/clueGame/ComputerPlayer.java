@@ -16,12 +16,7 @@ public class ComputerPlayer extends Player{
 
 	@Override
 	public void updateHand(Card card) {
-		for(Card c: hand) {
-			if (hand.contains(c) == false){
-				hand.add(card);
-			}
-		}
-		
+		hand.add(card);
 	}
 	
 	@Override

@@ -10,6 +10,7 @@ import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 
 import clueGame.Board;
+import clueGame.BoardCell;
 import clueGame.Card;
 import clueGame.CardType;
 import clueGame.ComputerPlayer;
@@ -28,7 +29,9 @@ class SuggestionTests {
 
 
 	}
-	@Test
+	/*
+	 * Suggestion Tests
+	 */
 	void suggestionTest1() {
 
 		//get a few players
@@ -90,114 +93,52 @@ class SuggestionTests {
 		assertEquals(suggestion.getPerson(), suggested);
 		
 	}
+	/*
+	 * Targeting Tests 
+	 */
 	@Test
-	void disproveTest() {
-		//general disprove test, generates randomly each time
-		//get a few players
-		ComputerPlayer cooper = (ComputerPlayer) board.getPlayers().get(1);
-		cooper.setPosition(12, 3); 
-		Solution suggestion1 = cooper.createSuggestion(board);
-		//ensure that a computerplayer can disprove a suggestion
-		ComputerPlayer liv = (ComputerPlayer) board.getPlayers().get(2);
-		liv.setPosition(3,3);
-		Card l = liv.disproveSuggestion(suggestion1);
-		//if Liv has the card in her hand, she can disprove, therefore not returning a null
-		if(liv.getCards().contains(l)) {
-			assertNotEquals(l, null);
-			//if so, ensure that the card is actually in the suggestion
-			ArrayList<Card> suggestionCards = new ArrayList<Card>();
-			suggestionCards.add(suggestion1.getPerson());
-			suggestionCards.add(suggestion1.getRoom());
-			suggestionCards.add(suggestion1.getWeapon());
-			assertTrue(suggestionCards.contains(l));
-		}else {
-			assertEquals(l, null);
-		}
-	}
-	@Test
-	void disproveTest2() {
-		//testing to check if just the one card needed is returned
-		Player bri = (HumanPlayer) board.getPlayers().get(0);
-		ComputerPlayer cooper = (ComputerPlayer) board.getPlayers().get(1);
-		cooper.setPosition(12, 3); 
-		Solution suggestion1 = cooper.createSuggestion(board);
+	void testComputerTargeting() {
 		
-		//(bri is allowed to cheat for testing purposes)
-		//if bri doesn't have the card, we'll give one to her
-		if((bri.getCards().contains(suggestion1.getPerson()) == false) && (bri.getCards().contains(suggestion1.getWeapon()) == false) && (bri.getCards().contains(suggestion1.getRoom()) == false)){
-			bri.updateHand(suggestion1.getPerson());
-			
-			Card b = bri.disproveSuggestion(suggestion1);
-			//bri's card is not null
-			assertNotEquals(b, null);
-			//check to see bri's card is in fact the one we gave her
-			assertEquals(b, suggestion1.getPerson());
-		}else {
-			Card b = bri.disproveSuggestion(suggestion1);
-			//bri's card is not null
-			assertNotEquals(b, null);
-		} 
-	}
-	@Test 
-	void disproveTest3() {
-		//test for random selection among two cards
-		ComputerPlayer garrett = (ComputerPlayer) board.getPlayers().get(3);
+		//create a computerPlayer AI and give a position
 		ComputerPlayer cooper = (ComputerPlayer) board.getPlayers().get(1);
-		garrett.setPosition(21, 3);
-		Solution suggestion1 = garrett.createSuggestion(board);
-		//cooper is also allowed to cheat for testing purposes
-		//if he has none of the cards he needs to make a suggestion, we'll give him two
-		if((cooper.getCards().contains(suggestion1.getPerson()) == false) && (cooper.getCards().contains(suggestion1.getWeapon()) == false) && (cooper.getCards().contains(suggestion1.getRoom()) == false)){
-			cooper.updateHand(suggestion1.getPerson());
-			cooper.updateHand(suggestion1.getWeapon());
-			Card c = cooper.disproveSuggestion(suggestion1);
-			//cooper's card is not null
-			assertNotEquals(c, null);
-			//check to see cooper's card is in fact the one we gave him
-			if(c.equals(suggestion1.getPerson())) {
-			assertEquals(c, suggestion1.getPerson());
-			}else {
-				assertEquals(c, suggestion1.getWeapon());
-			}
-		}else {
-			Card c = cooper.disproveSuggestion(suggestion1);
-			//cooper's card is not null
-			assertNotEquals(c, null);
-		} 
-	}
-	@Test
-	void accusationTests() {
-		Solution answer = board.getSolution();
-		Card p = answer.getPerson();
-		Card w = answer.getWeapon();
-		Card r = answer.getRoom();
-		//if all three are correct, should return true
-		assertTrue(board.checkAccusation(r, p, w));
-		//if not, return false
-
-		//playerCard is wrong
-		ArrayList<Card> tempPlayerCards = new ArrayList<Card>();
-		for (Card c : board.getPersonDeck()) {
-			tempPlayerCards.add(c);
+		cooper.setPosition(17,7);
+		//calcTargets that does not have room and give list to targets
+		board.calcTargets(board.getCell(17, 7), 1);
+		Set<BoardCell> targets = board.getTargets();
+		//get random target for cooper AI
+		BoardCell target = cooper.selectTarget(targets);
+		//create a list of all possible random targets AI could pick
+		ArrayList<BoardCell> testList = new ArrayList<BoardCell>();
+		testList.add(board.getCell(16, 7));
+		testList.add(board.getCell(18, 7));
+		testList.add(board.getCell(17, 6));
+		testList.add(board.getCell(17, 8));
+		//assert that the randomly chosen target cell is in the list of possible targets
+		assertTrue(testList.contains(target));
+		
+		//clear testList
+		testList.clear();
+		//reset cooper to position where two rooms are available
+		cooper.setPosition(4, 25);
+		board.calcTargets(board.getCell(4,25), 2);
+		targets = board.getTargets();
+		target = cooper.selectTarget(targets);
+		//add rooms to testList
+		testList.add(board.getCell(3,21));
+		testList.add(board.getCell(12,28));
+		//assert comp AI choose one of the rooms
+		assertTrue(testList.contains(target));
+		
+		for(int i = 0; i < board.getRoomDeck().size(); i++) {
+			cooper.updateSeen(board.getRoomDeck().get(i));
 		}
-		tempPlayerCards.remove(p);
-		assertFalse(board.checkAccusation(r, tempPlayerCards.get(0), w));
-
-		//roomCard is wrong
-		ArrayList<Card> tempRoomCards = new ArrayList<Card>();
-		for (Card c : board.getRoomDeck()) {
-			tempRoomCards.add(c);
-		}
-		tempRoomCards.remove(r);
-		assertFalse(board.checkAccusation(tempRoomCards.get(0), p, w));
-
-		//weaponCard is wrong
-		ArrayList<Card> tempWeaponCards = new ArrayList<Card>();
-		for (Card c : board.getWeaponDeck()) {
-			tempWeaponCards.add(c);
-		}
-		tempWeaponCards.remove(w);
-		assertFalse(board.checkAccusation(r, p, tempWeaponCards.get(0)));
-
+		
+		testList.add(board.getCell(2,25));
+		testList.add(board.getCell(6,25));
+		board.calcTargets(board.getCell(12,25), 3);
+		targets = board.getTargets();
+		target = cooper.selectTarget(targets);
+		
+		assertTrue(testList.contains(target));
 	}
 }
