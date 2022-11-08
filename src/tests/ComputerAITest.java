@@ -18,7 +18,7 @@ import clueGame.HumanPlayer;
 import clueGame.Player;
 import clueGame.Solution;
 
-class SuggestionTests {
+class ComputerAITest {
 	private static Board board;
 
 	@BeforeAll
