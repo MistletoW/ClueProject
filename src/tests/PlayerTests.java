@@ -74,6 +74,7 @@ class PlayerTests {
 		board.calcTargets(board.getCell(12,25), 3);
 		targets = board.getTargets();
 		target = cooper.selectTarget(targets);
+		
 		assertTrue(testList.contains(target));
 
 	}
