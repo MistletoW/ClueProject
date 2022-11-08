@@ -65,7 +65,16 @@ class PlayerTests {
 		//assert comp AI choose one of the rooms
 		assertTrue(testList.contains(target));
 		
+		for(int i = 0; i < board.getRoomDeck().size(); i++) {
+			cooper.updateSeen(board.getRoomDeck().get(i));
+		}
 		
+		testList.add(board.getCell(2,25));
+		testList.add(board.getCell(6,25));
+		board.calcTargets(board.getCell(12,25), 3);
+		targets = board.getTargets();
+		target = cooper.selectTarget(targets);
+		assertTrue(testList.contains(target));
 
 	}
 }
