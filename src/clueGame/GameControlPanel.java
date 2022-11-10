@@ -32,6 +32,31 @@ public class GameControlPanel extends JPanel{
 			JTextField rollAnswer = new JTextField();
 			roll.add(rollAnswer);
 			
+			
+			JButton makeAccusation = new JButton("Make Accusation");
+			JButton next = new JButton("NEXT");
+			JPanel subPanel1 = new JPanel();
+			subPanel1.add(whoseTurn);
+			subPanel1.add(roll);
+			subPanel1.add(makeAccusation);
+			subPanel1.add(next);
+			
+			return subPanel1;
+		}
+		
+		public JPanel createSubPanel2() {
+			JPanel whoseTurn = new JPanel();
+			JLabel prompt = new JLabel("Whose Turn");
+			whoseTurn.add(prompt);
+			JTextField answer = new JTextField(); //note: we will need to change this!
+			whoseTurn.add(answer);
+			
+			JPanel roll = new JPanel();
+			JLabel rollLabel = new JLabel("Roll");
+			roll.add(rollLabel);
+			JTextField rollAnswer = new JTextField();
+			roll.add(rollAnswer);
+			
 			JButton makeAccusation = new JButton("Make Accusation");
 			JButton next = new JButton("NEXT");
 			JPanel subPanel1 = new JPanel();
@@ -41,6 +66,8 @@ public class GameControlPanel extends JPanel{
 			subPanel1.add(next);
 			return subPanel1;
 		}
+		
+	
 		
 	//two smaller ones inside, stacked on top of each other
 			//within first panel
@@ -54,7 +81,8 @@ public class GameControlPanel extends JPanel{
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
 		GameControlPanel panel = new GameControlPanel();
-		JFrame frame = new JFrame();  // create the frame 
+		JFrame frame = new JFrame();  // create the frame
+		panel.add(panel.createSubPanel1());
 		frame.setContentPane(panel); // put the panel in the frame
 		frame.setSize(750, 180);  // size the frame
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); // allow it to close
