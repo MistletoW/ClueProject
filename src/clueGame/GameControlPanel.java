@@ -143,6 +143,18 @@ public class GameControlPanel extends JPanel{
 		panel.setTurn(new ComputerPlayer( "Col. Mustard", 0, 0, "orange"), 5);
 		panel.setGuess( "I have no guess!");
 		panel.setGuessResult( "So you have nothing?");
+		
+		HumanPlayer john = new HumanPlayer("John", "red");
+		john.updateHand(new Card("Wrench", CardType.WEAPON));
+		john.updateHand(new Card("Library", CardType.ROOM));
+		john.updateHand(new Card("George", CardType.PERSON));
+		john.updateSeen(new Card("Subway", CardType.ROOM));
+		KnownCardsPanel cardsPanel = new KnownCardsPanel(john);
+		frame.setContentPane(cardsPanel);
+		frame.setSize(220,750);
+		
+		
+		
 
 	}
 

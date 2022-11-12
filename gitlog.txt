@@ -1,3 +1,155 @@
+commit 49cd1127877f5bfa5c43ab93c86f7ccb08c4210d
+Author: MistletoW <haasedylan@gmail.com>
+Date:   Fri Nov 11 17:07:27 2022 -0700
+
+    setters work, commented code, GUI works
+
+commit 4effb9985318346f3cf53d3696cae25e7bcfa31c
+Author: MistletoW <haasedylan@gmail.com>
+Date:   Fri Nov 11 17:00:48 2022 -0700
+
+    setters created and working
+
+commit 97c01d15671ecbbb2a9574d5052b6bb61743b206
+Author: MistletoW <haasedylan@gmail.com>
+Date:   Fri Nov 11 16:22:31 2022 -0700
+
+    Panel has all buttons and fields
+
+commit 25aed5bc7dc4ced56ad94a16aa684a0952aeb4e2
+Author: Kathryn Schultz <schultz@mines.edu>
+Date:   Thu Nov 10 12:09:19 2022 -0700
+
+    added gameCardsPanel
+
+commit 835ea8d245fb8f8ff629a03e3b94a66827503ab8
+Author: Kathryn Schultz <schultz@mines.edu>
+Date:   Thu Nov 10 12:08:55 2022 -0700
+
+    More work done on the game control panel!
+
+commit f15581abd4d08eedf96383d15fdd881cb9dfa6cd
+Author: haasedylan@gmail.com <dhaase@mines.edu>
+Date:   Thu Nov 10 11:00:49 2022 -0700
+
+    added subpanel 1 to mainPanel
+
+commit ec57db0ee86625c39bad5cab5a059a6a3bcbdf6d
+Merge: 5ae542e e0980a3
+Author: Kathryn Schultz <schultz@mines.edu>
+Date:   Tue Nov 8 12:05:32 2022 -0700
+
+    Merge branch 'main' of https://github.com/MistletoW/ClueProject
+    FOR THE LULZ
+
+commit 5ae542e62ef37c966b92afe007d2291583b65ee1
+Author: Kathryn Schultz <schultz@mines.edu>
+Date:   Tue Nov 8 12:04:59 2022 -0700
+
+    started work on JPanel GUI
+
+commit e0980a3b9545fc7aff362b7dd7c49dcc4bca5b39
+Author: haasedylan@gmail.com <dhaase@mines.edu>
+Date:   Tue Nov 8 11:39:49 2022 -0700
+
+    attempting to fix seen comparision in compAI targeting
+
+commit 071bd4d0240ded078e6d0408816d29b3f08c07ac
+Author: schultzk1123 <schultz@mines.edu>
+Date:   Mon Nov 7 23:27:50 2022 -0700
+
+    I, Katie Schultz, certify that I have contributed equitably to assignment C12A, dated 11/7/2022. I, Dylan Haase, certify that I have contributed equitably to assignment C12A, dated 11/7/2022.
+
+commit f56aa75ad0be3df6bb5f26a2a64a8879983213ae
+Author: schultzk1123 <schultz@mines.edu>
+Date:   Mon Nov 7 23:17:03 2022 -0700
+
+    file names changed
+
+commit 808b6eec9419a74319e19249d47014aa0bfb3d81
+Author: schultzk1123 <schultz@mines.edu>
+Date:   Mon Nov 7 23:14:30 2022 -0700
+
+    More tests added and code updated so that tests pass
+
+commit 634cc95a241e87bdfa94c795ce9d6c6ddd7f92e9
+Author: MistletoW <haasedylan@gmail.com>
+Date:   Mon Nov 7 20:31:25 2022 -0700
+
+    comp AI succesfully passes all targetting tests
+
+commit 7bf6aa283df120350d6df244b984fe6698196555
+Author: MistletoW <haasedylan@gmail.com>
+Date:   Mon Nov 7 20:30:41 2022 -0700
+
+    comp AI succesfully passes all targetting tests
+
+commit 6cb4dc484452fd74d146b36b8a93e87b50fc18c3
+Author: MistletoW <haasedylan@gmail.com>
+Date:   Mon Nov 7 20:02:35 2022 -0700
+
+    adding seen clause to comp AI targeting
+
+commit 148e0a7dfcc2f52d7d894acc69dc7f5565210452
+Author: MistletoW <haasedylan@gmail.com>
+Date:   Mon Nov 7 19:50:41 2022 -0700
+
+    comp AI targeting passes first two requirements
+
+commit 286cf76e4d2a10391f46f8f7d58ae79921cece48
+Author: schultzk1123 <schultz@mines.edu>
+Date:   Mon Nov 7 19:30:05 2022 -0700
+
+    more tests added
+
+commit e7bbee2ea1580b8b2fa9251da12fabba7503d337
+Author: schultzk1123 <schultz@mines.edu>
+Date:   Mon Nov 7 18:26:46 2022 -0700
+
+    test file added and code updated so that some tests pass
+
+commit 245d828de28996ef6e7a841e361afb102b4318d9
+Author: schultzk1123 <schultz@mines.edu>
+Date:   Mon Nov 7 12:53:40 2022 -0700
+
+    suggestion tests added. still need to update code to get them to run without errors!
+
+commit 90bd3ff51accc9f3c3a185a12a6cf51d77fb9765
+Author: haasedylan@gmail.com <dhaase@mines.edu>
+Date:   Mon Nov 7 10:47:10 2022 -0700
+
+    created createSuggestion method
+
+commit c310e5ce27cad2bb2980600ff6e77cf77028396d
+Author: haasedylan@gmail.com <dhaase@mines.edu>
+Date:   Mon Nov 7 10:26:06 2022 -0700
+
+    created handle suggestion method
+
+commit c116f99f03d7682294d226afc428055d9dcc14cb
+Author: haasedylan@gmail.com <dhaase@mines.edu>
+Date:   Mon Nov 7 10:12:19 2022 -0700
+
+    implemented disproveSuggestion method
+
+commit 91c827d3733811d446b87627ddc69dfce65e51b8
+Author: MistletoW <haasedylan@gmail.com>
+Date:   Sat Nov 5 19:50:41 2022 -0600
+
+    created selectTarget method for computerPlayer class
+
+commit cf44f40c2df7e0966ff3bba3a18ec2ab4c830016
+Author: MistletoW <haasedylan@gmail.com>
+Date:   Sat Nov 5 19:27:02 2022 -0600
+
+    created new method stubs and created check accusation method
+
+commit 08fc2b5a38cc3ecc6627085773f3003efc8f807c
+Author: schultzk1123 <schultz@mines.edu>
+Date:   Fri Nov 4 16:31:50 2022 -0600
+
+    git log updated
+
 commit 3867b7f88b094c81637b8c8838ac1842251c656b
 Author: schultzk1123 <schultz@mines.edu>
 Date:   Fri Nov 4 16:29:23 2022 -0600
