@@ -22,7 +22,7 @@ public class GameControlPanel extends JPanel{
 	private JLabel guess;
 	private JLabel resultLabel;
 	
-	private JTextField answer;
+	private JTextField whoseTurnAnswer;
 	private JTextField rollAnswer;
 	private JTextField playerGuess;
 	private JTextField resultDisplay;
@@ -48,8 +48,8 @@ public class GameControlPanel extends JPanel{
 		whoseTurn = new JPanel(new GridLayout(2,0));
 		prompt = new JLabel("Whose Turn");
 		whoseTurn.add(prompt);
-		answer = new JTextField();
-		whoseTurn.add(answer);
+		whoseTurnAnswer = new JTextField();
+		whoseTurn.add(whoseTurnAnswer);
 
 		roll = new JPanel();
 		rollLabel = new JLabel("Roll");
@@ -79,12 +79,13 @@ public class GameControlPanel extends JPanel{
 		guessPanel.setBorder(BorderFactory.createMatteBorder(1, 1, 1, 1, Color.black));
 		guessPanel.setPreferredSize(new Dimension(360,60));
 		guess = new JLabel("Guess");
-		playerGuess = new JTextField("I have no guess!");
-		resultPanel = new JPanel();
+		playerGuess = new JTextField();
+		resultPanel = new JPanel(new GridLayout(1,0));
 		resultPanel.setBorder(BorderFactory.createMatteBorder(1, 1, 1, 1, Color.black));
 		resultPanel.setPreferredSize(new Dimension(360,60));
 		resultLabel = new JLabel("Guess Result");
-		resultDisplay = new JTextField("So you have nothing?");
+		resultDisplay = new JTextField();
+//		resultDisplay.setPreferredSize(new Dimension(200,60));
 
 		//make guess panel
 		guessPanel.add(guess);
@@ -101,20 +102,21 @@ public class GameControlPanel extends JPanel{
 		tempSubPanel2.add(resultPanel);
 		return tempSubPanel2;
 	}
+	
+	public void setTurn(Player player, int roll) {
+		whoseTurnAnswer.setText(player.getName());
+		rollAnswer.setText(String.valueOf(roll));
+	}
+	
+	public void setGuess(String guess) {
+		playerGuess.setText(guess);
+	}
+	
+	public void setGuessResult(String guess) {
+		resultDisplay.setText(guess);
+	}
 
-
-
-	//two smaller ones inside, stacked on top of each other
-	//within first panel
-	//panel with label and textfield
-	//panel with label and textfield
-	//jbutton1
-	//jbutton2
-	//within second panel
-	//jpanel with text field
-	//jpanel with text field
 	public static void main(String[] args) {
-		// TODO Auto-generated method stub
 		GameControlPanel panel = new GameControlPanel();
 		JFrame frame = new JFrame();  // create the frame
 		frame.setContentPane(panel); // put the panel in the frame
@@ -123,9 +125,9 @@ public class GameControlPanel extends JPanel{
 		frame.setVisible(true); // make it visible
 
 		// test filling in the data
-		//		panel.setTurn(new ComputerPlayer( "Col. Mustard", 0, 0, "orange"), 5);
-		//		panel.setGuess( "I have no guess!");
-		//		panel.setGuessResult( "So you have nothing?");
+		panel.setTurn(new ComputerPlayer( "Col. Mustard", 0, 0, "orange"), 5);
+		panel.setGuess( "I have no guess!");
+//		panel.setGuessResult( "So you have nothing?");
 
 	}
 
