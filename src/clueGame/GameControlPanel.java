@@ -155,9 +155,6 @@ public class GameControlPanel extends JPanel{
 		KnownCardsPanel cardsPanel = new KnownCardsPanel(john);
 		frame.setContentPane(cardsPanel);
 		frame.setSize(250,800);
-		
-		
-		
 
 	}
 
