@@ -148,10 +148,13 @@ public class GameControlPanel extends JPanel{
 		john.updateHand(new Card("Wrench", CardType.WEAPON));
 		john.updateHand(new Card("Library", CardType.ROOM));
 		john.updateHand(new Card("George", CardType.PERSON));
+		john.updateHand(new Card("Fred", CardType.PERSON));
+		john.updateHand(new Card("Velma", CardType.PERSON));
+		john.updateHand(new Card("Daphne", CardType.PERSON));
 		john.updateSeen(new Card("Subway", CardType.ROOM));
 		KnownCardsPanel cardsPanel = new KnownCardsPanel(john);
 		frame.setContentPane(cardsPanel);
-		frame.setSize(220,750);
+		frame.setSize(250,800);
 		
 		
 		
