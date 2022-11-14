@@ -1,6 +1,7 @@
 package clueGame;
 
 import java.awt.Dimension;
+import java.awt.Graphics;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Random;
@@ -96,6 +97,9 @@ public abstract class Player {
 		
 		//else if no cards match, return null
 		return null;
+	}
+	//draw the players
+	public void draw(Graphics g) {
 	}
 
 }

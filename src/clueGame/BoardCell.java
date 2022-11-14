@@ -1,5 +1,7 @@
 package clueGame;
 
+import java.awt.Dimension;
+import java.awt.Graphics;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -108,5 +110,9 @@ public class BoardCell {
 	public String getCellValue() {
 		return cell;
 	}
-
+	//draws the cell, given a size, offset, and graphics object
+	public void draw(Dimension cellSize, int offset, Graphics g) {
+		//draw the cell
+		//draw the room names (we can do this here or in the room class!)
+	}
 }

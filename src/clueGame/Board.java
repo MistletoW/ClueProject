@@ -1,10 +1,13 @@
 package clueGame;
 
+import java.awt.Graphics;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.util.*;
 
-public class Board {
+import javax.swing.JPanel;
+
+public class Board extends JPanel{
 	private BoardCell[][] grid;
 
 	private String layoutConfigFile;
@@ -459,6 +462,12 @@ public class Board {
 	}
 	public ArrayList<Card> getRoomDeck() {
 		return roomDeck;
+	}
+	public void paintComponent(Graphics g) {
+		super.paintComponent(g);
+		//calculate what the cell size should be, recalculate each time paintcomponent is called
+		
+		//call paint component from each board cell
 	}
 }
 
