@@ -470,20 +470,15 @@ public class Board extends JPanel{
 	
 	public void paintComponent(Graphics g) {
 		super.paintComponent(g);
-		//calculate what the cell size should be, recalculate each time paintcomponent is called
-		Rectangle r = g.getClipBounds();
-		System.out.println(r.height);
-		System.out.println(r.width);
-		int ySize = r.width/ numRows;
-		int xSize = r.height/ numColumns;
-		//call paint component from each board cell
-		int row =0;
-		int col =0;
-		for(BoardCell[] cell: grid) {
-			g.setColor(Color.blue);
-			g.drawRect(row, col, xSize, ySize);
-			row += ySize;
-			col += xSize;
+		int xSize = ClueGame.WIDTH/2/numRows;
+		int ySize = ClueGame.HEIGHT/2/numColumns;
+		for(int i = 0; i < grid.length; ++i) {
+			for(int j = 0; j< grid[i].length; ++j) {
+				
+				BoardCell cell = grid[i][j];
+				cell.draw(xSize, ySize, 0, g);
+			}
+			
 		}
 	}
 }

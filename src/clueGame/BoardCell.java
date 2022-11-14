@@ -1,5 +1,6 @@
 package clueGame;
 
+import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics;
 import java.util.HashSet;
@@ -110,9 +111,23 @@ public class BoardCell {
 	public String getCellValue() {
 		return cell;
 	}
+	public Color setColor() {
+		Color color = Color.BLACK;
+		if(initial == 'W') {
+			color = Color.yellow;
+		}
+		if(initial != 'X' && initial != 'W') {
+			color = Color.GREEN;
+		}
+		
+		return color;
+	}
 	//draws the cell, given a size, offset, and graphics object
-	public void draw(Dimension cellSize, int offset, Graphics g) {
+	public void draw(int width, int height, int offset, Graphics g) {
 		//draw the cell
+		g.setColor(setColor()); 
+		g.fillRect(row*width, col*height, width, height);
+
 		//draw the room names (we can do this here or in the room class!)
 	}
 }
