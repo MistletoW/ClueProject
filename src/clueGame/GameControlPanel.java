@@ -131,31 +131,5 @@ public class GameControlPanel extends JPanel{
 		resultDisplay.setText(guess);
 	}
 
-	public static void main(String[] args) {
-		GameControlPanel panel = new GameControlPanel();
-		JFrame frame = new JFrame();  // create the frame
-		frame.setContentPane(panel); // put the panel in the frame
-		frame.setSize(750, 180);  // size the frame
-		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); // allow it to close
-		frame.setVisible(true); // make it visible
-
-		// test filling in the data
-		panel.setTurn(new ComputerPlayer( "Col. Mustard", 0, 0, "orange"), 5);
-		panel.setGuess( "I have no guess!");
-		panel.setGuessResult( "So you have nothing?");
-		
-		HumanPlayer john = new HumanPlayer("John", "red");
-		john.updateHand(new Card("Wrench", CardType.WEAPON));
-		john.updateHand(new Card("Library", CardType.ROOM));
-		john.updateHand(new Card("George", CardType.PERSON));
-		john.updateHand(new Card("Fred", CardType.PERSON));
-		john.updateHand(new Card("Velma", CardType.PERSON));
-		john.updateHand(new Card("Daphne", CardType.PERSON));
-		john.updateSeen(new Card("Subway", CardType.ROOM));
-		KnownCardsPanel cardsPanel = new KnownCardsPanel(john);
-		frame.setContentPane(cardsPanel);
-		frame.setSize(250,800);
-
-	}
 
 }

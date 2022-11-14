@@ -1,3 +1,21 @@
+commit c340a46e3ebf4db31028cb838a5e67f64b5c74da
+Author: MistletoW <haasedylan@gmail.com>
+Date:   Fri Nov 11 19:33:35 2022 -0700
+
+    added comments, everything is working
+
+commit c94908c07b2f386ce55a6566d902687492cbdda1
+Author: MistletoW <haasedylan@gmail.com>
+Date:   Fri Nov 11 19:14:50 2022 -0700
+
+    all borders and titles show up
+
+commit 78792a67395d04f91356d7159fb512cceeba7ca2
+Author: MistletoW <haasedylan@gmail.com>
+Date:   Fri Nov 11 18:38:45 2022 -0700
+
+    all create panels are working
+
 commit 49cd1127877f5bfa5c43ab93c86f7ccb08c4210d
 Author: MistletoW <haasedylan@gmail.com>
 Date:   Fri Nov 11 17:07:27 2022 -0700
