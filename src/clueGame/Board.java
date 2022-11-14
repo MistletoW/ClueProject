@@ -1,6 +1,8 @@
 package clueGame;
 
+import java.awt.Color;
 import java.awt.Graphics;
+import java.awt.Rectangle;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.util.*;
@@ -29,7 +31,7 @@ public class Board extends JPanel{
 	 */
 	private static Board theInstance = new Board();
 	//	constructor is private to ensure only one can be created
-	private Board() {
+	Board() {
 		super();
 		targets = new HashSet<BoardCell> ();
 		visited = new HashSet<BoardCell> ();
@@ -457,17 +459,32 @@ public class Board extends JPanel{
 	public ArrayList<Card> getWeaponDeck(){
 		return weaponDeck;
 	}
+	
 	public ArrayList<Card> getPersonDeck(){
 		return personDeck;
 	}
+	
 	public ArrayList<Card> getRoomDeck() {
 		return roomDeck;
 	}
+	
 	public void paintComponent(Graphics g) {
 		super.paintComponent(g);
 		//calculate what the cell size should be, recalculate each time paintcomponent is called
-		
+		Rectangle r = g.getClipBounds();
+		System.out.println(r.height);
+		System.out.println(r.width);
+		int ySize = r.width/ numRows;
+		int xSize = r.height/ numColumns;
 		//call paint component from each board cell
+		int row =0;
+		int col =0;
+		for(BoardCell[] cell: grid) {
+			g.setColor(Color.blue);
+			g.drawRect(row, col, xSize, ySize);
+			row += ySize;
+			col += xSize;
+		}
 	}
 }
 
