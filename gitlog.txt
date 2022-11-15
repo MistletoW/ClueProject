@@ -1,3 +1,45 @@
+commit 4f5ecbcc08091fc86a466da139d6e3df1506d8c6
+Author: schultzk1123 <schultz@mines.edu>
+Date:   Mon Nov 14 22:39:44 2022 -0700
+
+    method to draw doors and players added
+
+commit 03b712058fff311f98de14f075b4df6b84f2ed41
+Author: schultzk1123 <schultz@mines.edu>
+Date:   Mon Nov 14 18:27:53 2022 -0700
+
+    Labels added
+
+commit 854dac8b44ddebfc73e36580c1f6885b4f7891c5
+Author: schultzk1123 <schultz@mines.edu>
+Date:   Mon Nov 14 15:41:18 2022 -0700
+
+    got the game to display, still some errors in the code, and we still need a method to display the room names and players
+
+commit 7203931981ee973aae9321105263401d30546420
+Author: MistletoW <haasedylan@gmail.com>
+Date:   Mon Nov 14 13:08:34 2022 -0700
+
+    added main panel to add all sub panels to, set frame to pane
+
+commit fc963743b9cfeeb6080d1bdf0e10559b755d3657
+Author: MistletoW <haasedylan@gmail.com>
+Date:   Mon Nov 14 13:04:47 2022 -0700
+
+    designed for loop to get all cells
+
+commit 0cdf9532c0146dfc752f07d8285cc306ffcd0360
+Author: MistletoW <haasedylan@gmail.com>
+Date:   Mon Nov 14 12:25:37 2022 -0700
+
+    added ClueGame with main
+
+commit 23cc44866bb890a6fe81a90db6a3676c1040dcf1
+Author: schultzk1123 <schultz@mines.edu>
+Date:   Sun Nov 13 20:56:14 2022 -0700
+
+    skeleton classes added for board GUI
+
 commit c340a46e3ebf4db31028cb838a5e67f64b5c74da
 Author: MistletoW <haasedylan@gmail.com>
 Date:   Fri Nov 11 19:33:35 2022 -0700

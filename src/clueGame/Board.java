@@ -145,7 +145,7 @@ public class Board extends JPanel{
 					String cell = cells[col];
 					//define characteristics about our board cell
 					if(roomMap.get(cell.charAt(0)) != null){
-						grid[row][col].setCell(cell);
+						grid[col][row].setCell(cell);
 					}else {
 						throw new BadConfigFormatException();
 					}
@@ -159,9 +159,9 @@ public class Board extends JPanel{
 		}
 	}
 	public void createGrid() {
-		grid = new BoardCell[numRows][numColumns];
-		for(int i = 0; i< numRows; i++) {
-			for(int j = 0; j < numColumns; j++) {
+		grid = new BoardCell[numColumns][numRows];
+		for(int i = 0; i< numColumns; i++) {
+			for(int j = 0; j < numRows; j++) {
 				grid[i][j] = new BoardCell(i,j);
 			}
 		}
@@ -211,7 +211,7 @@ public class Board extends JPanel{
 	}
 
 	public BoardCell getCell(int row, int col) {
-		return grid[row][col];
+		return grid[col][row];
 	}
 
 	public Set<BoardCell> getAdjList(int row, int col){
@@ -332,8 +332,8 @@ public class Board extends JPanel{
 		char initial = this.getCell(row + yOffset, col + xOffset).getInitial();
 
 		//find the room center with initial
-		for(int i = 0; i < numRows; i++) {
-			for(int j = 0; j < numColumns; j++) {
+		for(int i = 0; i < numColumns; i++) {
+			for(int j = 0; j < numRows; j++) {
 				if(this.grid[i][j].getInitial() == initial && this.grid[i][j].isRoomCenter()) {
 					startCell.addAdj(grid[i][j]);//door add room center
 					grid[i][j].addAdj(startCell);//room center add doorway
@@ -344,8 +344,8 @@ public class Board extends JPanel{
 
 	public void getSecretPassage(BoardCell startCell, char initial) {
 		char secret = ' ';
-		for(int i = 0; i < numRows; i++) {	//for every cell in grid
-			for(int j = 0; j < numColumns; j++) {	
+		for(int i = 0; i < numColumns; i++) {	//for every cell in grid
+			for(int j = 0; j < numRows; j++) {	
 
 				//if room has secret passage way
 				if(grid[i][j].getInitial() == initial && 
@@ -354,8 +354,8 @@ public class Board extends JPanel{
 						grid[i][j].getSecretPassage() != ' ') {
 					secret = grid[i][j].getSecretPassage();
 
-					for(int k = 0; k < numRows; k++) { //for every cell in grid
-						for(int l = 0; l < numColumns; l++) {
+					for(int k = 0; k < numColumns; k++) { //for every cell in grid
+						for(int l = 0; l < numRows; l++) {
 
 							if(grid[k][l].getInitial() == secret && grid[k][l].isRoomCenter()) {
 								startCell.addAdj(grid[k][l]);
