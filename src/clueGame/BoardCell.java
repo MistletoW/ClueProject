@@ -17,7 +17,7 @@ public class BoardCell {
 	private char secretPassage = ' ';
 	private Set<BoardCell> adjList;
 	boolean isOccupied;
-	
+
 	public BoardCell(int row, int col) {
 		this.row = row;
 		this.col = col;
@@ -40,7 +40,7 @@ public class BoardCell {
 	public void addAdj(BoardCell adj) {
 		adjList.add(adj);
 	}
-//	passing in the string of the cell, define whether or not the cell is a doorway. 
+	//	passing in the string of the cell, define whether or not the cell is a doorway. 
 	public boolean isDoorway() {
 		if (cell.length() > 1) {
 			if(cell.charAt(1) == '^' || cell.charAt(1) == 'v' || cell.charAt(1) == '<' || cell.charAt(1) == '>') {
@@ -55,18 +55,18 @@ public class BoardCell {
 			switch(c) {
 			case('^'):
 				doorDirection = DoorDirection.UP;
-				break;
+			break;
 			case('v'):
 				doorDirection = DoorDirection.DOWN;
-				break;
+			break;
 			case('<'):
 				doorDirection = DoorDirection.LEFT;
-				break;
+			break;
 			case('>'):
 				doorDirection = DoorDirection.RIGHT;
-				break;
+			break;
 			default: doorDirection = DoorDirection.NONE;
-				break;
+			break;
 			}
 			return doorDirection;
 		}
@@ -81,7 +81,7 @@ public class BoardCell {
 		return roomLabel;
 	}
 	public boolean isRoomCenter() {
-		 if(cell.length() > 1) {
+		if(cell.length() > 1) {
 			if(cell.charAt(1) == '*') {
 				roomCenter = true;
 			}
@@ -95,40 +95,70 @@ public class BoardCell {
 		return secretPassage;
 	}
 
-//	toString
+	//	toString
 	public String toString() {
 		return "Cell: " + cell + "\nAt : " + row + ", " + col ;
 	}
-	
+
 	public Set<BoardCell> getAdjList(){
 		return adjList;
 	}
-	
+
 	public void setOccupied(boolean value) {
 		this.isOccupied = value;
 	}
-	
+
 	public String getCellValue() {
 		return cell;
 	}
 	public Color setColor() {
 		Color color = Color.BLACK;
+		//walkways are light brown-ish
 		if(initial == 'W') {
-			color = Color.yellow;
+			color = new Color(195, 151, 110);
 		}
+		//rooms are gray
 		if(initial != 'X' && initial != 'W') {
 			color = Color.GRAY;
 		}
-		
+
 		return color;
 	}
 	//draws the cell, given a size, offset, and graphics object
 	public void draw(int width, int height, int offset, Graphics g) {
 		//draw the cell
-		g.setColor(setColor()); 
-		g.fillRect(row*width, col*height, width, height);
+		g.setColor(setColor());
+		//have rooms be connected
+		if(initial != 'X' && initial != 'W') {
+			offset = 0;
+		}
+		g.fillRect(row*width, col*height, width - offset, height - offset);
 
-		//draw the room names (we can do this here or in the room class!
+		//if there's a a door, draw it!
+		if(isDoorway()) {
+			g.setColor(Color.BLUE);
+			//for left and right doors, the width of the door is 1/5 the width of the cell
+			int doorWidth = width/5;
+			//for up and down doors, the height of the door is 1/5 the width of the cell
+			int doorHeight = height/5;
+			if (doorDirection == DoorDirection.DOWN) {
+				//if door is facing down, put the door at the bottom of the cell
+				int doorDownOffset = height*4/5;
+				g.fillRect(row*width, col*height+doorDownOffset, width - offset, doorHeight);
+			}
+			if (doorDirection == DoorDirection.UP) {
+				g.fillRect(row*width, col*height, width - offset, doorHeight);
+			}
+			if (doorDirection == DoorDirection.LEFT) {
+				g.fillRect(row*width, col*height, doorWidth, height - offset);
+			}
+			if (doorDirection == DoorDirection.RIGHT) {
+				//if door is facing right, put the door on the right side of the cell
+				int doorRightOffset = width*4/5;
+				g.fillRect(row*width+doorRightOffset, col*height, doorWidth, height - offset);
+			}
+			
+		}
 	}
-	
+
 }

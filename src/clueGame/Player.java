@@ -1,5 +1,6 @@
 package clueGame;
 
+import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics;
 import java.util.ArrayList;
@@ -98,8 +99,25 @@ public abstract class Player {
 		//else if no cards match, return null
 		return null;
 	}
+	//get player colors
+	public Color getPlayerColor() {
+		if(color.equals("Red")) return Color.RED;
+		if(color.equals("Orange")) return Color.ORANGE;
+		if(color.equals("Yellow")) return Color.YELLOW;
+		if(color.equals("Green")) return Color.GREEN;
+		if(color.equals("Blue")) return Color.BLUE;
+		if(color.equals("Purple")) return Color.MAGENTA;
+		else return Color.BLACK;
+		
+		
+		
+		
+		
+	}
 	//draw the players
-	public void draw(Graphics g) {
+	public void draw(int width, int height, Graphics g) {
+		g.setColor(getPlayerColor());
+		g.fillOval(row*width, column*height, width, height);
 	}
 
 }

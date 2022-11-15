@@ -33,6 +33,7 @@ public class Board extends JPanel{
 	//	constructor is private to ensure only one can be created
 	Board() {
 		super();
+		setBackground(Color.black);
 		targets = new HashSet<BoardCell> ();
 		visited = new HashSet<BoardCell> ();
 	}
@@ -472,23 +473,28 @@ public class Board extends JPanel{
 		super.paintComponent(g);
 		int xSize = ClueGame.WIDTH/2/numRows;
 		int ySize = ClueGame.HEIGHT/2/numColumns;
-
+		
 		//draw cells
 		for(int i = 0; i < grid.length; ++i) {
 			for(int j = 0; j< grid[i].length; ++j) {
 
 				BoardCell cell = grid[i][j];
-				cell.draw(xSize, ySize, 0, g);
+				cell.draw(xSize, ySize, 1, g);
+				
 			}
-
 		}
+		
+		
 		//draw labels
 		for (Room currentRoom : roomMap.values()) {
 			BoardCell b = currentRoom.getLabelCell();
 			if(b!= null) {
 				currentRoom.draw(b.row*xSize, b.col*ySize, g);
-			}
-			
+			}			
+		}
+		//draw players
+		for (Player p : players) {
+			p.draw(xSize, ySize, g);
 		}
 	}
 }
