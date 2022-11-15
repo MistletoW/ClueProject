@@ -25,7 +25,7 @@ public class Board extends JPanel{
 	private ArrayList<Card> roomDeck = new ArrayList<Card>();
 	private ArrayList<Card> deck = new ArrayList<Card>();
 	private Solution theAnswer;
-	
+
 	/*
 	 * variable and methods used for singleton pattern
 	 */
@@ -56,7 +56,7 @@ public class Board extends JPanel{
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		
+
 		for(int i = 0; i < numRows; i++) {
 			for(int j = 0; j < numColumns; j++) {
 				this.setAdjList(i,j);
@@ -105,12 +105,12 @@ public class Board extends JPanel{
 						Card cc = new Card(splitData[1], CardType.PERSON);
 						personDeck.add(cc);
 					} else if(splitData[0].equals("HumanPlayer")) {
-							//create player
-							Player p = new HumanPlayer(splitData[1], splitData[2]);
-							players.add(p);
-							//create player Card 
-							Card pc = new Card(splitData[1], CardType.PERSON);
-							personDeck.add(pc);
+						//create player
+						Player p = new HumanPlayer(splitData[1], splitData[2]);
+						players.add(p);
+						//create player Card 
+						Card pc = new Card(splitData[1], CardType.PERSON);
+						personDeck.add(pc);
 					} else if(splitData[0].equals("Weapon")) {
 						//create weapon card
 						Card w = new Card(splitData[1], CardType.WEAPON);
@@ -212,7 +212,7 @@ public class Board extends JPanel{
 	public BoardCell getCell(int row, int col) {
 		return grid[row][col];
 	}
-	
+
 	public Set<BoardCell> getAdjList(int row, int col){
 		return this.getCell(row,col).getAdjList();
 	}
@@ -220,13 +220,13 @@ public class Board extends JPanel{
 	public void calcTargets( BoardCell startCell, int pathlength) {
 		targets.clear();
 		visited.clear(); //clear lists so that they function properly
-		
+
 		visited.add(startCell); //add startcell so that visited isn't null
-		
+
 		calcTargetsRecursion(startCell, pathlength); //recursive call startcell
-		
+
 	}
-	
+
 	public void calcTargetsRecursion(BoardCell startCell, int pathlength) {
 		//recursive call helper for CalcTargets
 		Set<BoardCell> adjList = startCell.getAdjList(); //get adjList
@@ -234,7 +234,7 @@ public class Board extends JPanel{
 		BoardCell thisCell;
 		while(it.hasNext()) {
 			thisCell = it.next(); //set thisCell to next in adjList
-			
+
 			if(visited.contains(thisCell) == false) {
 				//if already visited then skip
 				//if not visited add to visited
@@ -244,7 +244,7 @@ public class Board extends JPanel{
 					if(thisCell.isOccupied == false) {
 						targets.add(thisCell);
 					}
-					
+
 				} else if(thisCell.isRoomCenter()) {
 					targets.add(thisCell);
 					calcTargetsRecursion(thisCell, pathlength-1);
@@ -258,35 +258,35 @@ public class Board extends JPanel{
 			}
 		}
 	}
-	
+
 	public Set<BoardCell> getTargets(){
 		return targets;
 	}
-	
+
 	public void setAdjList(int row, int col) {
 		BoardCell startCell = this.getCell(row,col);
-		
+
 		if (startCell.getCellValue().length() < 2) {
 			getAdjCommon(startCell, row, col);
 		} else {
-			
+
 			//if doorway, determine direction
 			if(startCell.isDoorway()) {
-				
+
 				getAdjCommon(startCell, row, col); //get common adj cells around door
 				DoorDirection doorDir = startCell.getDoorDirection();
-				
+
 				getAdjToDoor(startCell, doorDir, row, col);
 			}
-				
+
 			if(startCell.isRoomCenter()) { 
 				getSecretPassage(startCell, startCell.getInitial());
 			}
 		}
 	}
-	
+
 	public void getAdjCommon(BoardCell startCell, int row, int col) {
-		
+
 		if(row > 0) {
 			if(startCell.getInitial() == this.getCell(row-1, col).getInitial()) {
 				startCell.addAdj(this.getCell(row-1, col));
@@ -308,11 +308,11 @@ public class Board extends JPanel{
 			}
 		}
 	}
-	
+
 	public void getAdjToDoor(BoardCell startCell, DoorDirection whichWay, int row, int col) {
 		int xOffset = 0;
 		int yOffset = 0;
-		
+
 		//establish the which direction the door is facing
 		if(whichWay == DoorDirection.UP) {
 			yOffset = -1;
@@ -326,10 +326,10 @@ public class Board extends JPanel{
 		if(whichWay == DoorDirection.RIGHT) {
 			xOffset = 1;
 		}
-		
+
 		//get the room initial
 		char initial = this.getCell(row + yOffset, col + xOffset).getInitial();
-		
+
 		//find the room center with initial
 		for(int i = 0; i < numRows; i++) {
 			for(int j = 0; j < numColumns; j++) {
@@ -340,7 +340,7 @@ public class Board extends JPanel{
 			}
 		}
 	}
-	
+
 	public void getSecretPassage(BoardCell startCell, char initial) {
 		char secret = ' ';
 		for(int i = 0; i < numRows; i++) {	//for every cell in grid
@@ -355,7 +355,7 @@ public class Board extends JPanel{
 
 					for(int k = 0; k < numRows; k++) { //for every cell in grid
 						for(int l = 0; l < numColumns; l++) {
-							
+
 							if(grid[k][l].getInitial() == secret && grid[k][l].isRoomCenter()) {
 								startCell.addAdj(grid[k][l]);
 							}
@@ -390,26 +390,26 @@ public class Board extends JPanel{
 		Random randomPerson = new Random();
 		int p = randomPerson.nextInt(personDeck.size());
 		Card person = personDeck.get(p);
-		
+
 		Random randomWeapon = new Random();
 		int w = randomPerson.nextInt(weaponDeck.size());
 		Card weapon = weaponDeck.get(w);
-		
+
 		Random randomRoom = new Random();
 		int r = randomPerson.nextInt(roomDeck.size());
 		Card room = roomDeck.get(r);
-		
+
 		theAnswer = new Solution(room, person, weapon);
-		
+
 		deck.remove(person);
 		deck.remove(room);
 		deck.remove(weapon);
 	}
-	
+
 	public Solution getSolution() {
 		return theAnswer;
 	}
-	
+
 	public void dealCards() {
 		int counter = 0;
 		while(deck.size() > 0) {
@@ -424,7 +424,7 @@ public class Board extends JPanel{
 			counter++;
 		}
 	}
-	
+
 	public boolean checkAccusation(Card roomAcc, Card personAcc, Card weaponAcc) {
 		if(roomAcc == theAnswer.getRoom()) { //check if room matches
 			if(personAcc == theAnswer.getPerson()) { //check if person matches
@@ -436,7 +436,7 @@ public class Board extends JPanel{
 		//if one does not match return false
 		return false;
 	}
-	
+
 	public Card handleSuggestion(Player p, Solution suggestion) {
 		Card tester = null; //create card and set to null 
 		int i = 0; //create iterator for players
@@ -446,37 +446,47 @@ public class Board extends JPanel{
 			} else {
 
 				tester = players.get(i).disproveSuggestion(suggestion); //go through players, disprove if can
-			
+
 				i++; //iterate through players
 			}
-	
+
 		}while(tester == null && i < players.size()); //if we find a suggestion that disproves or run out of players exit loop
-		
+
 		return tester;//return 
 	}
-	
+
 	//getters for decks
 	public ArrayList<Card> getWeaponDeck(){
 		return weaponDeck;
 	}
-	
+
 	public ArrayList<Card> getPersonDeck(){
 		return personDeck;
 	}
-	
+
 	public ArrayList<Card> getRoomDeck() {
 		return roomDeck;
 	}
-	
+
 	public void paintComponent(Graphics g) {
 		super.paintComponent(g);
 		int xSize = ClueGame.WIDTH/2/numRows;
 		int ySize = ClueGame.HEIGHT/2/numColumns;
+
+		//draw cells
 		for(int i = 0; i < grid.length; ++i) {
 			for(int j = 0; j< grid[i].length; ++j) {
-				
+
 				BoardCell cell = grid[i][j];
 				cell.draw(xSize, ySize, 0, g);
+			}
+
+		}
+		//draw labels
+		for (Room currentRoom : roomMap.values()) {
+			BoardCell b = currentRoom.getLabelCell();
+			if(b!= null) {
+				currentRoom.draw(b.row*xSize, b.col*ySize, g);
 			}
 			
 		}
@@ -485,4 +495,4 @@ public class Board extends JPanel{
 
 
 
-	
+

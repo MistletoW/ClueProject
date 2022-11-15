@@ -1,5 +1,7 @@
 package clueGame;
 
+import java.awt.Graphics;
+
 public class Room {
 	private String name;
 	private BoardCell centerCell;
@@ -35,5 +37,8 @@ public class Room {
 			centerCell = Board.getInstance().getCell(row,col);
 
 		}
+	}
+	public void draw(int x, int y, Graphics g) {
+		g.drawString(name, x, y);
 	}
 }

@@ -7,8 +7,8 @@ import java.util.HashSet;
 import java.util.Set;
 
 public class BoardCell {
-	private int row;
-	private int col;
+	public int row;
+	public int col;
 	private String cell;
 	private char initial;
 	private DoorDirection doorDirection;
@@ -117,7 +117,7 @@ public class BoardCell {
 			color = Color.yellow;
 		}
 		if(initial != 'X' && initial != 'W') {
-			color = Color.GREEN;
+			color = Color.GRAY;
 		}
 		
 		return color;
@@ -128,6 +128,7 @@ public class BoardCell {
 		g.setColor(setColor()); 
 		g.fillRect(row*width, col*height, width, height);
 
-		//draw the room names (we can do this here or in the room class!)
+		//draw the room names (we can do this here or in the room class!
 	}
+	
 }
