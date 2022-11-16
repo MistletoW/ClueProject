@@ -3,6 +3,8 @@ package clueGame;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.GridLayout;
+import java.util.ArrayList;
+import java.util.Set;
 
 import javax.swing.BorderFactory;
 import javax.swing.JLabel;
@@ -63,45 +65,14 @@ public class KnownCardsPanel extends JPanel {
 		inHandWeapons.add(inHand);
 
 		//newCard to hold each card and boolean to detect if there are no cards of type
-		JTextField newCard;
-		boolean none = false;
-
-		//for each card in hand detect type, if the right type add to the panel
-		for(Card weapon : player.getCards()) {
-			if(weapon.getType() == CardType.WEAPON) {
-				newCard = new JTextField(weapon.getName());
-				inHandWeapons.add(newCard);
-				none = true;
-			}
-		}
-		//if no cards of the right type were detected then default to None
-		if (none == false){
-			newCard = new JTextField("None");
-			inHandWeapons.add(newCard);
-		}
-
+		getHandPanel(inHandWeapons, player.getCards(), CardType.WEAPON);
+		
 		//create seen panel
 		JPanel SeenWeapons = new JPanel(new GridLayout(0,1));
 		SeenWeapons.add(inSeen);
 
-		//reset bool to false
-		none = false;
-		//for each seen card detect type, if the right type add to the panel
-		for(Card weapon : player.getSeenCards()) {
-			if(weapon.getType() == CardType.WEAPON) {
-				newCard = new JTextField(weapon.getName());
-				newCard.setPreferredSize(new Dimension(300,25));
-				SeenWeapons.add(newCard);
-				none = true;
-			}
-		}
-		//if no cards of the right type were detected then default to None
-		if (none == false){
-			newCard = new JTextField("None");
-			newCard.setPreferredSize(new Dimension(300,25));
-			SeenWeapons.add(newCard);
-		}
-
+		getSeenPanel(SeenWeapons, player.getSeenCards(), CardType.WEAPON);
+		
 		//add both panels to main weapons panel
 		weapons.add(inHandWeapons);
 		weapons.add(SeenWeapons);
@@ -124,46 +95,14 @@ public class KnownCardsPanel extends JPanel {
 		JLabel inSeen = new JLabel("Seen:");
 		inHandRooms.add(inHand);
 
-		//newCard to hold each card and boolean to detect if there are no cards of type
-		JTextField newCard;
-		boolean none = false;
+		getHandPanel(inHandRooms, player.getCards(), CardType.ROOM);
 
-		//for each card in hand detect type, if the right type add to the panel
-		for(Card room : player.getCards()) {
-			if(room.getType() == CardType.ROOM) {
-				newCard = new JTextField(room.getName());
-				newCard.setPreferredSize(new Dimension(90,25));
-				inHandRooms.add(newCard);
-				none = true;
-			}
-		}
-		//if no cards of the right type were detected then default to None
-		if (none == false){
-			newCard = new JTextField("None");
-			newCard.setPreferredSize(new Dimension(90,25));
-			inHandRooms.add(newCard);
-		}
 		//create seen panel
 		JPanel SeenRooms = new JPanel(new GridLayout(0,1));
 		SeenRooms.add(inSeen);
 
-		//reset bool to false
-		none = false;
-		//for each seen card detect type, if the right type add to the panel
-		for(Card room : player.getSeenCards()) {
-			if(room.getType() == CardType.ROOM) {
-				newCard = new JTextField(room.getName());
-				newCard.setPreferredSize(new Dimension(90,25));
-				SeenRooms.add(newCard);
-				none = true;
-			}
-		}
-		//if no cards of the right type were detected then default to None
-		if (none == false){
-			newCard = new JTextField("None");
-			newCard.setPreferredSize(new Dimension(90,25));
-			SeenRooms.add(newCard);
-		}
+		getSeenPanel(SeenRooms, player.getSeenCards(), CardType.ROOM);
+
 
 		//add both panels to main rooms panel
 		rooms.add(inHandRooms);
@@ -186,51 +125,58 @@ public class KnownCardsPanel extends JPanel {
 		JLabel inSeen = new JLabel("Seen:");
 		inHandPeople.add(inHand);
 
-		//newCard to hold each card and boolean to detect if there are no cards of type
-		JTextField newCard;
-		boolean none = false;
+		getHandPanel(inHandPeople, player.getCards(), CardType.PERSON);
 
-		//for each card in hand detect type, if the right type add to the panel
-		for(Card person : player.getCards()) {
-			if(person.getType() == CardType.PERSON) {
-				newCard = new JTextField(person.getName());
-				newCard.setPreferredSize(new Dimension(90,25));
-				inHandPeople.add(newCard);
-				none = true;
-			}
-		}
-		//if no cards of the right type were detected then default to None
-		if (none == false){
-			newCard = new JTextField("None");
-			newCard.setPreferredSize(new Dimension(90,25));
-			inHandPeople.add(newCard);
-		}
 		//create seen panel
 		JPanel SeenPeople = new JPanel(new GridLayout(0,1));
 		SeenPeople.add(inSeen);
-
-		//reset bool to false
-		none = false;
+		
 		//for each seen card detect type, if the right type add to the panel
-
-		for(Card person : player.getSeenCards()) {
-			if(person.getType() == CardType.PERSON) {
-				newCard = new JTextField(person.getName());
-				newCard.setPreferredSize(new Dimension(300,25));
-				SeenPeople.add(newCard);
-				none = true;
-			}
-		}
-		//if no cards of the right type were detected then default to None
-		if (none == false){
-			newCard = new JTextField("None");
-			newCard.setPreferredSize(new Dimension(300,25));
-			SeenPeople.add(newCard);
-		}
+		getSeenPanel(SeenPeople, player.getSeenCards(), CardType.PERSON);
 
 		//add both panels to main people panel
 		people.add(inHandPeople);
 		people.add(SeenPeople);
 
+	}
+	
+	//for each card in hand detect type, if the right type add to the panel
+	public void getHandPanel(JPanel handPanel, ArrayList<Card> hand, CardType type) {
+		JTextField newCard;
+		boolean none = false;
+		for(Card card : hand) {
+			if(card.getType() == type) {
+				newCard = new JTextField(card.getName());
+				newCard.setPreferredSize(new Dimension(300,25));
+				handPanel.add(newCard);
+				none = true;
+			}
+		}
+		
+		if (none == false){
+			newCard = new JTextField("None");
+			newCard.setPreferredSize(new Dimension(300,25));
+			handPanel.add(newCard);
+		}
+	}
+	
+	//for each seen card detect type, if the right type add to the panel
+	public void getSeenPanel(JPanel Seen, Set<Card> seenCards, CardType type) {
+		JTextField newCard;
+		boolean none = false;
+		for(Card card : seenCards) {
+			if(card.getType() == type) {
+				newCard = new JTextField(card.getName());
+				newCard.setPreferredSize(new Dimension(300,25));
+				Seen.add(newCard);
+				none = true;
+			}
+		}
+		
+		if (none == false){
+			newCard = new JTextField("None");
+			newCard.setPreferredSize(new Dimension(300,25));
+			Seen.add(newCard);
+		}
 	}
 }
