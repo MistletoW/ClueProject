@@ -21,9 +21,7 @@ public class ClueGame extends JFrame{
 		GameControlPanel gamePanel = new GameControlPanel();
 		KnownCardsPanel cardsPanel = new KnownCardsPanel((board.getPlayers().get(0)));
 		
-//		board.setLayout(new BorderLayout());
-//		cardsPanel.Panel.setLayout(new BorderLayout());
-//		gamePanel.setLayout(new BorderLayout());
+		//set layout for mainPanel
 		mainPanel.add(board, BorderLayout.CENTER);
 		mainPanel.add(cardsPanel, BorderLayout.EAST);
 		mainPanel.add(gamePanel, BorderLayout.SOUTH);
