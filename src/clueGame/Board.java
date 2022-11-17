@@ -471,15 +471,13 @@ public class Board extends JPanel{
 
 	public void paintComponent(Graphics g) {
 		super.paintComponent(g);
-		int xSize = ClueGame.WIDTH/2/numRows;
-		int ySize = ClueGame.HEIGHT/2/numColumns;
+		int xSize = getWidth()/numColumns;
+		int ySize = getHeight()/numRows;
 		
 		//draw cells
 		for(int i = 0; i < grid.length; ++i) {
 			for(int j = 0; j< grid[i].length; ++j) {
-
-				BoardCell cell = grid[i][j];
-				cell.draw(xSize, ySize, 1, g);
+				grid[i][j].draw(xSize, ySize, 1, g);
 				
 			}
 		}

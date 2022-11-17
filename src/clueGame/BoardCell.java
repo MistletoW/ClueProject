@@ -135,7 +135,6 @@ public class BoardCell {
 		g.fillRect(row*width, col*height, width - offset, height - offset);
 
 		//if there's a a door, draw it!
-		if(isDoorway()) {
 			g.setColor(Color.BLUE);
 			//for left and right doors, the width of the door is 1/5 the width of the cell
 			int doorWidth = width/5;
@@ -159,6 +158,5 @@ public class BoardCell {
 			}
 			
 		}
-	}
 
 }

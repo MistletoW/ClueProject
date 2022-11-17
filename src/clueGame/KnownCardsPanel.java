@@ -1,5 +1,5 @@
 package clueGame;
-
+//REFACTOR THIS METHOD, RECALL UPDATE FUNCTIONS
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.GridLayout;
@@ -34,7 +34,7 @@ public class KnownCardsPanel extends JPanel {
 		rooms = new JPanel(new GridLayout(0,1));
 		weapons = new JPanel(new GridLayout(0,1));
 
-		//call methods to fill panels
+		//call methods to fill panels 
 		createPeoplePanel();
 		createRoomsPanel();
 		createWeaponsPanel();
