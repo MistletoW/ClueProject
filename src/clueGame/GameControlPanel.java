@@ -34,19 +34,15 @@ public class GameControlPanel extends JPanel{
 	
 	//constructor calls createLayout
 	public GameControlPanel() {
-		createLayout();
-
-	}
-	
-	public void createLayout() {
 		//make two subPanels which each have there own items
+		setLayout(new BorderLayout());
+		
 		subPanel1 = createSubPanel1();
 		subPanel2 = createSubPanel2();
-		
-		//add subpanels to GameControlPanel
-		add(subPanel1);
-		add(subPanel2);
 
+		//add subpanels to GameControlPanel
+		add(subPanel1, BorderLayout.NORTH);
+		add(subPanel2, BorderLayout.SOUTH);
 
 	}
 

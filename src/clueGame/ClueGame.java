@@ -5,6 +5,7 @@ import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.GridLayout;
 
+import javax.swing.BoxLayout;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 
@@ -12,7 +13,7 @@ public class ClueGame extends JFrame{
 	public static final int HEIGHT = 750;
 	public static final int WIDTH = 750;
 	private static Board board;
-	
+
 	public ClueGame() {
 		super();
 		board = Board.getInstance();
@@ -20,14 +21,12 @@ public class ClueGame extends JFrame{
 		board.initialize();
 		GameControlPanel gamePanel = new GameControlPanel();
 		KnownCardsPanel cardsPanel = new KnownCardsPanel((board.getPlayers().get(0)));
-		
 		add(board, BorderLayout.CENTER);
 		add(cardsPanel, BorderLayout.EAST);
 		add(gamePanel, BorderLayout.SOUTH);
 	}
 	public static void main(String[] args) {
 		//JPanel mainPanel = new JPanel(new GridLayout(2,0))
-		
 		ClueGame frame = new ClueGame();  // create the frame
 		frame.setSize(HEIGHT,WIDTH);  // size the frame
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); // allow it to close
