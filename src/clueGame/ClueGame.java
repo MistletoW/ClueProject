@@ -56,6 +56,7 @@ public class ClueGame extends JFrame{
 		
 		//define new target and calculates
 		board.calcTargets(board.getPlayers().get(gameTurn % board.getPlayers().size()).getCell(), newRoll);
+
 		board.repaint();
 	}
 }

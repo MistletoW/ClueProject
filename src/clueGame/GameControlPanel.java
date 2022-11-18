@@ -3,6 +3,7 @@ package clueGame;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
+import java.awt.Font;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -50,11 +51,15 @@ public class GameControlPanel extends JPanel{
 
 	public JPanel createSubPanel1() { 
 		//create turn panel, give label and text box which contains whose turn it is
+		
 		whoseTurn = new JPanel(new GridLayout(2,0));
 		prompt = new JLabel("Whose Turn");
 		whoseTurn.add(prompt);
 		whoseTurnAnswer = new JTextField();
+		whoseTurnAnswer.setFont(new Font("Tahoma", Font.BOLD,14));
+		whoseTurnAnswer.setBackground(ClueGame.board.getPlayers().get(ClueGame.gameTurn %ClueGame.board.getPlayers().size()).getPlayerColor());
 		whoseTurn.add(whoseTurnAnswer);
+		
 
 		//create roll panel, give it label and text box for roll
 		roll = new JPanel();
@@ -125,6 +130,7 @@ public class GameControlPanel extends JPanel{
 	public void setTurn(Player player, int roll) {
 		//simple setter giving player name and roll value to display
 		whoseTurnAnswer.setText(player.getName());
+		whoseTurnAnswer.setBackground(ClueGame.board.getPlayers().get(ClueGame.gameTurn %ClueGame.board.getPlayers().size()).getPlayerColor());
 		rollAnswer.setText(String.valueOf(roll));
 	}
 	

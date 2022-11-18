@@ -499,6 +499,8 @@ public class Board extends JPanel{
 		}
 		
 		if(ClueGame.gameTurn%players.size() == 0) {
+			calcTargets(getPlayers().get(ClueGame.gameTurn % getPlayers().size()).getCell(), ClueGame.newRoll);
+
 			for(BoardCell target : targets) {
 				System.out.println(targets.size());
 				g.setColor(Color.BLACK);
