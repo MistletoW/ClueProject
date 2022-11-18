@@ -4,6 +4,8 @@ import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.GridLayout;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 import javax.swing.*;
 
@@ -66,8 +68,16 @@ public class GameControlPanel extends JPanel{
 		//create accusation panel, give it two buttons, next and make accusation
 		makeAccusation = new JButton("Make Accusation");
 		makeAccusation.setPreferredSize(new Dimension(160,60));
+		
 		next = new JButton("NEXT");
 		next.setPreferredSize(new Dimension(180,60));
+		next.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				ClueGame.gameTurn += 1;
+				ClueGame.newRoll = 0 + (int)(Math.random() * 7);
+				setTurn(ClueGame.board.getPlayers().get(ClueGame.gameTurn % ClueGame.board.getPlayers().size()), ClueGame.newRoll);
+			}
+		});
 		
 		//create temp panel, add all created panels and return tempPanel
 		JPanel tempSubPanel1 = new JPanel(new GridLayout(1,4));

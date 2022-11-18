@@ -14,15 +14,20 @@ import javax.swing.JPanel;
 public class ClueGame extends JFrame{
 	public static final int HEIGHT = 750;
 	public static final int WIDTH = 850;
-	private static Board board;
+	public static Board board;
+	public static GameControlPanel gamePanel;
+	public static KnownCardsPanel cardsPanel;
+	public static int newRoll = 0;
+	public static int gameTurn = 0;
+	
 
 	public ClueGame() {
 		super();
 		board = Board.getInstance();
 		board.setConfigFiles("ClueLayout.csv", "ClueSetup.txt");
 		board.initialize();
-		GameControlPanel gamePanel = new GameControlPanel();
-		KnownCardsPanel cardsPanel = new KnownCardsPanel((board.getPlayers().get(0)));
+		gamePanel = new GameControlPanel();
+		cardsPanel = new KnownCardsPanel((board.getPlayers().get(0)));
 		add(board, BorderLayout.CENTER);
 		add(cardsPanel, BorderLayout.EAST);
 		add(gamePanel, BorderLayout.SOUTH);
