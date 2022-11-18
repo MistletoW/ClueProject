@@ -491,8 +491,17 @@ public class Board extends JPanel{
 			}			
 		}
 		//draw players
+		int i = 1;
 		for (Player p : players) {
+			p.setPosition(i,7);
+			i++;
 			p.draw(xSize, ySize, g);
+		}
+		
+		for(BoardCell target : targets) {
+			System.out.println(targets.size());
+			g.setColor(Color.BLACK);
+			g.fillOval(target.getRow()*xSize, target.getCol()*ySize, xSize, ySize);
 		}
 	}
 }

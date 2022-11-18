@@ -17,7 +17,7 @@ public class ClueGame extends JFrame{
 	public static Board board;
 	public static GameControlPanel gamePanel;
 	public static KnownCardsPanel cardsPanel;
-	public static int newRoll = 0;
+	public static int newRoll = 1 + (int)(Math.random() * 7);
 	public static int gameTurn = 0;
 	
 
@@ -27,6 +27,7 @@ public class ClueGame extends JFrame{
 		board.setConfigFiles("ClueLayout.csv", "ClueSetup.txt");
 		board.initialize();
 		gamePanel = new GameControlPanel();
+		gamePanel.setTurn(board.getPlayers().get(0), newRoll);
 		cardsPanel = new KnownCardsPanel((board.getPlayers().get(0)));
 		add(board, BorderLayout.CENTER);
 		add(cardsPanel, BorderLayout.EAST);
@@ -63,5 +64,11 @@ public class ClueGame extends JFrame{
 //		frame.setSize(250,800);
 
 	}
+	
+	public static void setNextTurn() {
+		gameTurn += 1;
+		newRoll = 1 + (int)(Math.random() * 7);
+		gamePanel.setTurn(board.getPlayers().get(gameTurn % board.getPlayers().size()), newRoll);
 
+	}
 }
