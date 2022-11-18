@@ -17,7 +17,7 @@ public class ClueGame extends JFrame{
 	public static Board board;
 	public static GameControlPanel gamePanel;
 	public static KnownCardsPanel cardsPanel;
-	public static int newRoll = 1 + (int)(Math.random() * 7);
+	public static int newRoll = 1 + (int)(Math.random() * 6);
 	public static int gameTurn = 0;
 	
 
@@ -66,9 +66,13 @@ public class ClueGame extends JFrame{
 	}
 	
 	public static void setNextTurn() {
+		//when next is hit, increase turn and get new roll
 		gameTurn += 1;
-		newRoll = 1 + (int)(Math.random() * 7);
+		newRoll = 1 + (int)(Math.random() * 6);
+		//set turn to new player and new roll
 		gamePanel.setTurn(board.getPlayers().get(gameTurn % board.getPlayers().size()), newRoll);
-
+		
+		//define new target and calc
+		board.calcTargets(board.getPlayers().get(gameTurn % board.getPlayers().size()).getCell(), newRoll);
 	}
 }

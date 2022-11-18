@@ -74,11 +74,8 @@ public class GameControlPanel extends JPanel{
 		//give next button a listener
 		next.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-//				//when next is hit, increase turn and get new roll
-//				ClueGame.gameTurn += 1;
-//				ClueGame.newRoll = 1 + (int)(Math.random() * 7);
+				//when next is hit, increase turn and get new roll
 				//set turn to new player and new roll
-//				setTurn(ClueGame.board.getPlayers().get(ClueGame.gameTurn % ClueGame.board.getPlayers().size()), ClueGame.newRoll);
 				ClueGame.setNextTurn();
 			}
 		});

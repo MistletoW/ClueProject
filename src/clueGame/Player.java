@@ -61,6 +61,18 @@ public abstract class Player {
 		return(d);
 	}
 	
+	public BoardCell getCell() {
+		return ClueGame.board.getCell(row,column);
+	}
+	
+	public int getRow() {
+		return row;
+	}
+	
+	public int getCol() {
+		return column;
+	}
+	
 	public Card disproveSuggestion(Solution suggestion) {
 		ArrayList<Card> retCards = new ArrayList<Card>(); // list to choose from randomly if cards disprove suggestion
 		
