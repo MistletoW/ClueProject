@@ -44,24 +44,6 @@ public class ClueGame extends JFrame{
 		String welcomeMessage = "You are " + board.getPlayers().get(0).getName() + "\n";
 		welcomeMessage += "Can you find the solution\nbefore the Computer players?";
 		JOptionPane.showMessageDialog(frame, welcomeMessage,"Welcome to Clue", JOptionPane.DEFAULT_OPTION);
-		
-		
-//		// test filling in the data
-//		panel.setTurn(new ComputerPlayer( "Col. Mustard", 0, 0, "orange"), 5);
-//		panel.setGuess( "I have no guess!");
-//		panel.setGuessResult( "So you have nothing?");
-//		
-//		HumanPlayer john = new HumanPlayer("John", "red");
-//		john.updateHand(new Card("Wrench", CardType.WEAPON));
-//		john.updateHand(new Card("Library", CardType.ROOM));
-//		john.updateHand(new Card("George", CardType.PERSON));
-//		john.updateHand(new Card("Fred", CardType.PERSON));
-//		john.updateHand(new Card("Velma", CardType.PERSON));
-//		john.updateHand(new Card("Daphne", CardType.PERSON));
-//		john.updateSeen(new Card("Subway", CardType.ROOM));
-//		KnownCardsPanel cardsPanel = new KnownCardsPanel(john);
-//		frame.setContentPane(cardsPanel);
-//		frame.setSize(250,800);
 
 	}
 	
@@ -72,7 +54,8 @@ public class ClueGame extends JFrame{
 		//set turn to new player and new roll
 		gamePanel.setTurn(board.getPlayers().get(gameTurn % board.getPlayers().size()), newRoll);
 		
-		//define new target and calc
+		//define new target and calculates
 		board.calcTargets(board.getPlayers().get(gameTurn % board.getPlayers().size()).getCell(), newRoll);
+		board.repaint();
 	}
 }
