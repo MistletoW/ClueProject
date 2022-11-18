@@ -7,11 +7,13 @@ import java.awt.GridLayout;
 
 import javax.swing.BoxLayout;
 import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
 public class ClueGame extends JFrame{
 	public static final int HEIGHT = 750;
-	public static final int WIDTH = 750;
+	public static final int WIDTH = 850;
 	private static Board board;
 
 	public ClueGame() {
@@ -25,12 +27,18 @@ public class ClueGame extends JFrame{
 		add(cardsPanel, BorderLayout.EAST);
 		add(gamePanel, BorderLayout.SOUTH);
 	}
+	
 	public static void main(String[] args) {
 		//JPanel mainPanel = new JPanel(new GridLayout(2,0))
 		ClueGame frame = new ClueGame();  // create the frame
-		frame.setSize(HEIGHT,WIDTH);  // size the frame
+		frame.setSize(WIDTH,HEIGHT);  // size the frame
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); // allow it to close
 		frame.setVisible(true); // make it visible
+		
+		String welcomeMessage = "You are " + board.getPlayers().get(0).getName() + "\n";
+		welcomeMessage += "Can you find the solution\nbefore the Computer players?";
+		JOptionPane.showMessageDialog(frame, welcomeMessage,"Welcome to Clue", JOptionPane.DEFAULT_OPTION);
+		
 		
 //		// test filling in the data
 //		panel.setTurn(new ComputerPlayer( "Col. Mustard", 0, 0, "orange"), 5);
