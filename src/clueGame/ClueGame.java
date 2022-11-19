@@ -4,6 +4,8 @@ import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.GridLayout;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 
 import javax.swing.BoxLayout;
 import javax.swing.JFrame;
@@ -41,10 +43,10 @@ public class ClueGame extends JFrame{
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); // allow it to close
 		frame.setVisible(true); // make it visible
 		
-		String welcomeMessage = "You are " + board.getPlayers().get(0).getName() + "\n";
+		String welcomeMessage = "You are " + board.getPlayers().get(0).getName() + ".\n";
 		welcomeMessage += "Can you find the solution\nbefore the Computer players?";
 		JOptionPane.showMessageDialog(frame, welcomeMessage,"Welcome to Clue", JOptionPane.DEFAULT_OPTION);
-
+		
 	}
 	
 	public static void setNextTurn() {
@@ -59,4 +61,6 @@ public class ClueGame extends JFrame{
 
 		board.repaint();
 	}
+	
+
 }

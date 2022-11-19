@@ -3,12 +3,16 @@ package clueGame;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics;
+import java.awt.Point;
+import java.awt.Rectangle;
 import java.util.HashSet;
 import java.util.Set;
 
 public class BoardCell {
 	public int row;
 	public int col;
+	private int width;
+	private int height;
 	private String cell;
 	private char initial;
 	private DoorDirection doorDirection;
@@ -134,6 +138,9 @@ public class BoardCell {
 	}
 	//draws the cell, given a size, offset, and graphics object
 	public void draw(int width, int height, int offset, Graphics g) {
+		//store the width and height for mouse purposes
+		this.width = width;
+		this.height = height;
 		//draw the cell
 		g.setColor(setColor());
 		//have rooms be connected
@@ -166,5 +173,12 @@ public class BoardCell {
 			}
 			
 		}
+	public boolean containsClick(int mouseX, int mouseY) {
+		Rectangle rect = new Rectangle(row*width, col*height, width, height);
+		if(rect.contains(new Point(mouseX, mouseY))) {
+			return true;
+		}
+		return false;
+	}
 
 }

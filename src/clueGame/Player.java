@@ -14,7 +14,6 @@ public abstract class Player {
 	protected int row, column;
 	protected ArrayList<Card> hand = new ArrayList<Card>();
 	protected Set<Card> seenCards = new HashSet<Card>();
-	
 	public Player(String name, String color){
 		this.name = name;
 		this.color = color;
@@ -131,5 +130,6 @@ public abstract class Player {
 		g.setColor(getPlayerColor());
 		g.fillOval(row*width, column*height, width, height);
 	}
+	
 
 }

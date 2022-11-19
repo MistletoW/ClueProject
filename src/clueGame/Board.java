@@ -3,13 +3,16 @@ package clueGame;
 import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Rectangle;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.util.*;
 
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
-public class Board extends JPanel{
+public class Board extends JPanel implements MouseListener{
 	private BoardCell[][] grid;
 
 	private String layoutConfigFile;
@@ -26,6 +29,8 @@ public class Board extends JPanel{
 	private ArrayList<Card> deck = new ArrayList<Card>();
 	private Solution theAnswer;
 
+	private final static int[] initialPlayerRow = {0,16,0,0,8,16};
+	private final static int[] initialPlayerCol = {0,0,8,16,25,24};
 	/*
 	 * variable and methods used for singleton pattern
 	 */
@@ -36,6 +41,7 @@ public class Board extends JPanel{
 		setBackground(Color.black);
 		targets = new HashSet<BoardCell> ();
 		visited = new HashSet<BoardCell> ();
+		addMouseListener(this);
 	}
 	//	this method returns the only Board
 	public static Board getInstance() {
@@ -57,7 +63,7 @@ public class Board extends JPanel{
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-
+		setPlayerPositions();
 		for(int i = 0; i < numRows; i++) {
 			for(int j = 0; j < numColumns; j++) {
 				this.setAdjList(i,j);
@@ -69,6 +75,16 @@ public class Board extends JPanel{
 		loadDeck();
 		dealSolution();
 		dealCards();
+
+	}
+
+	int i = 0;
+	private void setPlayerPositions() {
+		for (Player p : players) {
+			p.setPosition(initialPlayerRow[i],initialPlayerCol[i]);
+			i++;
+		}
+
 	}
 	//	set the config files
 	public void setConfigFiles(String csv, String txt) {
@@ -158,6 +174,7 @@ public class Board extends JPanel{
 			e.printStackTrace();
 		}
 	}
+
 	public void createGrid() {
 		grid = new BoardCell[numColumns][numRows];
 		for(int i = 0; i< numColumns; i++) {
@@ -166,6 +183,7 @@ public class Board extends JPanel{
 			}
 		}
 	}
+
 	public void getBoardSize() throws BadConfigFormatException {
 		try {
 			FileReader reader = new FileReader(layoutConfigFile);
@@ -223,14 +241,17 @@ public class Board extends JPanel{
 		visited.clear(); //clear lists so that they function properly
 
 		visited.add(startCell); //add startcell so that visited isn't null
-
 		calcTargetsRecursion(startCell, pathlength); //recursive call startcell
 
 	}
 
 	public void calcTargetsRecursion(BoardCell startCell, int pathlength) {
 		//recursive call helper for CalcTargets
+		//setAdjList(startCell.getRow(), startCell.getCol());
 		Set<BoardCell> adjList = startCell.getAdjList(); //get adjList
+		for(BoardCell b : adjList) {
+			System.out.println(b);
+		}
 		Iterator<BoardCell> it = adjList.iterator(); //get iterator for adjList
 		BoardCell thisCell;
 		while(it.hasNext()) {
@@ -473,16 +494,16 @@ public class Board extends JPanel{
 		super.paintComponent(g);
 		int xSize = getWidth()/numColumns;
 		int ySize = getHeight()/numRows;
-		
+
 		//draw cells
 		for(int i = 0; i < grid.length; ++i) {
 			for(int j = 0; j< grid[i].length; ++j) {
 				grid[i][j].draw(xSize, ySize, 1, g);
-				
+
 			}
 		}
-		
-		
+
+
 		//draw labels
 		for (Room currentRoom : roomMap.values()) {
 			BoardCell b = currentRoom.getLabelCell();
@@ -491,23 +512,58 @@ public class Board extends JPanel{
 			}			
 		}
 		//draw players
-		int i = 1;
 		for (Player p : players) {
-			p.setPosition(i,7);
-			i++;
 			p.draw(xSize, ySize, g);
 		}
-		
+
 		if(ClueGame.gameTurn%players.size() == 0) {
 			calcTargets(getPlayers().get(ClueGame.gameTurn % getPlayers().size()).getCell(), ClueGame.newRoll);
 
 			for(BoardCell target : targets) {
-				System.out.println(targets.size());
+				//System.out.println(targets.size());
 				g.setColor(Color.BLACK);
 				g.fillOval(target.getRow()*xSize, target.getCol()*ySize, xSize, ySize);
 			}
 		}
 	}
+
+	//mouselistener methods
+	@Override
+	public void mousePressed(MouseEvent e) {
+		// If it is the human player's turn, get the cell that was clicked on
+		if(ClueGame.gameTurn == 0) {
+			BoardCell clickedCell = null;
+			for(int i = 0; i < numColumns; i++) {
+				for(int j = 0; j < numRows; j++) {
+					if(grid[i][j].containsClick(e.getX(), e.getY())) {
+						clickedCell = grid[i][j];
+					}
+				}
+			}
+			//if the clicked cell is in our targets list, add it to the 
+			if (clickedCell != null) {
+				if(targets.contains(clickedCell)) {
+					players.get(0).setPosition(clickedCell.getRow(), clickedCell.getCol());
+					repaint();
+				}
+				else {
+					String errorMessage = ("Please click on a target!");
+					JOptionPane.showMessageDialog(null, errorMessage,"Error", JOptionPane.DEFAULT_OPTION);
+					
+				}
+			}
+		}
+	}
+	@Override
+	public void mouseClicked(MouseEvent e) {}
+	@Override
+	public void mouseReleased(MouseEvent e) {}
+	@Override
+	public void mouseEntered(MouseEvent e) {}
+	@Override
+	public void mouseExited(MouseEvent e) {}
+
+	// 
 }
 
 
