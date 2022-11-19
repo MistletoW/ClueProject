@@ -47,6 +47,9 @@ public class ClueGame extends JFrame{
 		welcomeMessage += "Can you find the solution\nbefore the Computer players?";
 		JOptionPane.showMessageDialog(frame, welcomeMessage,"Welcome to Clue", JOptionPane.DEFAULT_OPTION);
 		
+//		for(BoardCell cell: board.getCell(0,7).getAdjList()) {
+//			System.out.println(cell);
+//		}
 	}
 	
 	public static void setNextTurn() {
@@ -54,10 +57,10 @@ public class ClueGame extends JFrame{
 		gameTurn += 1;
 		newRoll = 1 + (int)(Math.random() * 6);
 		//set turn to new player and new roll
-		gamePanel.setTurn(board.getPlayers().get(gameTurn % board.getPlayers().size()), newRoll);
+		gamePanel.setTurn(board.getPlayers().get(gameTurn % board.getPlayers().size()), 1);
 		
 		//define new target and calculates
-		board.calcTargets(board.getPlayers().get(gameTurn % board.getPlayers().size()).getCell(), newRoll);
+		board.calcTargets(board.getPlayers().get(gameTurn % board.getPlayers().size()).getCell(), 1);
 
 		board.repaint();
 	}

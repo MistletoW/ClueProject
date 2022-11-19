@@ -162,7 +162,7 @@ public class Board extends JPanel implements MouseListener{
 					String cell = cells[col];
 					//define characteristics about our board cell
 					if(roomMap.get(cell.charAt(0)) != null){
-						grid[col][row].setCell(cell);
+						grid[row][col].setCell(cell);
 					}else {
 						throw new BadConfigFormatException();
 					}
@@ -177,9 +177,9 @@ public class Board extends JPanel implements MouseListener{
 	}
 
 	public void createGrid() {
-		grid = new BoardCell[numColumns][numRows];
-		for(int i = 0; i< numColumns; i++) {
-			for(int j = 0; j < numRows; j++) {
+		grid = new BoardCell[numRows][numColumns];
+		for(int i = 0; i< numRows; i++) {
+			for(int j = 0; j < numColumns; j++) {
 				grid[i][j] = new BoardCell(i,j);
 			}
 		}
@@ -230,7 +230,7 @@ public class Board extends JPanel implements MouseListener{
 	}
 
 	public BoardCell getCell(int row, int col) {
-		return grid[col][row];
+		return grid[row][col];
 	}
 
 	public Set<BoardCell> getAdjList(int row, int col){
@@ -250,32 +250,54 @@ public class Board extends JPanel implements MouseListener{
 		//recursive call helper for CalcTargets
 		Set<BoardCell> adjList = startCell.getAdjList(); //get adjList
 		Iterator<BoardCell> it = adjList.iterator(); //get iterator for adjList
-		BoardCell thisCell = null;
-		while(it.hasNext()) {
-			thisCell = it.next(); //set thisCell to next in adjList
-
-			if(visited.contains(thisCell) == false) {
-				//if already visited then skip
-				//if not visited add to visited
-				visited.add(thisCell);
+//		BoardCell thisCell = null;
+		
+		for(BoardCell cell: adjList) {
+			if(visited.contains(cell) == false) {
+				visited.add(cell);
 				if(pathlength == 1) {
 					//if pathlength is 1 and adjCell is not occupied then add to adjCell
-					if(thisCell.isOccupied == false) {
-						targets.add(thisCell);
+					if(cell.isOccupied == false) {
+						targets.add(cell);
 					}
 
-				} else if(thisCell.isRoomCenter()) {
-					targets.add(thisCell);
-					calcTargetsRecursion(thisCell, pathlength-1);
+				} else if(cell.isRoomCenter()) {
+					targets.add(cell);
+					calcTargetsRecursion(cell, pathlength-1);
 				} else {
-					if(thisCell.isOccupied == false) {
+					if(cell.isOccupied == false) {
 						//if adjCell isn't occupied then recursive call
-						calcTargetsRecursion(thisCell, pathlength-1);
+						calcTargetsRecursion(cell, pathlength-1);
 					}
 				}
-				visited.remove(thisCell);
+				visited.remove(cell);
 			}
 		}
+//		while(it.hasNext()) {
+//			thisCell = it.next(); //set thisCell to next in adjList
+//
+//			if(visited.contains(thisCell) == false) {
+//				//if already visited then skip
+//				//if not visited add to visited
+//				visited.add(thisCell);
+//				if(pathlength == 1) {
+//					//if pathlength is 1 and adjCell is not occupied then add to adjCell
+//					if(thisCell.isOccupied == false) {
+//						targets.add(thisCell);
+//					}
+//
+//				} else if(thisCell.isRoomCenter()) {
+//					targets.add(thisCell);
+//					calcTargetsRecursion(thisCell, pathlength-1);
+//				} else {
+//					if(thisCell.isOccupied == false) {
+//						//if adjCell isn't occupied then recursive call
+//						calcTargetsRecursion(thisCell, pathlength-1);
+//					}
+//				}
+//				visited.remove(thisCell);
+//			}
+//		}
 	}
 
 	public Set<BoardCell> getTargets(){
@@ -352,9 +374,9 @@ public class Board extends JPanel implements MouseListener{
 		//find the room center with initial
 		for(int i = 0; i < numColumns; i++) {
 			for(int j = 0; j < numRows; j++) {
-				if(this.grid[i][j].getInitial() == initial && this.grid[i][j].isRoomCenter()) {
-					startCell.addAdj(grid[i][j]);//door add room center
-					grid[i][j].addAdj(startCell);//room center add doorway
+				if(this.grid[j][i].getInitial() == initial && this.grid[j][i].isRoomCenter()) {
+					startCell.addAdj(grid[j][i]);//door add room center
+					grid[j][i].addAdj(startCell);//room center add doorway
 				}
 			}
 		}
@@ -366,17 +388,17 @@ public class Board extends JPanel implements MouseListener{
 			for(int j = 0; j < numRows; j++) {	
 
 				//if room has secret passage way
-				if(grid[i][j].getInitial() == initial && 
-						grid[i][j].getSecretPassage() != '#' && 
-						grid[i][j].getSecretPassage() != '*' &&
-						grid[i][j].getSecretPassage() != ' ') {
-					secret = grid[i][j].getSecretPassage();
+				if(grid[j][i].getInitial() == initial && 
+						grid[j][i].getSecretPassage() != '#' && 
+						grid[j][i].getSecretPassage() != '*' &&
+						grid[j][i].getSecretPassage() != ' ') {
+					secret = grid[j][i].getSecretPassage();
 
 					for(int k = 0; k < numColumns; k++) { //for every cell in grid
 						for(int l = 0; l < numRows; l++) {
 
-							if(grid[k][l].getInitial() == secret && grid[k][l].isRoomCenter()) {
-								startCell.addAdj(grid[k][l]);
+							if(grid[l][k].getInitial() == secret && grid[k][l].isRoomCenter()) {
+								startCell.addAdj(grid[l][k]);
 							}
 						}
 					}
@@ -513,14 +535,14 @@ public class Board extends JPanel implements MouseListener{
 			p.draw(xSize, ySize, g);
 		}
 
-		if(ClueGame.gameTurn%players.size() == 0) {
-			calcTargets(getPlayers().get(ClueGame.gameTurn % getPlayers().size()).getCell(), ClueGame.newRoll);
+//		if(ClueGame.gameTurn%players.size() == 0) {
+			calcTargets(getPlayers().get(ClueGame.gameTurn % getPlayers().size()).getCell(), 1);
 
 			for(BoardCell target : targets) {
-				//System.out.println(targets.size());
+				System.out.println(target);
 				g.setColor(Color.BLACK);
 				g.fillOval(target.getRow()*xSize, target.getCol()*ySize, xSize, ySize);
-			}
+//			}
 		}
 	}
 
