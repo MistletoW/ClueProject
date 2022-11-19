@@ -28,8 +28,9 @@ public class Board extends JPanel implements MouseListener{
 	private ArrayList<Card> roomDeck = new ArrayList<Card>();
 	private ArrayList<Card> deck = new ArrayList<Card>();
 	private Solution theAnswer;
+	boolean playerWasMoved = false;
 
-	private final static int[] initialPlayerRow = {0,16,0,0,8,16};
+	private final static int[] initialPlayerRow = {7,16,0,0,8,16};
 	private final static int[] initialPlayerCol = {0,0,8,16,25,24};
 	/*
 	 * variable and methods used for singleton pattern
@@ -247,13 +248,9 @@ public class Board extends JPanel implements MouseListener{
 
 	public void calcTargetsRecursion(BoardCell startCell, int pathlength) {
 		//recursive call helper for CalcTargets
-		//setAdjList(startCell.getRow(), startCell.getCol());
 		Set<BoardCell> adjList = startCell.getAdjList(); //get adjList
-		for(BoardCell b : adjList) {
-			System.out.println(b);
-		}
 		Iterator<BoardCell> it = adjList.iterator(); //get iterator for adjList
-		BoardCell thisCell;
+		BoardCell thisCell = null;
 		while(it.hasNext()) {
 			thisCell = it.next(); //set thisCell to next in adjList
 
@@ -540,16 +537,19 @@ public class Board extends JPanel implements MouseListener{
 					}
 				}
 			}
-			//if the clicked cell is in our targets list, add it to the 
-			if (clickedCell != null) {
-				if(targets.contains(clickedCell)) {
-					players.get(0).setPosition(clickedCell.getRow(), clickedCell.getCol());
-					repaint();
-				}
-				else {
-					String errorMessage = ("Please click on a target!");
-					JOptionPane.showMessageDialog(null, errorMessage,"Error", JOptionPane.DEFAULT_OPTION);
-					
+			//if the clicked cell is in our targets list, move the player there ONCE
+			if (!playerWasMoved) {
+				if (clickedCell != null) {
+					if(targets.contains(clickedCell)) {
+						players.get(0).setPosition(clickedCell.getRow(), clickedCell.getCol());
+						playerWasMoved = true;
+						repaint();
+					}
+					else {
+						String errorMessage = ("Please click on a target!");
+						JOptionPane.showMessageDialog(null, errorMessage,"Error", JOptionPane.DEFAULT_OPTION);
+
+					}
 				}
 			}
 		}
