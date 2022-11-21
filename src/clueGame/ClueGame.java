@@ -61,7 +61,11 @@ public class ClueGame extends JFrame{
 		
 		//define new target and calculates
 		board.calcTargets(board.getPlayers().get(gameTurn % board.getPlayers().size()).getCell(), 1);
-
+		//if it's the player's turn again, allow them to move again
+		System.out.println(gameTurn);
+		if((gameTurn%6) == 0) {
+			board.playerWasMoved = false;
+		}
 		board.repaint();
 	}
 	

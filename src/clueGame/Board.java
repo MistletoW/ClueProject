@@ -30,7 +30,7 @@ public class Board extends JPanel implements MouseListener{
 	private Solution theAnswer;
 	boolean playerWasMoved = false;
 
-	private final static int[] initialPlayerRow = {7,16,0,0,8,16};
+	private final static int[] initialPlayerRow = {8,16,0,0,8,16};
 	private final static int[] initialPlayerCol = {0,0,8,16,25,24};
 	/*
 	 * variable and methods used for singleton pattern
@@ -539,7 +539,7 @@ public class Board extends JPanel implements MouseListener{
 			calcTargets(getPlayers().get(ClueGame.gameTurn % getPlayers().size()).getCell(), 1);
 
 			for(BoardCell target : targets) {
-				System.out.println(target);
+				//System.out.println(target);
 				g.setColor(Color.BLACK);
 				g.fillOval(target.getRow()*xSize, target.getCol()*ySize, xSize, ySize);
 //			}
@@ -550,10 +550,10 @@ public class Board extends JPanel implements MouseListener{
 	@Override
 	public void mousePressed(MouseEvent e) {
 		// If it is the human player's turn, get the cell that was clicked on
-		if(ClueGame.gameTurn == 0) {
+		if((ClueGame.gameTurn%6) == 0) {
 			BoardCell clickedCell = null;
-			for(int i = 0; i < numColumns; i++) {
-				for(int j = 0; j < numRows; j++) {
+			for(int i = 0; i < numRows; i++) {
+				for(int j = 0; j < numColumns; j++) {
 					if(grid[i][j].containsClick(e.getX(), e.getY())) {
 						clickedCell = grid[i][j];
 					}
