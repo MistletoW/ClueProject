@@ -243,9 +243,9 @@ public class Board extends JPanel implements MouseListener{
 
 		visited.add(startCell); //add startcell so that visited isn't null
 		calcTargetsRecursion(startCell, pathlength); //recursive call startcell
-		for(BoardCell target:targets) {
-			System.out.println(target);
-		}
+//		for(BoardCell target:targets) {
+//			System.out.println(target);
+//		}
 	}
 
 	public void calcTargetsRecursion(BoardCell startCell, int pathlength) {
