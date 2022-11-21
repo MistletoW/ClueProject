@@ -502,7 +502,7 @@ public class Board extends JPanel implements MouseListener{
 		for (Room currentRoom : roomMap.values()) {
 			BoardCell b = currentRoom.getLabelCell();
 			if(b!= null) {
-				currentRoom.draw(b.row*xSize, b.col*ySize, g);
+				currentRoom.draw(b.xPos*xSize, b.yPos*ySize, g);
 			}			
 		}
 		//draw players

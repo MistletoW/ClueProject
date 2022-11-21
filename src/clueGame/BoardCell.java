@@ -9,8 +9,8 @@ import java.util.HashSet;
 import java.util.Set;
 
 public class BoardCell {
-	public int row;
-	public int col;
+	public int xPos;
+	public int yPos;
 	private int width;
 	private int height;
 	private String cell;
@@ -22,9 +22,9 @@ public class BoardCell {
 	private Set<BoardCell> adjList;
 	boolean isOccupied;
 
-	public BoardCell(int row, int col) {
-		this.row = row;
-		this.col = col;
+	public BoardCell(int x, int y) {
+		this.xPos = x;
+		this.yPos = y;
 		adjList = new HashSet<BoardCell> ();
 	}
 	public void setCell(String cell){
@@ -33,10 +33,10 @@ public class BoardCell {
 	}
 	
 	public int getRow() {
-		return row;
+		return xPos;
 	}
 	public int getCol() {
-		return col;
+		return yPos;
 	}
 	
 	public void setRoomLabel() {
@@ -109,7 +109,7 @@ public class BoardCell {
 
 	//	toString
 	public String toString() {
-		return "Cell: " + cell + "\nAt : " + row + ", " + col ;
+		return "Cell: " + cell + "\nAt : " + xPos + ", " + yPos ;
 	}
 
 	public Set<BoardCell> getAdjList(){
@@ -147,7 +147,7 @@ public class BoardCell {
 		if(initial != 'X' && initial != 'W') {
 			offset = 0;
 		}
-		g.fillRect(row*width, col*height, width - offset, height - offset);
+		g.fillRect(xPos*width, yPos*height, width - offset, height - offset);
 
 		//if there's a a door, draw it!
 			g.setColor(Color.BLUE);
@@ -158,23 +158,23 @@ public class BoardCell {
 			if (doorDirection == DoorDirection.DOWN) {
 				//if door is facing down, put the door at the bottom of the cell
 				int doorDownOffset = height*4/5;
-				g.fillRect(row*width, col*height+doorDownOffset, width - offset, doorHeight);
+				g.fillRect(xPos*width, yPos*height+doorDownOffset, width - offset, doorHeight);
 			}
 			if (doorDirection == DoorDirection.UP) {
-				g.fillRect(row*width, col*height, width - offset, doorHeight);
+				g.fillRect(xPos*width, yPos*height, width - offset, doorHeight);
 			}
 			if (doorDirection == DoorDirection.LEFT) {
-				g.fillRect(row*width, col*height, doorWidth, height - offset);
+				g.fillRect(xPos*width, yPos*height, doorWidth, height - offset);
 			}
 			if (doorDirection == DoorDirection.RIGHT) {
 				//if door is facing right, put the door on the right side of the cell
 				int doorRightOffset = width*4/5;
-				g.fillRect(row*width+doorRightOffset, col*height, doorWidth, height - offset);
+				g.fillRect(xPos*width+doorRightOffset, yPos*height, doorWidth, height - offset);
 			}
 			
 		}
 	public boolean containsClick(int mouseX, int mouseY) {
-		Rectangle rect = new Rectangle(row*width, col*height, width, height);
+		Rectangle rect = new Rectangle(xPos*width, yPos*height, width, height);
 		if(rect.contains(new Point(mouseX, mouseY))) {
 			return true;
 		}
