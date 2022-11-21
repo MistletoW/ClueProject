@@ -65,8 +65,8 @@ public class Board extends JPanel implements MouseListener{
 			e.printStackTrace();
 		}
 		setPlayerPositions();
-		for(int i = 0; i < numRows; i++) {
-			for(int j = 0; j < numColumns; j++) {
+		for(int i = 0; i < numColumns; i++) {
+			for(int j = 0; j < numRows; j++) {
 				this.setAdjList(i,j);
 				BoardCell c = getCell(i,j);
 				roomMap.get(c.getInitial()).setCenterCell(i,j);
@@ -162,7 +162,7 @@ public class Board extends JPanel implements MouseListener{
 					String cell = cells[col];
 					//define characteristics about our board cell
 					if(roomMap.get(cell.charAt(0)) != null){
-						grid[row][col].setCell(cell);
+						grid[col][row].setCell(cell);
 					}else {
 						throw new BadConfigFormatException();
 					}
@@ -177,9 +177,9 @@ public class Board extends JPanel implements MouseListener{
 	}
 
 	public void createGrid() {
-		grid = new BoardCell[numRows][numColumns];
-		for(int i = 0; i< numRows; i++) {
-			for(int j = 0; j < numColumns; j++) {
+		grid = new BoardCell[numColumns][numRows];
+		for(int i = 0; i< numColumns; i++) {
+			for(int j = 0; j < numRows; j++) {
 				grid[i][j] = new BoardCell(i,j);
 			}
 		}
@@ -229,8 +229,8 @@ public class Board extends JPanel implements MouseListener{
 		return numColumns;
 	}
 
-	public BoardCell getCell(int row, int col) {
-		return grid[row][col];
+	public BoardCell getCell(int col, int row) {
+		return grid[col][row];
 	}
 
 	public Set<BoardCell> getAdjList(int row, int col){
@@ -304,20 +304,20 @@ public class Board extends JPanel implements MouseListener{
 		return targets;
 	}
 
-	public void setAdjList(int row, int col) {
-		BoardCell startCell = this.getCell(row,col);
+	public void setAdjList(int col, int row) {
+		BoardCell startCell = this.getCell(col,row);
 
 		if (startCell.getCellValue().length() < 2) {
-			getAdjCommon(startCell, row, col);
+			getAdjCommon(startCell, col, row);
 		} else {
 
 			//if doorway, determine direction
 			if(startCell.isDoorway()) {
 
-				getAdjCommon(startCell, row, col); //get common adj cells around door
+				getAdjCommon(startCell, col, row); //get common adj cells around door
 				DoorDirection doorDir = startCell.getDoorDirection();
 
-				getAdjToDoor(startCell, doorDir, row, col);
+				getAdjToDoor(startCell, doorDir, col, row);
 			}
 
 			if(startCell.isRoomCenter()) { 
@@ -326,26 +326,26 @@ public class Board extends JPanel implements MouseListener{
 		}
 	}
 
-	public void getAdjCommon(BoardCell startCell, int row, int col) {
+	public void getAdjCommon(BoardCell startCell, int col, int row) {
 
-		if(row > 0) {
-			if(startCell.getInitial() == this.getCell(row-1, col).getInitial()) {
-				startCell.addAdj(this.getCell(row-1, col));
-			}
-		}
 		if(col > 0) {
-			if(startCell.getInitial() == this.getCell(row, col-1).getInitial()) {
-				startCell.addAdj(this.getCell(row, col-1));
+			if(startCell.getInitial() == this.getCell(col-1, row).getInitial()) {
+				startCell.addAdj(this.getCell(col-1, row));
 			}
 		}
-		if(row < numRows -1) {
-			if(startCell.getInitial() == this.getCell(row+1, col).getInitial()) {
-				startCell.addAdj(this.getCell(row+1, col));
+		if(row > 0) {
+			if(startCell.getInitial() == this.getCell(col, row-1).getInitial()) {
+				startCell.addAdj(this.getCell(col, row-1));
 			}
 		}
 		if(col < numColumns -1) {
-			if(startCell.getInitial() == this.getCell(row, col+1).getInitial()) {
-				startCell.addAdj(this.getCell(row, col+1));
+			if(startCell.getInitial() == this.getCell(col+1, row).getInitial()) {
+				startCell.addAdj(this.getCell(col+1, row));
+			}
+		}
+		if(row < numRows -1) {
+			if(startCell.getInitial() == this.getCell(col, row+1).getInitial()) {
+				startCell.addAdj(this.getCell(col, row+1));
 			}
 		}
 	}
@@ -374,9 +374,9 @@ public class Board extends JPanel implements MouseListener{
 		//find the room center with initial
 		for(int i = 0; i < numColumns; i++) {
 			for(int j = 0; j < numRows; j++) {
-				if(this.grid[j][i].getInitial() == initial && this.grid[j][i].isRoomCenter()) {
-					startCell.addAdj(grid[j][i]);//door add room center
-					grid[j][i].addAdj(startCell);//room center add doorway
+				if(this.grid[i][j].getInitial() == initial && this.grid[i][j].isRoomCenter()) {
+					startCell.addAdj(grid[i][j]);//door add room center
+					grid[i][j].addAdj(startCell);//room center add doorway
 				}
 			}
 		}
@@ -388,17 +388,17 @@ public class Board extends JPanel implements MouseListener{
 			for(int j = 0; j < numRows; j++) {	
 
 				//if room has secret passage way
-				if(grid[j][i].getInitial() == initial && 
-						grid[j][i].getSecretPassage() != '#' && 
-						grid[j][i].getSecretPassage() != '*' &&
-						grid[j][i].getSecretPassage() != ' ') {
-					secret = grid[j][i].getSecretPassage();
+				if(grid[i][j].getInitial() == initial && 
+						grid[i][j].getSecretPassage() != '#' && 
+						grid[i][j].getSecretPassage() != '*' &&
+						grid[i][j].getSecretPassage() != ' ') {
+					secret = grid[i][j].getSecretPassage();
 
 					for(int k = 0; k < numColumns; k++) { //for every cell in grid
 						for(int l = 0; l < numRows; l++) {
 
-							if(grid[l][k].getInitial() == secret && grid[k][l].isRoomCenter()) {
-								startCell.addAdj(grid[l][k]);
+							if(grid[k][1].getInitial() == secret && grid[k][l].isRoomCenter()) {
+								startCell.addAdj(grid[k][l]);
 							}
 						}
 					}
@@ -552,8 +552,8 @@ public class Board extends JPanel implements MouseListener{
 		// If it is the human player's turn, get the cell that was clicked on
 		if((ClueGame.gameTurn%6) == 0) {
 			BoardCell clickedCell = null;
-			for(int i = 0; i < numRows; i++) {
-				for(int j = 0; j < numColumns; j++) {
+			for(int i = 0; i < numColumns; i++) {
+				for(int j = 0; j < numRows; j++) {
 					if(grid[i][j].containsClick(e.getX(), e.getY())) {
 						clickedCell = grid[i][j];
 					}
