@@ -64,6 +64,11 @@ public class ClueGame extends JFrame{
 		//if it's the player's turn again, allow them to move again
 		if((gameTurn%6) == 0) {
 			board.playerWasMoved = false;
+		} else {
+			ComputerPlayer player = (ComputerPlayer) board.getPlayers().get(gameTurn %6);
+			BoardCell cell = player.selectTarget(board.getTargets());
+			player.setPosition(cell.getRow(), cell.getCol());
+			
 		}
 		board.repaint();
 	}

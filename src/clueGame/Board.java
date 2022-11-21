@@ -251,9 +251,7 @@ public class Board extends JPanel implements MouseListener{
 	public void calcTargetsRecursion(BoardCell startCell, int pathlength) {
 		//recursive call helper for CalcTargets
 		Set<BoardCell> adjList = startCell.getAdjList(); //get adjList
-//		Iterator<BoardCell> it = adjList.iterator(); //get iterator for adjList
-//		BoardCell thisCell = null;
-		
+
 		for(BoardCell cell: adjList) {
 			if(visited.contains(cell) == false) {
 				visited.add(cell);
@@ -275,31 +273,6 @@ public class Board extends JPanel implements MouseListener{
 				visited.remove(cell);
 			}
 		}
-//		while(it.hasNext()) {
-//			thisCell = it.next(); //set thisCell to next in adjList
-//
-//			if(visited.contains(thisCell) == false) {
-//				//if already visited then skip
-//				//if not visited add to visited
-//				visited.add(thisCell);
-//				if(pathlength == 1) {
-//					//if pathlength is 1 and adjCell is not occupied then add to adjCell
-//					if(thisCell.isOccupied == false) {
-//						targets.add(thisCell);
-//					}
-//
-//				} else if(thisCell.isRoomCenter()) {
-//					targets.add(thisCell);
-//					calcTargetsRecursion(thisCell, pathlength-1);
-//				} else {
-//					if(thisCell.isOccupied == false) {
-//						//if adjCell isn't occupied then recursive call
-//						calcTargetsRecursion(thisCell, pathlength-1);
-//					}
-//				}
-//				visited.remove(thisCell);
-//			}
-//		}
 	}
 
 	public Set<BoardCell> getTargets(){
