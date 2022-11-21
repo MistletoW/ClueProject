@@ -57,10 +57,10 @@ public class ClueGame extends JFrame{
 		gameTurn += 1;
 		newRoll = 1 + (int)(Math.random() * 6);
 		//set turn to new player and new roll
-		gamePanel.setTurn(board.getPlayers().get(gameTurn % board.getPlayers().size()), 1);
+		gamePanel.setTurn(board.getPlayers().get(gameTurn % board.getPlayers().size()), newRoll);
 		
 		//define new target and calculates
-		board.calcTargets(board.getPlayers().get(gameTurn % board.getPlayers().size()).getCell(), 1);
+		board.calcTargets(board.getPlayers().get(gameTurn % board.getPlayers().size()).getCell(), newRoll);
 		//if it's the player's turn again, allow them to move again
 		if((gameTurn%6) == 0) {
 			board.playerWasMoved = false;

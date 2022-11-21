@@ -243,7 +243,9 @@ public class Board extends JPanel implements MouseListener{
 
 		visited.add(startCell); //add startcell so that visited isn't null
 		calcTargetsRecursion(startCell, pathlength); //recursive call startcell
-
+		for(BoardCell target:targets) {
+			System.out.println(target);
+		}
 	}
 
 	public void calcTargetsRecursion(BoardCell startCell, int pathlength) {
@@ -535,14 +537,14 @@ public class Board extends JPanel implements MouseListener{
 			p.draw(xSize, ySize, g);
 		}
 
-//		if(ClueGame.gameTurn%players.size() == 0) {
-			calcTargets(getPlayers().get(ClueGame.gameTurn % getPlayers().size()).getCell(), 1);
+		if(ClueGame.gameTurn%players.size() == 0) {
+			calcTargets(getPlayers().get(ClueGame.gameTurn % getPlayers().size()).getCell(), ClueGame.newRoll);
 
 			for(BoardCell target : targets) {
 				//System.out.println(target);
 				g.setColor(Color.BLACK);
 				g.fillOval(target.getRow()*xSize, target.getCol()*ySize, xSize, ySize);
-//			}
+			}
 		}
 	}
 
