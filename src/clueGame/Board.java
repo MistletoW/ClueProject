@@ -251,7 +251,7 @@ public class Board extends JPanel implements MouseListener{
 	public void calcTargetsRecursion(BoardCell startCell, int pathlength) {
 		//recursive call helper for CalcTargets
 		Set<BoardCell> adjList = startCell.getAdjList(); //get adjList
-		Iterator<BoardCell> it = adjList.iterator(); //get iterator for adjList
+//		Iterator<BoardCell> it = adjList.iterator(); //get iterator for adjList
 //		BoardCell thisCell = null;
 		
 		for(BoardCell cell: adjList) {
@@ -358,16 +358,16 @@ public class Board extends JPanel implements MouseListener{
 
 		//establish the which direction the door is facing
 		if(whichWay == DoorDirection.UP) {
-			yOffset = -1;
-		}
-		if(whichWay == DoorDirection.DOWN) {
-			yOffset = 1;
-		}
-		if(whichWay == DoorDirection.LEFT) {
 			xOffset = -1;
 		}
-		if(whichWay == DoorDirection.RIGHT) {
+		if(whichWay == DoorDirection.DOWN) {
 			xOffset = 1;
+		}
+		if(whichWay == DoorDirection.LEFT) {
+			yOffset = -1;
+		}
+		if(whichWay == DoorDirection.RIGHT) {
+			yOffset = 1;
 		}
 
 		//get the room initial
