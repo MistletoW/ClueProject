@@ -54,6 +54,7 @@ public class ClueGame extends JFrame{
 	
 	public static void setNextTurn() {
 		//when next is hit, increase turn and get new roll
+		if(board.playerWasMoved == true) {
 		gameTurn += 1;
 		newRoll = 1 + (int)(Math.random() * 6);
 		//set turn to new player and new roll
@@ -71,6 +72,7 @@ public class ClueGame extends JFrame{
 			
 		}
 		board.repaint();
+		}
 	}
 	
 
