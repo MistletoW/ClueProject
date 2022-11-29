@@ -9,6 +9,9 @@ import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.util.*;
 
+import javax.swing.JComboBox;
+import javax.swing.JDialog;
+import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
@@ -539,8 +542,13 @@ public class Board extends JPanel implements MouseListener{
 				if (clickedCell != null) {
 					if(targets.contains(clickedCell)) {
 						players.get(0).setPosition(clickedCell.getRow(), clickedCell.getCol());
+						//handle suggestion if player is in room
+					
 						playerWasMoved = true;
 						repaint();
+						if(players.get(0).getCell().isRoomCenter()) {
+							handleSuggestion(players.get(0), getSuggestion());
+						}
 					}
 					else {
 						String errorMessage = ("Please click on a target!");
@@ -550,6 +558,33 @@ public class Board extends JPanel implements MouseListener{
 				}
 			}
 		}
+	}
+	
+	public Solution getSuggestion() {
+		//find out what room we're in
+		Card suggestedRoom = null;
+		Card suggestedPlayer = null; 
+		Card suggestedWeapon = null;
+		char roomChar = players.get(0).getCell().getInitial();
+		for (Card c: roomDeck) {
+			if(c.getName().charAt(0) == roomChar) {
+				suggestedRoom = c;
+			}
+		}
+		JFrame f = new JFrame();
+		JDialog suggestionPopup = new JDialog(f, "Make a Suggestion");
+		suggestionPopup.setSize(100,100);
+		JComboBox<String> playerComboBox = new JComboBox<String>();
+		for (Card p : personDeck) {
+			playerComboBox.addItem(p.getName());
+		}
+		JPanel playerPanel = new JPanel();
+		playerPanel.add(playerComboBox);
+		playerPanel.setVisible(true);
+		f.add(playerPanel);
+		
+		suggestionPopup.setVisible(true);
+		return new Solution(suggestedRoom, suggestedPlayer, suggestedWeapon);
 	}
 	@Override
 	public void mouseClicked(MouseEvent e) {}
