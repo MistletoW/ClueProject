@@ -2,7 +2,9 @@ package clueGame;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
+import java.awt.Dimension;
 import java.awt.Graphics;
+import java.awt.GridLayout;
 import java.awt.Rectangle;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
@@ -577,34 +579,24 @@ public class Board extends JPanel implements MouseListener{
 			}
 		}
 
-		JFrame suggestionPopup = new JFrame();
+		JDialog suggestionPopup = new JDialog();
 		//get current room
-		String[] playerNameList = new String[NUM_PLAYERS];
+		JComboBox<String> playerOptions = new JComboBox<String>();
+		JComboBox<String> weaponOptions = new JComboBox<String>();
 		for (int i = 0; i < personDeck.size(); i++) {
-			playerNameList[i] = personDeck.get(i).getName();
+			playerOptions.addItem(personDeck.get(i).getName());
+			weaponOptions.addItem(weaponDeck.get(i).getName());
 		}
-		String[] weaponNameList = new String[NUM_PLAYERS];
-		for (int i = 0; i < weaponDeck.size(); i++) {
-			weaponNameList[i] = weaponDeck.get(i).getName();
-		}
-		//get player suggestion for person
-		String p = (String)JOptionPane.showInputDialog(
-				suggestionPopup, "Person",
-				"Make a Suggestion",
-				JOptionPane.PLAIN_MESSAGE,
-				null,
-				playerNameList,
-				playerNameList[3]);
-
-		//get player suggestion for weapon
-		String w = (String)JOptionPane.showInputDialog(
-				suggestionPopup, "Weapon",
-				"Make a Suggestion",
-				JOptionPane.PLAIN_MESSAGE,
-				null,
-				weaponNameList,
-				weaponNameList[3]);
-
+		suggestionPopup.add(playerOptions);
+		suggestionPopup.add(weaponOptions);
+		suggestionPopup.setLayout(new GridLayout(2,2));
+		suggestionPopup.setSize(new Dimension(250, 100));
+		suggestionPopup.setVisible(true);
+		
+		//get suggestion input
+		String p = String.valueOf(playerOptions.getSelectedItem());
+		String w = String.valueOf(weaponOptions.getSelectedItem());
+		
 		//given suggestion input, return solution
 		if ((p != null) && (w != null)) {
 			for (Card playerCard : personDeck) {
