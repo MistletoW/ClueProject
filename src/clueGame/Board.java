@@ -12,11 +12,14 @@ import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.util.*;
 
+import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JDialog;
 import javax.swing.JFrame;
+import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import javax.swing.JTextField;
 
 public class Board extends JPanel implements MouseListener{
 	private BoardCell[][] grid;
@@ -35,6 +38,7 @@ public class Board extends JPanel implements MouseListener{
 	private ArrayList<Card> deck = new ArrayList<Card>();
 	private Solution theAnswer;
 	boolean playerWasMoved = false;
+	boolean buttonPressed = false;
 
 	private final static int[] initialPlayerRow = {8,16,0,0,8,16};
 	private final static int[] initialPlayerCol = {0,0,8,16,25,24};
@@ -578,6 +582,8 @@ public class Board extends JPanel implements MouseListener{
 				suggestedRoom = c;
 			}
 		}
+		JComboBox<String> roomOptions = new JComboBox<String>();
+		roomOptions.addItem(suggestedRoom.getName());
 
 		JDialog suggestionPopup = new JDialog();
 		//get current room
@@ -587,18 +593,38 @@ public class Board extends JPanel implements MouseListener{
 			playerOptions.addItem(personDeck.get(i).getName());
 			weaponOptions.addItem(weaponDeck.get(i).getName());
 		}
+		
+		JButton submitButton = new JButton("Submit");
+		submitButton.addActionListener(e ->
+		{
+		  buttonPressed = true;
+		  suggestionPopup.dispose();
+		});
+		JButton cancelButton = new JButton("Cancel");
+		cancelButton.addActionListener(e ->
+		{
+		  suggestionPopup.dispose();
+		});
+		suggestionPopup.setLayout(new GridLayout(4,2));
+		suggestionPopup.add(new JLabel("Room"));
+		suggestionPopup.add(roomOptions);
+		suggestionPopup.add(new JLabel("Player"));
 		suggestionPopup.add(playerOptions);
+		suggestionPopup.add(new JLabel("Weapon"));
 		suggestionPopup.add(weaponOptions);
-		suggestionPopup.setLayout(new GridLayout(2,2));
-		suggestionPopup.setSize(new Dimension(250, 100));
+		suggestionPopup.add(submitButton);
+		suggestionPopup.setSize(new Dimension(250, 200));
 		suggestionPopup.setVisible(true);
 		
 		//get suggestion input
-		String p = String.valueOf(playerOptions.getSelectedItem());
-		String w = String.valueOf(weaponOptions.getSelectedItem());
-		
+		String p = "";
+		String w = "";
+		if(buttonPressed == true) {
+		 p = String.valueOf(playerOptions.getSelectedItem());
+		 w = String.valueOf(weaponOptions.getSelectedItem());
+		}
 		//given suggestion input, return solution
-		if ((p != null) && (w != null)) {
+		if ((p.length() > 0) && (w.length() > 0)) {
 			for (Card playerCard : personDeck) {
 				if (playerCard.getName().equals(p)){
 					suggestedPlayer = playerCard;
