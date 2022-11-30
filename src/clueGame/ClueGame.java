@@ -21,6 +21,7 @@ public class ClueGame extends JFrame{
 	public static KnownCardsPanel cardsPanel;
 	public static int newRoll = 1 + (int)(Math.random() * 6);
 	public static int gameTurn = 0;
+	public static Solution accusation = null;
 	
 
 	public ClueGame() {
@@ -54,6 +55,7 @@ public class ClueGame extends JFrame{
 	
 	public static void setNextTurn() {
 		//when next is hit, increase turn and get new roll
+		accusation = null;
 		if(board.playerWasMoved == true) {
 		gameTurn += 1;
 		newRoll = 1 + (int)(Math.random() * 6);
@@ -69,7 +71,17 @@ public class ClueGame extends JFrame{
 			ComputerPlayer player = (ComputerPlayer) board.getPlayers().get(gameTurn %6);
 			BoardCell cell = player.selectTarget(board.getTargets());
 			player.setPosition(cell.getRow(), cell.getCol());
-			
+			accusation = player.createSuggestion(board);
+			gamePanel.setGuess(accusation.getPerson().getName() + ", " + accusation.getWeapon().getName() + ", " + accusation.getRoom().getName());
+			for(Player tester: board.getPlayers()) {
+				Card disprover = tester.disproveSuggestion(accusation);
+				if(disprover != null) {
+					gamePanel.setGuessResult(disprover.getName());
+				} else {
+					gamePanel.setGuessResult("Not Disproven");
+					
+				}
+			}
 		}
 		board.repaint();
 		}

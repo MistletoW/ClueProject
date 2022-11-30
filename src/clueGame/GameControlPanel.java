@@ -108,6 +108,7 @@ public class GameControlPanel extends JPanel{
 		resultPanel = new JPanel(new GridLayout(1,0));
 		resultPanel.setBorder(BorderFactory.createMatteBorder(1, 1, 1, 1, Color.black));
 		resultPanel.setPreferredSize(new Dimension(360,60));
+		
 		resultLabel = new JLabel("Guess Result");
 		resultDisplay = new JTextField();
 
