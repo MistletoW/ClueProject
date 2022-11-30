@@ -39,6 +39,8 @@ public class Board extends JPanel implements MouseListener{
 	private Solution theAnswer;
 	boolean playerWasMoved = false;
 	boolean buttonPressed = false;
+	String p = "";
+	String w = "";
 
 	private final static int[] initialPlayerRow = {8,16,0,0,8,16};
 	private final static int[] initialPlayerCol = {0,0,8,16,25,24};
@@ -572,6 +574,7 @@ public class Board extends JPanel implements MouseListener{
 	}
 
 	public Solution getSuggestion() {
+	
 		//find out what room we're in
 		Card suggestedRoom = null;
 		Card suggestedPlayer = null; 
@@ -593,12 +596,13 @@ public class Board extends JPanel implements MouseListener{
 			playerOptions.addItem(personDeck.get(i).getName());
 			weaponOptions.addItem(weaponDeck.get(i).getName());
 		}
-		
+		 p = (String) playerOptions.getSelectedItem();
+		 w = (String)weaponOptions.getSelectedItem();
 		JButton submitButton = new JButton("Submit");
 		submitButton.addActionListener(e ->
 		{
 		  buttonPressed = true;
-		  suggestionPopup.dispose();
+			 suggestionPopup.dispose();
 		});
 		JButton cancelButton = new JButton("Cancel");
 		cancelButton.addActionListener(e ->
@@ -616,15 +620,12 @@ public class Board extends JPanel implements MouseListener{
 		suggestionPopup.setSize(new Dimension(250, 200));
 		suggestionPopup.setVisible(true);
 		
+		
+		
 		//get suggestion input
-		String p = "";
-		String w = "";
-		if(buttonPressed == true) {
-		 p = String.valueOf(playerOptions.getSelectedItem());
-		 w = String.valueOf(weaponOptions.getSelectedItem());
-		}
 		//given suggestion input, return solution
-		if ((p.length() > 0) && (w.length() > 0)) {
+		
+		if ((p.length() > 0) && (w.length() > 0) && (buttonPressed == true)) {
 			for (Card playerCard : personDeck) {
 				if (playerCard.getName().equals(p)){
 					suggestedPlayer = playerCard;
@@ -636,6 +637,7 @@ public class Board extends JPanel implements MouseListener{
 					suggestedWeapon = weaponCard;
 				}	
 			}
+			System.out.println(suggestedRoom.getName() + suggestedPlayer.getName() + suggestedWeapon.getName());
 			return new Solution(suggestedRoom, suggestedPlayer, suggestedWeapon);
 		}
 		return null;
