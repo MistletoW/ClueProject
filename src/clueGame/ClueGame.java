@@ -57,33 +57,41 @@ public class ClueGame extends JFrame{
 		//when next is hit, increase turn and get new roll
 		accusation = null;
 		if(board.playerWasMoved == true) {
-		gameTurn += 1;
-		newRoll = 1 + (int)(Math.random() * 6);
-		//set turn to new player and new roll
-		gamePanel.setTurn(board.getPlayers().get(gameTurn % board.getPlayers().size()), newRoll);
-		
-		//define new target and calculates
-		board.calcTargets(board.getPlayers().get(gameTurn % board.getPlayers().size()).getCell(), newRoll);
-		//if it's the player's turn again, allow them to move again
-		if((gameTurn%6) == 0) {
-			board.playerWasMoved = false;
-		} else {
-			ComputerPlayer player = (ComputerPlayer) board.getPlayers().get(gameTurn %6);
-			BoardCell cell = player.selectTarget(board.getTargets());
-			player.setPosition(cell.getRow(), cell.getCol());
-			accusation = player.createSuggestion(board);
-			gamePanel.setGuess(accusation.getPerson().getName() + ", " + accusation.getWeapon().getName() + ", " + accusation.getRoom().getName());
-			for(Player tester: board.getPlayers()) {
-				Card disprover = tester.disproveSuggestion(accusation);
-				if(disprover != null) {
-					gamePanel.setGuessResult(disprover.getName());
-				} else {
-					gamePanel.setGuessResult("Not Disproven");
-					
+			gameTurn += 1;
+			newRoll = 1 + (int)(Math.random() * 6);
+			//set turn to new player and new roll
+			gamePanel.setTurn(board.getPlayers().get(gameTurn % board.getPlayers().size()), newRoll);
+
+			//define new target and calculates
+			board.calcTargets(board.getPlayers().get(gameTurn % board.getPlayers().size()).getCell(), newRoll);
+			//if it's the player's turn again, allow them to move again
+			if((gameTurn%6) == 0) {
+				board.playerWasMoved = false;
+				board.repaint();
+			} else {
+				ComputerPlayer player = (ComputerPlayer) board.getPlayers().get(gameTurn %6);
+				BoardCell cell = player.selectTarget(board.getTargets());
+				player.setPosition(cell.getRow(), cell.getCol());
+				accusation = player.createSuggestion(board);
+				board.repaint();
+				//			for(Player accused: board.getPlayers()) {
+				//				if(accused.getName() == accusation.getPerson().getName()) {
+				//					accused.setPosition(player.getRow(), player.getCol());
+				//				}
+				//			}
+				gamePanel.setGuess(accusation.getPerson().getName() + ", " + accusation.getWeapon().getName() + ", " + accusation.getRoom().getName());
+				for(Player tester: board.getPlayers()) {
+					board.repaint();
+					Card disprover = tester.disproveSuggestion(accusation);
+					if(disprover != null) {
+						gamePanel.setGuessResult(disprover.getName());
+					} else {
+						gamePanel.setGuessResult("Not Disproven");
+
+					}
 				}
 			}
-		}
-		board.repaint();
+			board.repaint();
 		}
 	}
 	
