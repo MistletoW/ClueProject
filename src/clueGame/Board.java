@@ -41,6 +41,9 @@ public class Board extends JPanel implements MouseListener{
 	boolean buttonPressed = false;
 	String p = "";
 	String w = "";
+	Card suggestedRoom = null;
+	Card suggestedPlayer = null; 
+	Card suggestedWeapon = null;
 
 	private final static int[] initialPlayerRow = {8,16,0,0,8,16};
 	private final static int[] initialPlayerCol = {0,0,8,16,25,24};
@@ -558,9 +561,11 @@ public class Board extends JPanel implements MouseListener{
 						repaint();
 						//handle suggestion if player is in room
 						if(players.get(0).getCell().isRoomCenter()) {
-							Solution guess = getSuggestion();
-							if (guess != null)
-								handleSuggestion(players.get(0), guess);
+							createSuggestionBox();
+							Solution guess = new Solution(suggestedRoom, suggestedPlayer, suggestedWeapon);
+							System.out.println(suggestedPlayer);
+							//if (guess != null)
+								//handleSuggestion(players.get(0), guess);
 						}
 					}
 					else {
@@ -573,59 +578,34 @@ public class Board extends JPanel implements MouseListener{
 		}
 	}
 
-	public Solution getSuggestion() {
-	
+	public void createSuggestionBox() {
 		//find out what room we're in
-		Card suggestedRoom = null;
-		Card suggestedPlayer = null; 
-		Card suggestedWeapon = null;
 		char roomChar = players.get(0).getCell().getInitial();
 		for (Card c: roomDeck) {
 			if(c.getName().charAt(0) == roomChar) {
 				suggestedRoom = c;
 			}
 		}
+		//create room combobox
 		JComboBox<String> roomOptions = new JComboBox<String>();
 		roomOptions.addItem(suggestedRoom.getName());
 
+		//create suggestion popup
 		JDialog suggestionPopup = new JDialog();
-		//get current room
+		
+		//create player and weapon comboboxes
 		JComboBox<String> playerOptions = new JComboBox<String>();
 		JComboBox<String> weaponOptions = new JComboBox<String>();
 		for (int i = 0; i < personDeck.size(); i++) {
 			playerOptions.addItem(personDeck.get(i).getName());
 			weaponOptions.addItem(weaponDeck.get(i).getName());
 		}
-		 p = (String) playerOptions.getSelectedItem();
-		 w = (String)weaponOptions.getSelectedItem();
+		//create submit button
 		JButton submitButton = new JButton("Submit");
 		submitButton.addActionListener(e ->
 		{
-		  buttonPressed = true;
-			 suggestionPopup.dispose();
-		});
-		JButton cancelButton = new JButton("Cancel");
-		cancelButton.addActionListener(e ->
-		{
-		  suggestionPopup.dispose();
-		});
-		suggestionPopup.setLayout(new GridLayout(4,2));
-		suggestionPopup.add(new JLabel("Room"));
-		suggestionPopup.add(roomOptions);
-		suggestionPopup.add(new JLabel("Player"));
-		suggestionPopup.add(playerOptions);
-		suggestionPopup.add(new JLabel("Weapon"));
-		suggestionPopup.add(weaponOptions);
-		suggestionPopup.add(submitButton);
-		suggestionPopup.setSize(new Dimension(250, 200));
-		suggestionPopup.setVisible(true);
-		
-		
-		
-		//get suggestion input
-		//given suggestion input, return solution
-		
-		if ((p.length() > 0) && (w.length() > 0) && (buttonPressed == true)) {
+			buttonPressed = true;
+			System.out.println("button was pressed");
 			for (Card playerCard : personDeck) {
 				if (playerCard.getName().equals(p)){
 					suggestedPlayer = playerCard;
@@ -637,11 +617,33 @@ public class Board extends JPanel implements MouseListener{
 					suggestedWeapon = weaponCard;
 				}	
 			}
-			System.out.println(suggestedRoom.getName() + suggestedPlayer.getName() + suggestedWeapon.getName());
-			return new Solution(suggestedRoom, suggestedPlayer, suggestedWeapon);
-		}
-		return null;
-	}
+			Solution s = new Solution(suggestedRoom, suggestedPlayer, suggestedWeapon);
+			 suggestionPopup.dispose();
+		});
+		//create cancel button
+		JButton cancelButton = new JButton("Cancel");
+		cancelButton.addActionListener(e ->
+		{
+		  suggestionPopup.dispose();
+		});
+		playerOptions.addActionListener(e -> {
+			 p = (String) playerOptions.getSelectedItem();
+			 //System.out.println(p);
+		});
+		weaponOptions.addActionListener(e -> {
+			w = (String) weaponOptions.getSelectedItem();
+		});
+		suggestionPopup.setLayout(new GridLayout(4,2));
+		suggestionPopup.add(new JLabel("Room"));
+		suggestionPopup.add(roomOptions);
+		suggestionPopup.add(new JLabel("Player"));
+		suggestionPopup.add(playerOptions);
+		suggestionPopup.add(new JLabel("Weapon"));
+		suggestionPopup.add(weaponOptions);
+		suggestionPopup.add(submitButton);
+		suggestionPopup.setSize(new Dimension(250, 200));
+		suggestionPopup.setVisible(true);
+	}	
 	@Override
 	public void mouseClicked(MouseEvent e) {}
 	@Override
