@@ -1,5 +1,6 @@
 package clueGame;
 
+import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Rectangle;
@@ -35,6 +36,7 @@ public class Board extends JPanel implements MouseListener{
 
 	private final static int[] initialPlayerRow = {8,16,0,0,8,16};
 	private final static int[] initialPlayerCol = {0,0,8,16,25,24};
+	private final static int NUM_PLAYERS = 6;
 	/*
 	 * variable and methods used for singleton pattern
 	 */
@@ -246,9 +248,9 @@ public class Board extends JPanel implements MouseListener{
 
 		visited.add(startCell); //add startcell so that visited isn't null
 		calcTargetsRecursion(startCell, pathlength); //recursive call startcell
-//		for(BoardCell target:targets) {
-//			System.out.println(target);
-//		}
+		//		for(BoardCell target:targets) {
+		//			System.out.println(target);
+		//		}
 	}
 
 	public void calcTargetsRecursion(BoardCell startCell, int pathlength) {
@@ -542,12 +544,15 @@ public class Board extends JPanel implements MouseListener{
 				if (clickedCell != null) {
 					if(targets.contains(clickedCell)) {
 						players.get(0).setPosition(clickedCell.getRow(), clickedCell.getCol());
-						//handle suggestion if player is in room
-					
+
+
 						playerWasMoved = true;
 						repaint();
+						//handle suggestion if player is in room
 						if(players.get(0).getCell().isRoomCenter()) {
-							handleSuggestion(players.get(0), getSuggestion());
+							Solution guess = getSuggestion();
+							if (guess != null)
+								handleSuggestion(players.get(0), guess);
 						}
 					}
 					else {
@@ -559,7 +564,7 @@ public class Board extends JPanel implements MouseListener{
 			}
 		}
 	}
-	
+
 	public Solution getSuggestion() {
 		//find out what room we're in
 		Card suggestedRoom = null;
@@ -571,20 +576,51 @@ public class Board extends JPanel implements MouseListener{
 				suggestedRoom = c;
 			}
 		}
-		JFrame f = new JFrame();
-		JDialog suggestionPopup = new JDialog(f, "Make a Suggestion");
-		suggestionPopup.setSize(100,100);
-		JComboBox<String> playerComboBox = new JComboBox<String>();
-		for (Card p : personDeck) {
-			playerComboBox.addItem(p.getName());
+
+		JFrame suggestionPopup = new JFrame();
+		//get current room
+		String[] playerNameList = new String[NUM_PLAYERS];
+		for (int i = 0; i < personDeck.size(); i++) {
+			playerNameList[i] = personDeck.get(i).getName();
 		}
-		JPanel playerPanel = new JPanel();
-		playerPanel.add(playerComboBox);
-		playerPanel.setVisible(true);
-		f.add(playerPanel);
-		
-		suggestionPopup.setVisible(true);
-		return new Solution(suggestedRoom, suggestedPlayer, suggestedWeapon);
+		String[] weaponNameList = new String[NUM_PLAYERS];
+		for (int i = 0; i < weaponDeck.size(); i++) {
+			weaponNameList[i] = weaponDeck.get(i).getName();
+		}
+		//get player suggestion for person
+		String p = (String)JOptionPane.showInputDialog(
+				suggestionPopup, "Person",
+				"Make a Suggestion",
+				JOptionPane.PLAIN_MESSAGE,
+				null,
+				playerNameList,
+				playerNameList[3]);
+
+		//get player suggestion for weapon
+		String w = (String)JOptionPane.showInputDialog(
+				suggestionPopup, "Weapon",
+				"Make a Suggestion",
+				JOptionPane.PLAIN_MESSAGE,
+				null,
+				weaponNameList,
+				weaponNameList[3]);
+
+		//given suggestion input, return solution
+		if ((p != null) && (w != null)) {
+			for (Card playerCard : personDeck) {
+				if (playerCard.getName().equals(p)){
+					suggestedPlayer = playerCard;
+				}	
+			}
+
+			for (Card weaponCard : weaponDeck) {
+				if (weaponCard.getName().equals(w)){
+					suggestedWeapon = weaponCard;
+				}	
+			}
+			return new Solution(suggestedRoom, suggestedPlayer, suggestedWeapon);
+		}
+		return null;
 	}
 	@Override
 	public void mouseClicked(MouseEvent e) {}
