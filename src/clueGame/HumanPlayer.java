@@ -16,5 +16,10 @@ public class HumanPlayer extends Player{
 	public boolean isHuman() {
 		return true;
 	}
+	
+	@Override
+	public Solution makeAccusation(Board board) {
+		return null;
+	}
 
 }

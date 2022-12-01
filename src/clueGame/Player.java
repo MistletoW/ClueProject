@@ -131,5 +131,5 @@ public abstract class Player {
 		g.fillOval(row*width, column*height, width, height);
 	}
 	
-
+	public abstract Solution makeAccusation(Board board);
 }

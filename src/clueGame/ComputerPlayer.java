@@ -84,16 +84,6 @@ public class ComputerPlayer extends Player{
 			BoardCell tester = it.next();
 			it.remove();
 			if(tester.isRoomCenter()) {	//if we discover a room in target list add room to potential targets
-//				Iterator<Card> itSeen = seenCards.iterator();
-//				while(itSeen.hasNext()) { //iterate through seen rooms
-//					Card itCard = itSeen.next();
-//					System.out.println(itCard);
-//					System.out.println(tester);
-//					if((itCard.getName().charAt(1) == tester.getInitial()) && (itCard.getType() == CardType.ROOM)) { //if seen then don't prioritize room
-//						inSeen = true;
-//					}
-//					itSeen.remove();
-//				}
 				if(inSeen == false) {
 					hasRoom = true;
 					potTargetsWith.add(tester);
@@ -121,5 +111,10 @@ public class ComputerPlayer extends Player{
 	}
 	public Set<Card> getSeenCards(){
 		return super.getSeenCards();
+	}
+	
+	@Override
+	public Solution makeAccusation(Board board) {
+		return null;
 	}
 }
